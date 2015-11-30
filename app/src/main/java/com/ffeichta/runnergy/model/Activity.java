@@ -1,5 +1,6 @@
 package com.ffeichta.runnergy.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -10,15 +11,17 @@ public class Activity {
     private Type type = null;
     private Date date = null;
     private int duration = 0;
+    private ArrayList<Coordinate> coordinates = null;
 
     public Activity() {
     }
 
-    public Activity(int id, Type type, Date date, int duration) {
+    public Activity(int id, Type type, Date date, int duration, ArrayList<Coordinate> coordinates) {
         this.id = id;
         this.type = type;
         this.date = date;
         this.duration = duration;
+        this.coordinates = coordinates;
     }
 
     public int getId() {
@@ -53,6 +56,14 @@ public class Activity {
         this.duration = duration;
     }
 
+    public ArrayList<Coordinate> getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(ArrayList<Coordinate> coordinates) {
+        this.coordinates = coordinates;
+    }
+
     public enum Type {
         RUNNING,
         JOGGING,
@@ -61,6 +72,3 @@ public class Activity {
         DOWNHILL
     }
 }
-
-
-
