@@ -2,8 +2,11 @@ package com.ffeichta.runnergy.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * Created by Fabian on 19.11.2015.
@@ -105,5 +108,162 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_COORDINATES);
         sqLiteDatabase.execSQL(CREATE_SETTINGS);
         Log.d(TAG, "DB created after upgrade");
+    }
+
+    /**
+     * Methods that select something from the database
+     */
+
+    /**
+     * @return
+     */
+    public ArrayList<Track> getTracks() {
+        ArrayList<Track> ret = null;
+        return ret;
+    }
+
+    /**
+     * @param t
+     * @return
+     */
+    public int getNumberOfActivities(Track t) {
+        int ret = -1;
+        return ret;
+    }
+
+    /**
+     * @param t
+     * @return
+     */
+    public ArrayList<Activity> getActivities(Track t) {
+        ArrayList<Activity> ret = null;
+        return ret;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    public Activity getActivity(int id) {
+        Activity ret = null;
+        return ret;
+    }
+
+    /**
+     * @param a
+     * @return
+     */
+    public ArrayList<Coordinate> getCoordinates(Activity a) {
+        ArrayList<Coordinate> ret = null;
+        return ret;
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    public Coordinate getCoordinate(int id) {
+        Coordinate ret = null;
+        return ret;
+    }
+
+    /**
+     * @param longitude
+     * @param latitude
+     * @param id
+     * @return
+     */
+    public int getIDOfClosestCoordinateInActivity(double longitude, double latitude, int id) {
+        int ret = 0;
+        return ret;
+    }
+
+    /**
+     * @return
+     */
+    public ArrayList<Setting> getSettings() {
+        ArrayList<Setting> ret = null;
+        SQLiteDatabase db = null;
+        try {
+            db = getWritableDatabase();
+        } catch (SQLiteException s) {
+
+        }
+        return ret;
+    }
+
+    /**
+     * Methods that insert something in the database
+     */
+
+    /**
+     * @param t
+     * @return
+     */
+    public int insertTrack(Track t) {
+        int ret = 0;
+        return ret;
+    }
+
+    /**
+     * @param a
+     * @return
+     */
+    public int insertActivity(Activity a) {
+        int ret = 0;
+        return ret;
+    }
+
+    /**
+     * @param c
+     * @return
+     */
+    public int insertCoordinate(Coordinate c) {
+        int ret = 0;
+        return ret;
+    }
+
+    /**
+     * Methods that update something in the database
+     */
+
+    /**
+     * @param t
+     * @return
+     */
+    public int updateTrack(Track t) {
+        int ret = 0;
+        return ret;
+    }
+
+    /**
+     * @param s
+     * @return
+     */
+    public int updateSetting(Setting s) {
+        int ret = 0;
+        return ret;
+    }
+
+    /**
+     * Methods that delete something from the database
+     */
+
+    /**
+     * @param t
+     * @return
+     */
+    public int deleteTrack(Track t) {
+        int ret = 0;
+        return ret;
+    }
+
+    /**
+     * @param a
+     * @return
+     */
+    public int deleteActivity(Activity a) {
+        int ret = 0;
+        return ret;
     }
 }
