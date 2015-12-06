@@ -6,19 +6,18 @@ import java.util.ArrayList;
  * Created by Fabian on 19.11.2015.
  */
 public class Track {
-    private int id = 0;
+    private int id = -1;
     private String name = null;
-    private double distance = 0.0;
+    private double distance = -1.0;
     private ArrayList<Activity> activities = null;
 
     public Track() {
     }
 
-    public Track(int id, String name, double distance, ArrayList<Activity> activities) {
+    public Track(int id, String name, double distance) {
         this.id = id;
         this.name = name;
         this.distance = distance;
-        this.activities = activities;
     }
 
     public int getId() {

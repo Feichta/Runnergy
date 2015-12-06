@@ -1,27 +1,34 @@
 package com.ffeichta.runnergy.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by Fabian on 19.11.2015.
  */
 public class Activity {
-    private int id = 0;
+    private int id = -1;
     private Type type = null;
-    private Date date = null;
-    private int duration = 0;
+    private long date = 0;
+    private int duration = -1;
+    private Track track = null;
     private ArrayList<Coordinate> coordinates = null;
 
     public Activity() {
     }
 
-    public Activity(int id, Type type, Date date, int duration, ArrayList<Coordinate> coordinates) {
+    public Activity(int id, Type type, long date, int duration) {
         this.id = id;
         this.type = type;
         this.date = date;
         this.duration = duration;
-        this.coordinates = coordinates;
+    }
+
+    public Activity(int id, Type type, long date, int duration, Track track) {
+        this.id = id;
+        this.type = type;
+        this.date = date;
+        this.duration = duration;
+        this.track = track;
     }
 
     public int getId() {
@@ -40,11 +47,11 @@ public class Activity {
         this.type = type;
     }
 
-    public Date getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
@@ -54,6 +61,14 @@ public class Activity {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public Track getTrack() {
+        return track;
+    }
+
+    public void setTrack(Track track) {
+        this.track = track;
     }
 
     public ArrayList<Coordinate> getCoordinates() {
