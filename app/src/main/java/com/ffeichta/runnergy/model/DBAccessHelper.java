@@ -3,6 +3,7 @@ package com.ffeichta.runnergy.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -49,8 +50,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
 
     private static String CREATE_TRACKS = "CREATE TABLE tracks(" +
             "tid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-            "tname TEXT NOT NULL UNIQUE, " +
-            "tdistance REAL NOT NULL" +
+            "tname TEXT NOT NULL UNIQUE " +
             "); ";
     private static String DROP_TRACKS = "DROP TABLE IF EXISTS tracks;";
 
@@ -60,15 +60,17 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             "); ";
     private static String DROP_SETTINGS = "DROP TABLE IF EXISTS settings;";
 
-    private static String INSERT_TRACK1 = "INSERT INTO tracks(tid, tname, tdistance) "
-            + "  VALUES(1, \"Ahornach-Rein\", 12529);";
-    private static String INSERT_TRACK2 = "INSERT INTO tracks(tid, tname, tdistance) "
-            + "  VALUES(2, \"Ahornach-Knutton\", 16981);";
+    private static String INSERT_TRACK1 = "INSERT INTO tracks(tid, tname) "
+            + "  VALUES(1, \"Ahornach-Rein\");";
+    private static String INSERT_TRACK2 = "INSERT INTO tracks(tid, tname) "
+            + "  VALUES(2, \"Ahornach-Knutten\");";
 
     private static String INSERT_ACTIVITY1 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
             + "  VALUES(1, \"RUNNING\", \"2015-11-10 17:11:59.651\", 660, 1);";
     private static String INSERT_ACTIVITY2 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
             + "  VALUES(2, \"CYCLING\", \"2015-12-29 11:51:33.974\", 5108, 2);";
+    private static String INSERT_ACTIVITY3 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
+            + "  VALUES(3, \"CYCLING\", \"2015-12-29 11:51:33.974\", 5301, 2);";
 
     private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
             + "  VALUES(1, ..., ..., 1, 0, 0, 1);";
@@ -121,6 +123,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         Log.d(TAG, "DB created");
         insertDefaultValues(sqLiteDatabase);
         Log.d(TAG, "Default values inserted");
+        insertTestData(sqLiteDatabase);
+        Log.d(TAG, "Test data inserted");
     }
 
     /**
@@ -151,6 +155,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqlLiteDatabase.execSQL(INSERT_TRACK2);
         sqlLiteDatabase.execSQL(INSERT_ACTIVITY1);
         sqlLiteDatabase.execSQL(INSERT_ACTIVITY2);
+        sqlLiteDatabase.execSQL(INSERT_ACTIVITY3);
        /* sqlLiteDatabase.execSQL(INSERT_COORDINATE1);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE2);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE3);
@@ -162,7 +167,9 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      */
 
     /**
-     * @return
+     * Selects all tracks from the database and orders it by the number of activities which belongs to a track
+     *
+     * @return null if there are no tracks
      */
     public ArrayList<Track> getTracks() {
         ArrayList<Track> ret = null;
@@ -170,16 +177,18 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         Cursor c = null;
         try {
             db = getWritableDatabase();
-            c = db.rawQuery("SELECT tid, tname, tdistance, (SELECT COUNT(*) FROM activities WHERE tracks.tid=activities.tid)" + "  FROM tracks ORDER BY 4 DESC;", null);
+            c = db.rawQuery("SELECT tid, tname, (SELECT COUNT(*) FROM activities WHERE tracks.tid=activities.tid)" + "  FROM tracks ORDER BY 3 DESC;", null);
             while (c.moveToNext()) {
-                if (ret == null)
+                if (ret == null) {
                     ret = new ArrayList<Track>();
-                ret.add(new Track(c.getInt(0), c.getString(1), c.getDouble(2)));
+                }
+                ret.add(new Track(c.getInt(0), c.getString(1)));
             }
             if (ret != null) {
                 // If activities are found, then they are inserted
-                for (int i = 0; i < ret.size(); i++)
+                for (int i = 0; i < ret.size(); i++) {
                     ret.get(i).setActivities(getActivities(ret.get(i)));
+                }
             }
         } catch (SQLiteException e) {
             Log.d(TAG, "Error in getTracks(): " + e.getMessage());
@@ -390,11 +399,52 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      */
 
     /**
+     * Inserts a track into the database if the track is valid
+     *
      * @param t
-     * @return
+     * @return 0 if there was no error, otherwise -1
      */
     public int insertTrack(Track t) {
         int ret = 0;
+        if (t == null) {
+            ret = -1;
+        } else {
+            t.validate();
+            if (t.getError() != null) {
+                ret = -1;
+            } else {
+                SQLiteDatabase db = null;
+                try {
+                    db = getWritableDatabase();
+                    ContentValues values = new ContentValues(1);
+                    values.put("tname", t.getName());
+                    ret = (int) db.insertOrThrow("tracks", null, values);
+                    if (ret >= 0) {
+                        t.setId(ret);
+                        ret = 0;
+                    } else {
+                        ret = -1;
+                    }
+                } catch (SQLiteConstraintException e) {
+                    t.setError(
+                            "name",
+                            Track.NAME_ALREADY_EXISTS);
+                    ret = -1;
+                } catch (SQLiteException e) {
+                    Log.d(TAG, "Error in insertTrack(): " + e.getMessage());
+                    ret = -1;
+                } finally {
+                    try {
+                        db.close();
+                    } catch (Exception e) {
+                        ;
+                    }
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "insertTrack() was successful");
+        }
         return ret;
     }
 

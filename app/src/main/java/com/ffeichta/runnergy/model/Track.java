@@ -1,23 +1,26 @@
 package com.ffeichta.runnergy.model;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  * Created by Fabian on 19.11.2015.
  */
 public class Track {
+    public static final int NAME_IS_NOT_SET = -1;
+    public static final int NAME_ALREADY_EXISTS = -2;
+
     private int id = -1;
     private String name = null;
-    private double distance = -1.0;
     private ArrayList<Activity> activities = null;
+    private Hashtable<String, Integer> error = null;
 
     public Track() {
     }
 
-    public Track(int id, String name, double distance) {
+    public Track(int id, String name) {
         this.id = id;
         this.name = name;
-        this.distance = distance;
     }
 
     public int getId() {
@@ -36,19 +39,39 @@ public class Track {
         this.name = name;
     }
 
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
-
     public ArrayList<Activity> getActivities() {
         return activities;
     }
 
     public void setActivities(ArrayList<Activity> activities) {
         this.activities = activities;
+    }
+
+    public Hashtable<String, Integer> getError() {
+        return error;
+    }
+
+    public void setError(Hashtable<String, Integer> error) {
+        this.error = error;
+    }
+
+    public void setError(String key, Integer value) {
+        if (key != null && key.length() > 0 && value != null) {
+            if(this.error == null) {
+                this.error = new Hashtable<String, Integer>();
+            }
+            this.error.put(key, value);
+        }
+    }
+
+    public void validate() {
+        this.error = null;
+        if (this.name == null || this.name.length() == 0) {
+            setError("name", Track.NAME_IS_NOT_SET);
+        }
+    }
+
+    public String toString() {
+        return this.id + ";" + this.getName();
     }
 }

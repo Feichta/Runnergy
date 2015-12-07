@@ -2,15 +2,19 @@ package com.ffeichta.runnergy.gui;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.DBAccessHelper;
+import com.ffeichta.runnergy.model.Track;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -29,6 +33,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //int id = getResources().getIdentifier("RUNNING", "string", getPackageName());
         //String value = (String) getResources().getText(id);
         //Log.d(TAG, value);
+
+        // TEST
+        DBAccessHelper db = DBAccessHelper.getInstance(this);
+        Track t = new Track();
+        t.setName("Bruneck-Bozen");
+        db.insertTrack(t);
+        ArrayList<Track> tracks = db.getTracks();
+        for (Track track: tracks) {
+            Log.d(TAG, "#### " + track.toString());
+        }
     }
 
 
@@ -49,6 +63,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        DBAccessHelper.getInstance(MapsActivity.this).getSettings();
-    }
+       }
 }
