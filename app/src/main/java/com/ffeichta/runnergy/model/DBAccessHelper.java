@@ -48,6 +48,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             "cisstart INTEGER NOT NULL DEFAULT 0," +
             "cisend INTEGER NOT NULL DEFAULT 0," +
             "ctimefromstart INTEGER NOT NULL," +
+            "cdistancefromprevious INTEGER NOT NULL," +
             "aid INTEGER NOT NULL, " +
             "FOREIGN KEY (aid) REFERENCES activities(aid) " +
             "ON DELETE CASCADE ON UPDATE CASCADE" +
@@ -72,14 +73,14 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     private static String INSERT_ACTIVITY3 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
             + "  VALUES(3, \"CYCLING\", 1449929469000, 5301, 2);";
 
-    private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(1, 11.354850, 46.498012, 1, 0, 0, 1);";
-    private static String INSERT_COORDINATE2 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(2, 11.354882, 46.497813, 0, 0, 5, 1);";
-    private static String INSERT_COORDINATE3 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(3, 11.355027, 46.497625, 0, 0, 10, 1);";
-    private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 1);";
+    private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(1, 11.354850, 46.498012, 1, 0, 0, 0, 1);";
+    private static String INSERT_COORDINATE2 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(2, 11.354882, 46.497813, 0, 0, 5, 11, 1);";
+    private static String INSERT_COORDINATE3 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(3, 11.355027, 46.497625, 0, 0, 10, 14, 1);";
+    private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 9, 1);";
 
     private static String INSERT_SETTING1 = "INSERT INTO settings(skey, svalue) "
             + "  VALUES(\"unit_of_length\", \"km\");";
