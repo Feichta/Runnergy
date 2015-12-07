@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,6 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -38,11 +40,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         DBAccessHelper db = DBAccessHelper.getInstance(this);
         Track t = new Track();
         t.setName("Bruneck-Bozen");
-        db.insertTrack(t);
+        Log.d(TAG, "#### " + String.valueOf(db.insertTrack(t)));
+        Log.d(TAG, "#### " + String.valueOf(t.getError().get("name")));
         ArrayList<Track> tracks = db.getTracks();
-        for (Track track: tracks) {
-            Log.d(TAG, "#### " + track.toString());
+        if (tracks != null) {
+            for (Track track : tracks) {
+                Log.d(TAG, "#### " + track.toString());
+                ArrayList<Activity> activities = db.getActivities(track);
+                if (activities != null) {
+                    for (Activity activity : activities) {
+                        Log.d(TAG, "#### " + activity.toString());
+                    }
+                } else {
+                    Log.d(TAG, "#### " + activities);
+                }
+            }
         }
+        Log.d(TAG, "#### " + db.getActivity(2).toString());
+        Log.d(TAG, "#### " + db.getActivity(100));
+
+        Activity a = new Activity();
+        a.setType(Activity.Type.RUNNING);
+        a.setDate(new Date().getTime());
+        a.setDuration(1259);
+        // a.setTrack(t);
+        Log.d(TAG, "#### " + db.insertActivity(a));
     }
 
 

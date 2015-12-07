@@ -1,5 +1,6 @@
 package com.ffeichta.runnergy.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -77,6 +78,22 @@ public class Activity {
 
     public void setCoordinates(ArrayList<Coordinate> coordinates) {
         this.coordinates = coordinates;
+    }
+
+    /**
+     * Returns the date in a certain format
+     *
+     * @return
+     */
+    public String getFormattedDate(String format) {
+        String ret = null;
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        ret = sdf.format(new java.util.Date(this.date));
+        return ret;
+    }
+
+    public String toString() {
+        return this.id + ";" + this.type + ";" + getFormattedDate("dd.MM.yyyy") + ";" + this.duration;
     }
 
     public enum Type {

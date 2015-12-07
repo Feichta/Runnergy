@@ -27,7 +27,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     private static String CREATE_ACTIVITIES = "CREATE TABLE activities(" +
             "aid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             "atype TEXT NOT NULL, " +
-            "adate TEXT NOT NULL, " +
+            "adate INTEGER NOT NULL, " +
             "aduration INTEGER NOT NULL, " +
             "tid INTEGER NOT NULL, " +
             "FOREIGN KEY (tid) REFERENCES tracks(tid) " +
@@ -66,11 +66,11 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             + "  VALUES(2, \"Ahornach-Knutten\");";
 
     private static String INSERT_ACTIVITY1 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
-            + "  VALUES(1, \"RUNNING\", \"2015-11-10 17:11:59.651\", 660, 1);";
+            + "  VALUES(1, \"RUNNING\", 1447115888179, 660, 1);";
     private static String INSERT_ACTIVITY2 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
-            + "  VALUES(2, \"CYCLING\", \"2015-12-29 11:51:33.974\", 5108, 2);";
+            + "  VALUES(2, \"CYCLING\", 1451394599000, 5108, 2);";
     private static String INSERT_ACTIVITY3 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
-            + "  VALUES(3, \"CYCLING\", \"2015-12-29 11:51:33.974\", 5301, 2);";
+            + "  VALUES(3, \"CYCLING\", 1449929469000, 5301, 2);";
 
     private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
             + "  VALUES(1, ..., ..., 1, 0, 0, 1);";
@@ -209,8 +209,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Selects all activities from a certain track and orders by date descending. The activity gets a reference to the track
+     *
      * @param t
-     * @return
+     * @return null if no activities were found
      */
     public ArrayList<Activity> getActivities(Track t) {
         ArrayList<Activity> ret = null;
@@ -220,11 +222,12 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             try {
                 db = getWritableDatabase();
                 c = db.rawQuery("SELECT * " + "  FROM activities "
-                                + "  WHERE tid = ? " + "ORDER BY adate;",
+                                + "  WHERE tid = ? " + "ORDER BY adate DESC;",
                         new String[]{String.valueOf(t.getId())});
                 while (c.moveToNext()) {
-                    if (ret == null)
+                    if (ret == null) {
                         ret = new ArrayList<Activity>();
+                    }
                     ret.add(new Activity(c.getInt(0), Activity.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), t));
                 }
             } catch (SQLiteException e) {
@@ -247,8 +250,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Selects a activity with a certain id
+     *
      * @param id
-     * @return
+     * @return null if no activity is found
      */
     public Activity getActivity(int id) {
         Activity ret = null;
@@ -402,7 +407,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * Inserts a track into the database if the track is valid
      *
      * @param t
-     * @return 0 if there was no error, otherwise -1
+     * @return 0 if it was successful, otherwise -1
      */
     public int insertTrack(Track t) {
         int ret = 0;
@@ -437,7 +442,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                     try {
                         db.close();
                     } catch (Exception e) {
-                        ;
                     }
                 }
             }
@@ -449,11 +453,50 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Inserts an activity into the database if the activity has a track
+     *
      * @param a
-     * @return
+     * @return 0 if it was successful, otherwise -1
      */
     public int insertActivity(Activity a) {
         int ret = 0;
+        if (a == null || a.getTrack() == null) {
+            ret = -1;
+        } else {
+            SQLiteDatabase db = null;
+            try {
+                db = getWritableDatabase();
+                ContentValues values = new ContentValues(1);
+                values.put("atype", a.getType().toString());
+                values.put("adate", a.getDate());
+                values.put("aduration", a.getDuration());
+                values.put("tid", a.getTrack().getId());
+                ret = (int) db.insertOrThrow("activities", null, values);
+                if (ret >= 0) {
+                    a.setId(ret);
+                    ret = 0;
+                } else {
+                    ret = -1;
+                }
+                // If coordinates are found, then they are inserted
+                if (a.getCoordinates() != null) {
+                    for (int i = 0; i < a.getCoordinates().size(); i++) {
+                        insertCoordinate(a.getCoordinates().get(i));
+                    }
+                }
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in insertTrack(): " + e.getMessage());
+                ret = -1;
+            } finally {
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "insertTrack() was successful");
+        }
         return ret;
     }
 
