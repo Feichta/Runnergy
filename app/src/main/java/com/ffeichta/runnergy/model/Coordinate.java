@@ -4,27 +4,29 @@ package com.ffeichta.runnergy.model;
  * Created by Fabian on 19.11.2015.
  */
 public class Coordinate {
-    private int id = 0;
-    private double longitude = 0.0;
-    private double latitude = 0.0;
+    private int id = -1;
+    private double longitude = -1.0;
+    private double latitude = -1.0;
     private boolean start = false;
     private boolean end = false;
-    private int timeFromStart = 0;
+    private int timeFromStart = -1;
+    private int distanceFromPrevious = -1;
     private Activity activity = null;
 
     public Coordinate() {
     }
 
-    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart) {
+    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, int distanceFromPrevious) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
         this.start = start;
         this.end = end;
         this.timeFromStart = timeFromStart;
+        this.distanceFromPrevious = distanceFromPrevious;
     }
 
-    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, Activity activity) {
+    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, int distanceFromPrevious, Activity activity) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -32,6 +34,7 @@ public class Coordinate {
         this.end = end;
         this.timeFromStart = timeFromStart;
         this.activity = activity;
+        this.distanceFromPrevious = distanceFromPrevious;
     }
 
     public int getId() {
@@ -80,5 +83,25 @@ public class Coordinate {
 
     public void setTimeFromStart(int timeFromStart) {
         this.timeFromStart = timeFromStart;
+    }
+
+    public int getDistanceFromPrevious() {
+        return distanceFromPrevious;
+    }
+
+    public void setDistanceFromPrevious(int distanceFromPrevious) {
+        this.distanceFromPrevious = distanceFromPrevious;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    public String toString() {
+        return this.id + ";" + this.longitude + ";" + this.latitude + ";" + this.start + ";" + this.end + ";" + this.timeFromStart + ";" + this.distanceFromPrevious;
     }
 }

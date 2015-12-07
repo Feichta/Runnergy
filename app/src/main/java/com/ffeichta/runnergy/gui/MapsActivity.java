@@ -7,6 +7,7 @@ import android.util.Log;
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.DBAccessHelper;
+import com.ffeichta.runnergy.model.Setting;
 import com.ffeichta.runnergy.model.Track;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -41,7 +42,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Track t = new Track();
         t.setName("Bruneck-Bozen");
         Log.d(TAG, "#### " + String.valueOf(db.insertTrack(t)));
-        Log.d(TAG, "#### " + String.valueOf(t.getError().get("name")));
+        if (t.getError() != null) {
+            Log.d(TAG, "#### " + String.valueOf(t.getError().get("name")));
+        }
         ArrayList<Track> tracks = db.getTracks();
         if (tracks != null) {
             for (Track track : tracks) {
@@ -65,6 +68,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         a.setDuration(1259);
         // a.setTrack(t);
         Log.d(TAG, "#### " + db.insertActivity(a));
+
+        ArrayList<Setting> settings = db.getSettings();
+        for (Setting setting : settings) {
+            Log.d(TAG, "#### " + setting.toString());
+        }
+
+        // Make activity with coordinates and insert it
     }
 
 

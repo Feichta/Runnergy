@@ -24,6 +24,12 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     // If version changes, the database will be renewed
     private static final int DATABASE_VERSION = 7;
 
+    private static String CREATE_TRACKS = "CREATE TABLE tracks(" +
+            "tid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
+            "tname TEXT NOT NULL UNIQUE " +
+            "); ";
+    private static String DROP_TRACKS = "DROP TABLE IF EXISTS tracks;";
+
     private static String CREATE_ACTIVITIES = "CREATE TABLE activities(" +
             "aid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             "atype TEXT NOT NULL, " +
@@ -48,12 +54,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             "); ";
     private static String DROP_COORDINATES = "DROP TABLE IF EXISTS coordinates;";
 
-    private static String CREATE_TRACKS = "CREATE TABLE tracks(" +
-            "tid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
-            "tname TEXT NOT NULL UNIQUE " +
-            "); ";
-    private static String DROP_TRACKS = "DROP TABLE IF EXISTS tracks;";
-
     private static String CREATE_SETTINGS = "CREATE TABLE settings(" +
             "skey TEXT NOT NULL PRIMARY KEY, " +
             "svalue TEXT NOT NULL" +
@@ -73,13 +73,13 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             + "  VALUES(3, \"CYCLING\", 1449929469000, 5301, 2);";
 
     private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(1, ..., ..., 1, 0, 0, 1);";
+            + "  VALUES(1, 11.354850, 46.498012, 1, 0, 0, 1);";
     private static String INSERT_COORDINATE2 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(2, ..., ..., 0, 0, 5, 1);";
+            + "  VALUES(2, 11.354882, 46.497813, 0, 0, 5, 1);";
     private static String INSERT_COORDINATE3 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(3, ..., ..., 0, 0, 10, 1);";
+            + "  VALUES(3, 11.355027, 46.497625, 0, 0, 10, 1);";
     private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, aid) "
-            + "  VALUES(4, ..., ..., 0, 1, 15, 1);";
+            + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 1);";
 
     private static String INSERT_SETTING1 = "INSERT INTO settings(skey, svalue) "
             + "  VALUES(\"unit_of_length\", \"km\");";
@@ -144,7 +144,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     private void insertDefaultValues(SQLiteDatabase sqlLiteDatabase) {
-        ContentValues values = new ContentValues(5);
+        ContentValues values = new ContentValues(2);
         values.put("skey", "unit_of_length");
         values.put("svalue", "km");
         sqlLiteDatabase.insertOrThrow("settings", null, values);
@@ -156,10 +156,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqlLiteDatabase.execSQL(INSERT_ACTIVITY1);
         sqlLiteDatabase.execSQL(INSERT_ACTIVITY2);
         sqlLiteDatabase.execSQL(INSERT_ACTIVITY3);
-       /* sqlLiteDatabase.execSQL(INSERT_COORDINATE1);
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE1);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE2);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE3);
-        sqlLiteDatabase.execSQL(INSERT_COORDINATE4);*/
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE4);
     }
 
     /**
@@ -169,7 +169,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     /**
      * Selects all tracks from the database and orders it by the number of activities which belongs to a track
      *
-     * @return null if there are no tracks
+     * @return null if no tracks have been found
      */
     public ArrayList<Track> getTracks() {
         ArrayList<Track> ret = null;
@@ -212,7 +212,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * Selects all activities from a certain track and orders by date descending. The activity gets a reference to the track
      *
      * @param t
-     * @return null if no activities were found
+     * @return null if no activities have been found
      */
     public ArrayList<Activity> getActivities(Track t) {
         ArrayList<Activity> ret = null;
@@ -253,7 +253,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * Selects a activity with a certain id
      *
      * @param id
-     * @return null if no activity is found
+     * @return null if no activity has been found
      */
     public Activity getActivity(int id) {
         Activity ret = null;
@@ -301,7 +301,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 while (c.moveToNext()) {
                     if (ret == null)
                         ret = new ArrayList<Coordinate>();
-                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), a));
+                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getInt(6), a));
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in getCoordinates(): " + e.getMessage());
@@ -336,7 +336,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                             + "  WHERE cid = ?;",
                     new String[]{String.valueOf(id)});
             if (c.moveToFirst()) {
-                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5));
+                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getInt(6));
             }
         } catch (SQLiteException e) {
             Log.d(TAG, "Error in getCoordinate(): " + e.getMessage());
@@ -367,7 +367,9 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * @return
+     * Selects all settings from the database
+     *
+     * @return null if no settings have been found
      */
     public ArrayList<Setting> getSettings() {
         ArrayList<Setting> ret = null;
@@ -375,10 +377,11 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         Cursor c = null;
         try {
             db = getWritableDatabase();
-            c = db.rawQuery("SELECT * " + "  FROM setings;", null);
+            c = db.rawQuery("SELECT * " + "  FROM settings;", null);
             while (c.moveToNext()) {
-                if (ret == null)
+                if (ret == null) {
                     ret = new ArrayList<Setting>();
+                }
                 ret.add(new Setting(c.getString(0), c.getString(1)));
             }
         } catch (SQLiteException e) {
