@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
+import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Setting;
 import com.ffeichta.runnergy.model.Track;
@@ -66,15 +67,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         a.setType(Activity.Type.RUNNING);
         a.setDate(new Date().getTime());
         a.setDuration(1259);
-        // a.setTrack(t);
+        a.setTrack(t);
+        Coordinate c = new Coordinate();
+        c.setLongitude(11.0003);
+        c.setLatitude(59.00089);
+        c.setStart(true);
+        c.setEnd(false);
+        c.setTimeFromStart(0);
+        c.setDistanceFromPrevious(0);
+        ArrayList<Coordinate> coordinatesInsert = new ArrayList<>();
+        coordinatesInsert.add(c);
+        c.setActivity(a);
+        a.setCoordinates(coordinatesInsert);
         Log.d(TAG, "#### " + db.insertActivity(a));
+        ArrayList<Coordinate> coordinates = db.getCoordinates(a);
+        for (Coordinate coordinate : coordinates) {
+            Log.d(TAG, "#### " + coordinate.toString());
+        }
+        Log.d(TAG, "#### " + db.getCoordinate(1).toString());
 
+        Setting s = new Setting("interval", "60");
+        Log.d(TAG, "#### " + db.insertSetting(s));
         ArrayList<Setting> settings = db.getSettings();
         for (Setting setting : settings) {
             Log.d(TAG, "#### " + setting.toString());
         }
 
-        // Make activity with coordinates and insert it
+        //Log.d(TAG, "#### " + db.deleteTrack(t));
+        //Log.d(TAG, "#### " + db.deleteActivity(a));
+
+        s.setValue("70");
+        Log.d(TAG, "#### " + db.updateSetting(s));
+        ArrayList<Setting> settingss = db.getSettings();
+        for (Setting setting : settingss) {
+            Log.d(TAG, "#### " + setting.toString());
+        }
+
+        t.setName("Bozen-Rom");
+        Log.d(TAG, "#### " + db.updateTrack(t));
+        ArrayList<Track> trackss = db.getTracks();
+        for (Track track : trackss) {
+            Log.d(TAG, "#### " + track.toString());
+        }
+
+        Activity tmp = new Activity();
+        tmp.setId(1);
+        ArrayList<Coordinate> coordinatess = db.getCoordinates(tmp);
+        for (Coordinate coordinate : coordinatess) {
+            Log.d(TAG, "#### " + coordinate.toString());
+        }
+        Log.d(TAG, "#### " + db.getIDOfClosestCoordinateInActivity(11.354921, 46.497891, 1));
     }
 
 
@@ -95,5 +137,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-       }
+    }
 }

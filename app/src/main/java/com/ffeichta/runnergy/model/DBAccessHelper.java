@@ -251,7 +251,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Selects a activity with a certain id
+     * Selects an activity with a certain id
      *
      * @param id
      * @return null if no activity has been found
@@ -286,6 +286,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Selects all coordinates from a certain activity. The coordinate gets a reference to the activity
+     *
      * @param a
      * @return
      */
@@ -324,6 +326,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Selects a coordinate with a certain id
+     *
      * @param id
      * @return
      */
@@ -351,19 +355,52 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             } catch (Exception e) {
             }
         }
-        if (ret != null)
+        if (ret != null) {
             Log.d(TAG, "getCoordinate() was successful");
+        }
         return ret;
     }
 
     /**
-     * @param longitude
-     * @param latitude
-     * @param id
+     * @param longitude longitude of the actual position
+     * @param latitude  latitude of the actual position
+     * @param id        id of the activity
      * @return
      */
     public int getIDOfClosestCoordinateInActivity(double longitude, double latitude, int id) {
-        int ret = 0;
+        int ret = -1;
+        SQLiteDatabase db = null;
+        Cursor c = null;
+        try {
+            db = getWritableDatabase();
+            String[] selectionArgs = new String[5];
+            selectionArgs[0] = String.valueOf(longitude);
+            selectionArgs[1] = String.valueOf(longitude);
+            selectionArgs[2] = String.valueOf(latitude);
+            selectionArgs[3] = String.valueOf(latitude);
+            selectionArgs[4] = String.valueOf(id);
+            // a^2 + b^2 = c^2
+            c = db.rawQuery("SELECT cid, ((?-clongitude)*(?-clongitude)+(?-clatitude)*(?-clatitude))" + "  FROM coordinates "
+                            + "  WHERE aid = ? ORDER BY 2;",
+                    selectionArgs);
+            if (c.moveToFirst()) {
+                ret = c.getInt(0);
+            }
+        } catch (SQLiteException e) {
+            Log.d(TAG, "Error in getIDOfClosestCoordinateInActivity(): " + e.getMessage());
+        } finally {
+            try {
+                c.close();
+            } catch (Exception e) {
+            }
+            try {
+                db.close();
+            } catch (Exception e) {
+            }
+        }
+        if (ret != -1) {
+            Log.d(TAG, "getIDOfClosestCoordinateInActivity() was successful");
+        }
         return ret;
     }
 
@@ -479,14 +516,17 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 if (ret >= 0) {
                     a.setId(ret);
                     ret = 0;
+                    // If coordinates are found, then they are inserted
+                    if (a.getCoordinates() != null) {
+                        for (int i = 0; i < a.getCoordinates().size(); i++) {
+                            if (insertCoordinate(a.getCoordinates().get(i)) == -1) {
+                                ret = -1;
+                                break;
+                            }
+                        }
+                    }
                 } else {
                     ret = -1;
-                }
-                // If coordinates are found, then they are inserted
-                if (a.getCoordinates() != null) {
-                    for (int i = 0; i < a.getCoordinates().size(); i++) {
-                        insertCoordinate(a.getCoordinates().get(i));
-                    }
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in insertTrack(): " + e.getMessage());
@@ -505,20 +545,82 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Inserts a coordinate into the database if the coordinate has a activity
+     *
      * @param c
-     * @return
+     * @return 0 if it was successful, otherwise -1
      */
-    public int insertCoordinate(Coordinate c) {
+    private int insertCoordinate(Coordinate c) {
         int ret = 0;
+        if (c == null || c.getActivity() == null) {
+            ret = -1;
+        } else {
+            SQLiteDatabase db = null;
+            try {
+                db = getWritableDatabase();
+                ContentValues values = new ContentValues(1);
+                values.put("clongitude", c.getLongitude());
+                values.put("clatitude", c.getLatitude());
+                int isStart = (c.isStart()) ? 1 : 0;
+                int isEnd = (c.isEnd()) ? 1 : 0;
+                values.put("cisstart", isStart);
+                values.put("ctimefromstart", isEnd);
+                values.put("cdistancefromprevious", c.getDistanceFromPrevious());
+                values.put("aid", c.getActivity().getId());
+                ret = (int) db.insertOrThrow("coordinates", null, values);
+                if (ret >= 0) {
+                    c.setId(ret);
+                    ret = 0;
+                } else {
+                    ret = -1;
+                }
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in insertCoordinate(): " + e.getMessage());
+                ret = -1;
+            } finally {
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "insertCoordinate() was successful");
+        }
         return ret;
     }
 
     /**
+     * Inserts a setting into the database
+     *
      * @param s
-     * @return
+     * @return 0 if it was successful, otherwise -1
      */
     public int insertSetting(Setting s) {
         int ret = 0;
+        if (s == null) {
+            ret = -1;
+        } else {
+            SQLiteDatabase db = null;
+            try {
+                db = getWritableDatabase();
+                ContentValues values = new ContentValues(1);
+                values.put("skey", s.getKey());
+                values.put("svalue", s.getValue());
+                db.insertOrThrow("settings", null, values);
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in insertSetting(): " + e.getMessage());
+                ret = -1;
+            } finally {
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "insertSetting() was successful");
+        }
         return ret;
     }
 
@@ -527,20 +629,72 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      */
 
     /**
+     * Updates a track in the database
+     *
      * @param t
-     * @return
+     * @return 0 if it was successful, otherwise -1
      */
     public int updateTrack(Track t) {
         int ret = 0;
+        if (t == null) {
+            ret = -1;
+        } else {
+            SQLiteDatabase db = null;
+            try {
+                db = getWritableDatabase();
+                ContentValues values = new ContentValues(2);
+                values.put("tname", t.getName());
+                if (db.update("tracks", values, "tid = ?",
+                        new String[]{String.valueOf(t.getId())}) == 0)
+                    ret = -1;
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in updateTrack(): " + e.getMessage());
+                ret = -1;
+            } finally {
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "updateTrack() erfolgreich");
+        }
         return ret;
     }
 
     /**
+     * Updates a setting in the database
+     *
      * @param s
-     * @return
+     * @return 0 if it was successful, otherwise -1
      */
     public int updateSetting(Setting s) {
         int ret = 0;
+        if (s == null) {
+            ret = -1;
+        } else {
+            SQLiteDatabase db = null;
+            try {
+                db = getWritableDatabase();
+                ContentValues values = new ContentValues(2);
+                values.put("svalue", s.getValue());
+                if (db.update("settings", values, "skey = ?",
+                        new String[]{String.valueOf(s.getKey())}) == 0)
+                    ret = -1;
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in updateSetting(): " + e.getMessage());
+                ret = -1;
+            } finally {
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "updateSetting() erfolgreich");
+        }
         return ret;
     }
 
@@ -549,20 +703,68 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      */
 
     /**
+     * Delets a track from the database
+     *
      * @param t
-     * @return
+     * @return 0 if it was successful, otherwise -1
      */
     public int deleteTrack(Track t) {
         int ret = 0;
+        if (t == null) {
+            ret = -1;
+        } else {
+            SQLiteDatabase db = null;
+            try {
+                db = getWritableDatabase();
+                if (db.delete("tracks", "tid = ?",
+                        new String[]{String.valueOf(t.getId())}) != 1)
+                    ret = -1;
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in deleteTrack(): " + e.getMessage());
+                ret = -1;
+            } finally {
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "deleteTrack() was successful");
+        }
         return ret;
     }
 
     /**
+     * Delets an activity from the database
+     *
      * @param a
-     * @return
+     * @return 0 if it was successful, otherwise -1
      */
     public int deleteActivity(Activity a) {
         int ret = 0;
+        if (a == null) {
+            ret = -1;
+        } else {
+            SQLiteDatabase db = null;
+            try {
+                db = getWritableDatabase();
+                if (db.delete("activities", "aid = ?",
+                        new String[]{String.valueOf(a.getId())}) != 1)
+                    ret = -1;
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in deleteActivity(): " + e.getMessage());
+                ret = -1;
+            } finally {
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
+        if (ret == 0) {
+            Log.d(TAG, "deleteActivity() was successful");
+        }
         return ret;
     }
 }
