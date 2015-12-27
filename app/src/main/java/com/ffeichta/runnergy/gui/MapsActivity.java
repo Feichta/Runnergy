@@ -2,8 +2,11 @@ package com.ffeichta.runnergy.gui;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.model.Activity;
+import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -28,6 +31,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //int id = getResources().getIdentifier("RUNNING", "string", getPackageName());
         //String value = (String) getResources().getText(id);
         //Log.d(TAG, value);
+
+        DBAccessHelper db = DBAccessHelper.getInstance(this);
+        Activity a = db.getTracks().get(1).getActivities().get(0);
+        Log.d(TAG, db.deleteActivity(a) + "");
+        Log.d(TAG, (db.getCoordinates(a).size()) + "");
     }
 
 

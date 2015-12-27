@@ -55,12 +55,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             "); ";
     private static String DROP_COORDINATES = "DROP TABLE IF EXISTS coordinates;";
 
-    private static String CREATE_SETTINGS = "CREATE TABLE settings(" +
-            "skey TEXT NOT NULL PRIMARY KEY, " +
-            "svalue TEXT NOT NULL" +
-            "); ";
-    private static String DROP_SETTINGS = "DROP TABLE IF EXISTS settings;";
-
     private static String INSERT_TRACK1 = "INSERT INTO tracks(tid, tname) "
             + "  VALUES(1, \"Ahornach-Rein\");";
     private static String INSERT_TRACK2 = "INSERT INTO tracks(tid, tname) "
@@ -109,6 +103,17 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Enable SQLite foreign key constrain because of ON DELETE CASCADE
+     *
+     * @param db
+     */
+    @Override
+    public void onOpen(SQLiteDatabase db) {
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON");
+    }
+
+    /**
      * Called if there is no database
      *
      * @param sqLiteDatabase
@@ -118,10 +123,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_TRACKS);
         sqLiteDatabase.execSQL(CREATE_ACTIVITIES);
         sqLiteDatabase.execSQL(CREATE_COORDINATES);
-        sqLiteDatabase.execSQL(CREATE_SETTINGS);
         Log.d(TAG, "DB created");
-        insertDefaultValues(sqLiteDatabase);
-        Log.d(TAG, "Default values inserted");
         insertTestData(sqLiteDatabase);
         Log.d(TAG, "Test data inserted");
     }
@@ -138,18 +140,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(DROP_TRACKS);
         sqLiteDatabase.execSQL(DROP_ACTIVITIES);
         sqLiteDatabase.execSQL(DROP_COORDINATES);
-        sqLiteDatabase.execSQL(DROP_SETTINGS);
         onCreate(sqLiteDatabase);
     }
 
-    private void insertDefaultValues(SQLiteDatabase sqlLiteDatabase) {
-        ContentValues values = new ContentValues(2);
-        values.put("skey", "unit_of_length");
-        values.put("svalue", "km");
-        sqlLiteDatabase.insertOrThrow("settings", null, values);
-    }
-
-    private void insertTestData(SQLiteDatabase sqlLiteDatabase) {
+    public void insertTestData(SQLiteDatabase sqlLiteDatabase) {
         sqlLiteDatabase.execSQL(INSERT_TRACK1);
         sqlLiteDatabase.execSQL(INSERT_TRACK2);
         sqlLiteDatabase.execSQL(INSERT_ACTIVITY1);
@@ -184,7 +178,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 ret.add(new Track(c.getInt(0), c.getString(1)));
             }
             if (ret != null) {
-                // If activities are found, then they are inserted
+                // If activities are found, then they are referenced to the track
                 for (int i = 0; i < ret.size(); i++) {
                     ret.get(i).setActivities(getActivities(ret.get(i)));
                 }
@@ -456,7 +450,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Inserts an activity into the database if the activity has a track
+     * Inserts an activity into the database if the activity has a track and the coordinates of the activity must be valid. If an error occurs, the activity and their coordinates will be deleted.
+     * For example: If only one coordinate can`t be inserted every coordinate of the activity and the activity itselfs will be deleted
      *
      * @param a
      * @return 0 if it was successful, otherwise -1
@@ -469,19 +464,20 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             SQLiteDatabase db = null;
             try {
                 db = getWritableDatabase();
+                db.beginTransaction();
                 ContentValues values = new ContentValues(1);
                 values.put("atype", a.getType().toString());
                 values.put("adate", a.getDate());
                 values.put("aduration", a.getDuration());
                 values.put("tid", a.getTrack().getId());
-                ret = (int) db.insertOrThrow("activities", null, values);
+                ret = (int) db.insert("activities", null, values);
                 if (ret >= 0) {
                     a.setId(ret);
                     ret = 0;
                     // If coordinates are found, then they are inserted
                     if (a.getCoordinates() != null) {
                         for (int i = 0; i < a.getCoordinates().size(); i++) {
-                            if (insertCoordinate(a.getCoordinates().get(i)) == -1) {
+                            if (insertCoordinate(a.getCoordinates().get(i), db) == -1) {
                                 ret = -1;
                             }
                         }
@@ -489,11 +485,15 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 } else {
                     ret = -1;
                 }
+                if (ret >= 0) {
+                    db.setTransactionSuccessful();
+                }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in insertTrack(): " + e.getMessage());
                 ret = -1;
             } finally {
                 try {
+                    db.endTransaction();
                     db.close();
                 } catch (Exception e) {
                 }
@@ -511,24 +511,23 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * @param c
      * @return 0 if it was successful, otherwise -1
      */
-    private int insertCoordinate(Coordinate c) {
+    private int insertCoordinate(Coordinate c, SQLiteDatabase db) {
         int ret = 0;
         if (c == null || c.getActivity() == null) {
             ret = -1;
         } else {
-            SQLiteDatabase db = null;
             try {
-                db = getWritableDatabase();
                 ContentValues values = new ContentValues(1);
                 values.put("clongitude", c.getLongitude());
                 values.put("clatitude", c.getLatitude());
                 int isStart = (c.isStart()) ? 1 : 0;
                 int isEnd = (c.isEnd()) ? 1 : 0;
                 values.put("cisstart", isStart);
-                values.put("ctimefromstart", isEnd);
+                values.put("cisend", isEnd);
+                values.put("ctimefromstart", c.getTimeFromStart());
                 values.put("cdistancefromprevious", c.getDistanceFromPrevious());
                 values.put("aid", c.getActivity().getId());
-                ret = (int) db.insertOrThrow("coordinates", null, values);
+                ret = (int) db.insert("coordinates", null, values);
                 if (ret >= 0) {
                     c.setId(ret);
                     ret = 0;
@@ -540,7 +539,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 ret = -1;
             } finally {
                 try {
-                    db.close();
+                    //db.close();
                 } catch (Exception e) {
                 }
             }
