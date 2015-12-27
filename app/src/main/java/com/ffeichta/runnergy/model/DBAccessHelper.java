@@ -45,8 +45,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             "cid INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
             "clongitude REAL NOT NULL, " +
             "clatitude REAL NOT NULL, " +
-            "cisstart INTEGER NOT NULL DEFAULT 0," +
-            "cisend INTEGER NOT NULL DEFAULT 0," +
+            "cisstart INTEGER NOT NULL," +
+            "cisend INTEGER NOT NULL," +
             "ctimefromstart INTEGER NOT NULL," +
             "cdistancefromprevious INTEGER NOT NULL," +
             "aid INTEGER NOT NULL, " +
@@ -82,8 +82,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
             + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 9, 1);";
 
-    private static String INSERT_SETTING1 = "INSERT INTO settings(skey, svalue) "
-            + "  VALUES(\"unit_of_length\", \"km\");";
 
     private static DBAccessHelper instance = null;
 
@@ -405,42 +403,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Selects all settings from the database
-     *
-     * @return null if no settings have been found
-     */
-    public ArrayList<Setting> getSettings() {
-        ArrayList<Setting> ret = null;
-        SQLiteDatabase db = null;
-        Cursor c = null;
-        try {
-            db = getWritableDatabase();
-            c = db.rawQuery("SELECT * " + "  FROM settings;", null);
-            while (c.moveToNext()) {
-                if (ret == null) {
-                    ret = new ArrayList<Setting>();
-                }
-                ret.add(new Setting(c.getString(0), c.getString(1)));
-            }
-        } catch (SQLiteException e) {
-            Log.d(TAG, "Error in getSettings(): " + e.getMessage());
-        } finally {
-            try {
-                c.close();
-            } catch (Exception e) {
-            }
-            try {
-                db.close();
-            } catch (Exception e) {
-            }
-        }
-        if (ret != null) {
-            Log.d(TAG, "getSettings() was successful");
-        }
-        return ret;
-    }
-
-    /**
      * Methods that insert something in the database
      */
 
@@ -521,7 +483,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                         for (int i = 0; i < a.getCoordinates().size(); i++) {
                             if (insertCoordinate(a.getCoordinates().get(i)) == -1) {
                                 ret = -1;
-                                break;
                             }
                         }
                     }
@@ -591,40 +552,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Inserts a setting into the database
-     *
-     * @param s
-     * @return 0 if it was successful, otherwise -1
-     */
-    public int insertSetting(Setting s) {
-        int ret = 0;
-        if (s == null) {
-            ret = -1;
-        } else {
-            SQLiteDatabase db = null;
-            try {
-                db = getWritableDatabase();
-                ContentValues values = new ContentValues(1);
-                values.put("skey", s.getKey());
-                values.put("svalue", s.getValue());
-                db.insertOrThrow("settings", null, values);
-            } catch (SQLiteException e) {
-                Log.d(TAG, "Error in insertSetting(): " + e.getMessage());
-                ret = -1;
-            } finally {
-                try {
-                    db.close();
-                } catch (Exception e) {
-                }
-            }
-        }
-        if (ret == 0) {
-            Log.d(TAG, "insertSetting() was successful");
-        }
-        return ret;
-    }
-
-    /**
      * Methods that update something in the database
      */
 
@@ -663,40 +590,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         return ret;
     }
 
-    /**
-     * Updates a setting in the database
-     *
-     * @param s
-     * @return 0 if it was successful, otherwise -1
-     */
-    public int updateSetting(Setting s) {
-        int ret = 0;
-        if (s == null) {
-            ret = -1;
-        } else {
-            SQLiteDatabase db = null;
-            try {
-                db = getWritableDatabase();
-                ContentValues values = new ContentValues(2);
-                values.put("svalue", s.getValue());
-                if (db.update("settings", values, "skey = ?",
-                        new String[]{String.valueOf(s.getKey())}) == 0)
-                    ret = -1;
-            } catch (SQLiteException e) {
-                Log.d(TAG, "Error in updateSetting(): " + e.getMessage());
-                ret = -1;
-            } finally {
-                try {
-                    db.close();
-                } catch (Exception e) {
-                }
-            }
-        }
-        if (ret == 0) {
-            Log.d(TAG, "updateSetting() erfolgreich");
-        }
-        return ret;
-    }
 
     /**
      * Methods that delete something from the database
