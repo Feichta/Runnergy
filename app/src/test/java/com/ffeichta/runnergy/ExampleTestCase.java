@@ -11,14 +11,13 @@ public class ExampleTestCase extends TestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-
     }
 
     public void tearDown() throws Exception {
 
     }
 
-   @Test
+    @Test
     public void testSum() {
         assertEquals(10, 5 + 5);
     }
