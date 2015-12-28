@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppThemeWithoutActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeWithoutActionBar" parent="Theme.AppCompat.Light">
         <!--<item name="windowActionBar">false</item>-->
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
