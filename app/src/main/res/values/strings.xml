@@ -2,4 +2,6 @@
     <string name="app_name">Runnergy</string>
     <string name="title_activity_maps">Runnergy</string>
     <string name="RUNNING">Running</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
