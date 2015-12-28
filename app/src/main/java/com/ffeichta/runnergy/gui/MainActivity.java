@@ -2,7 +2,7 @@ package com.ffeichta.runnergy.gui;
 
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +13,7 @@ import com.ffeichta.runnergy.R;
 /**
  * Created by Fabian on 28.12.2015.
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     // Declaring Your View and Variables
 
@@ -21,7 +21,6 @@ public class MainActivity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[] = {"Home", "Events"};
     int Numboftabs = 2;
 
     @Override
@@ -35,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
         toolbar = (Toolbar) findViewById(R.id.tool_bar);
         setSupportActionBar(toolbar);
 
-
+        CharSequence Titles[] = {getResources().getString(R.string.main_activity_activity), this.getResources().getString(R.string.main_activity_tracks)};
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
 
