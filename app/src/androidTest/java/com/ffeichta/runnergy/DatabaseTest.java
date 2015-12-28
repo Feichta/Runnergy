@@ -11,13 +11,10 @@ import com.ffeichta.runnergy.model.Track;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
- */
-public class ApplicationTest extends ApplicationTestCase<Application> {
-    DBAccessHelper db = null;
+public class DatabaseTest extends ApplicationTestCase<Application> {
+    private DBAccessHelper db = null;
 
-    public ApplicationTest() {
+    public DatabaseTest() {
         super(Application.class);
     }
 
@@ -73,7 +70,6 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testClosestCoordinate() {
         assertEquals(1, db.getIDOfClosestCoordinateInActivity(11.354912, 46.499562, 1));
     }
-
 
     /**
      * Test insert methods

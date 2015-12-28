@@ -16,11 +16,11 @@ import com.ffeichta.runnergy.R;
 /**
  * Created by hp1 on 21-01-2015.
  */
-public class Tab1 extends Fragment {
+public class ActivityActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab_1, container, false);
+        View v = inflater.inflate(R.layout.activity_activity, container, false);
         return v;
     }
 }

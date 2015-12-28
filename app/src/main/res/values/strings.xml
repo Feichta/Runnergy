@@ -15,6 +15,7 @@
     <!-- Activities Activity -->
 
     <!-- Settings Activity -->
+    <string name="settings_title">Settings</string>
     <string name="settings_activity_category_general_title">General</string>
     <string name="settings_activity_category_general_key">Unit of length</string>
     <string name="settings_activity_category_general_default_value">km</string>
@@ -34,7 +35,7 @@
     </string-array>
 
     <!-- About Activity -->
-
+    <string name="about_title">About</string>
     <!-- Menu Main -->
     <string name="menu_main_settings">Settings</string>
     <string name="menu_main_about">About</string>

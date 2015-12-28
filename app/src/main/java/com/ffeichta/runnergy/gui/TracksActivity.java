@@ -12,12 +12,10 @@ import com.ffeichta.runnergy.R;
 /**
  * Created by Fabian on 28.12.2015.
  */
-
-
-public class Tab2 extends Fragment {
+public class TracksActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab_2, container, false);
+        View v = inflater.inflate(R.layout.activity_tracks, container, false);
         return v;
     }
 }

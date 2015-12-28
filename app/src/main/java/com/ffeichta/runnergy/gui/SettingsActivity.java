@@ -18,7 +18,8 @@ public class SettingsActivity extends PreferenceActivity {
                 new PrefsFragment()).commit();
     }
 
-    // This class is used becaus 'addPreferencesFromResource' in class 'PreferenceActivity' is deprecated
+    // This class is used because 'addPreferencesFromResource' in class 'PreferenceActivity' is
+    // deprecated
     public static class PrefsFragment extends PreferenceFragment {
 
         @Override

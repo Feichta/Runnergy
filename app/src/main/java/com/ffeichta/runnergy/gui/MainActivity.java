@@ -2,6 +2,7 @@ package com.ffeichta.runnergy.gui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,72 +16,73 @@ import com.ffeichta.runnergy.R;
  * Created by Fabian on 28.12.2015.
  */
 public class MainActivity extends AppCompatActivity {
-
-    // Declaring Your View and Variables
-
-    Toolbar toolbar;
-    ViewPager pager;
-    ViewPagerAdapter adapter;
-    SlidingTabLayout tabs;
-    int Numboftabs = 2;
+    private Toolbar toolbar;
+    private ViewPager viewPager;
+    private ViewPagerAdapter viewPagerAdapter;
+    private SlidingTabLayout slidingTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
 
+        // Load preferences from XML
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
+        // Titles of the tabs
         CharSequence Titles[] = this.getResources().getStringArray(R.array.main_activity_tabs);
-        // Creating The Toolbar and setting it as the Toolbar for the activity
 
-        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        // Use a Toolbar instead of ActionBar (only in this activity)
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // Create the FragmentStatePagerAdapter
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles);
 
-        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), Titles, Numboftabs);
+        // Set the adapter class for the ViewPager
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager.setAdapter(viewPagerAdapter);
 
-        // Assigning ViewPager View and setting the adapter
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
+        // Get the SlidingTabLayoutView
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabs);
+        slidingTabLayout.setDistributeEvenly(true);
 
-        // Assiging the Sliding Tab Layout View
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
-        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
-
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+        // Set color for the line under the tabs
+        slidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
+                return getResources().getColor(R.color.colorTabUnderline);
             }
         });
-
-        // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(pager);
+        // Set the ViewPager for the SlidingTabLayout
+        slidingTabLayout.setViewPager(viewPager);
     }
 
-
+    // Build the menu in the ActionBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
+    // Called when an Item in the menu is selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent i = new Intent(this, SettingsActivity.class);
-            startActivity(i);
-            return true;
+        boolean ret;
+        switch (item.getItemId()) {
+            case R.id.menu_settings:
+                Intent settings = new Intent(this, SettingsActivity.class);
+                startActivity(settings);
+                ret = true;
+                break;
+            case R.id.menu_about:
+                Intent about = new Intent(this, AboutActivity.class);
+                startActivity(about);
+                ret = true;
+                break;
+            default:
+                ret = super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
+        return ret;
     }
 }

@@ -12,9 +12,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
-    private static final String TAG = com.ffeichta.runnergy.model.DBAccessHelper.class
-            .getSimpleName();
     private GoogleMap mMap;
 
     @Override
@@ -30,7 +27,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         //Log.d(TAG, value);
     }
 
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -43,7 +39,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));

@@ -9,45 +9,35 @@ import android.support.v4.app.FragmentStatePagerAdapter;
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
-    int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
+    private final int NUMBER_TABS = 2;
+    private CharSequence TitlesOfTabs[];
 
-
-    // Build a Constructor and assign the passed Values to appropriate values in the class
-    public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
-        super(fm);
-
-        this.Titles = mTitles;
-        this.NumbOfTabs = mNumbOfTabsumb;
-
+    public ViewPagerAdapter(FragmentManager fragmentManager, CharSequence mTitles[]) {
+        super(fragmentManager);
+        this.TitlesOfTabs = mTitles;
     }
 
-    //This method return the fragment for the every position in the View Pager
+    // Return a fragment object for the tabs
     @Override
     public Fragment getItem(int position) {
-
-        if (position == 0) // if the position is 0 we are returning the First tab
-        {
-            Tab1 tab1 = new Tab1();
-            return tab1;
-        } else             // As we are having 2 tabs if the position is now 0 it must be 1 so we are returning second tab
-        {
-            Tab2 tab2 = new Tab2();
-            return tab2;
+        if (position == 0) {
+            ActivityActivity activityActivity = new ActivityActivity();
+            return activityActivity;
+        } else {
+            TracksActivity tracksActivity = new TracksActivity();
+            return tracksActivity;
         }
     }
 
-    // This method return the titles for the Tabs in the Tab Strip
-
+    // Return the titles for the tabs
     @Override
     public CharSequence getPageTitle(int position) {
-        return Titles[position];
+        return TitlesOfTabs[position];
     }
 
-    // This method return the Number of tabs for the tabs Strip
-
+    // Return the count of tabs
     @Override
     public int getCount() {
-        return NumbOfTabs;
+        return NUMBER_TABS;
     }
 }
