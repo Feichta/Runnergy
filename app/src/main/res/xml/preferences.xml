@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings_activity_category_general_title">
+        <ListPreference
+            android:defaultValue="@string/settings_activity_category_general_default_value"
+            android:entries="@array/settings_activity_category_general_unit_values"
+            android:entryValues="@array/settings_activity_category_general_unit_values"
+            android:key="unit"
+            android:summary="%s"
+            android:title="@string/settings_activity_category_general_key" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/settings_activity_category_activity_title">
+        <ListPreference
+            android:defaultValue="@string/settings_activity_category_activity_default_value"
+            android:entries="@array/settings_activity_category_activity_unit_values"
+            android:entryValues="@array/settings_activity_category_activity_unit_values"
+            android:key="interval"
+            android:summary="%s"
+            android:title="@string/settings_activity_category_activity_key" />
+    </PreferenceCategory>
+</PreferenceScreen>
