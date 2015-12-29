@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/item_track_name"
@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="10dp"
+        android:text="Name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/item_track_name"
         android:layout_marginLeft="10dp"
+        android:text="Count"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

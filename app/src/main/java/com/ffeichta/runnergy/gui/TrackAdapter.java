@@ -1,7 +1,6 @@
 package com.ffeichta.runnergy.gui;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +37,6 @@ public class TrackAdapter extends ArrayAdapter<Track> {
             trackHolder = (TrackHolder) ret.getTag();
             Track t = getItem(position);
             trackHolder.name.setText(t.getName());
-            trackHolder.name.setTextColor(Color.BLUE);
             ArrayList<com.ffeichta.runnergy.model.Activity> activities = t.getActivities();
             if (activities == null) {
                 trackHolder.count.setText("0" + getContext().getString(R.string.adapter_track_plural));
