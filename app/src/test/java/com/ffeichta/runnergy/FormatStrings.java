@@ -105,5 +105,13 @@ public class FormatStrings extends TestCase {
         assertEquals("1d, 1h, 16min, 39sec", a.getFormattedDuration());
     }
 
+    @Test
+    public void testDateWithPoints() throws Exception {
+        assertEquals("10.11.2015", a.getFormattedDate("dd.MM.yyy"));
+    }
 
+    @Test
+    public void testWithHyphen() throws Exception {
+        assertEquals("2015-11-10", a.getFormattedDate("yyyy-MM-dd"));
+    }
 }

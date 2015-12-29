@@ -46,6 +46,12 @@
             android:theme="@style/AppThemeWithActionBar"></activity>
 
         <activity
+            android:name=".gui.MapsActivity"
+            android:label="@string/settings_title"
+            android:parentActivityName=".gui.ActivitiesActivity"
+            android:theme="@style/AppThemeWithActionBar"></activity>
+
+        <activity
             android:name=".gui.SettingsActivity"
             android:label="@string/settings_title"
             android:parentActivityName=".gui.MainActivity"

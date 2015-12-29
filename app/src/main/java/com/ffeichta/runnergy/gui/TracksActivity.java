@@ -25,7 +25,7 @@ public class TracksActivity extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_tracks, container, false);
-        listView = (ListView) v.findViewById(R.id.listView);
+        listView = (ListView) v.findViewById(R.id.listViewTracks);
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {
             tracks = new ArrayList<>();

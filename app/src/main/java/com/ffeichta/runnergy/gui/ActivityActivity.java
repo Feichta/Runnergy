@@ -23,4 +23,6 @@ public class ActivityActivity extends Fragment {
         View v = inflater.inflate(R.layout.activity_activity, container, false);
         return v;
     }
+
+
 }

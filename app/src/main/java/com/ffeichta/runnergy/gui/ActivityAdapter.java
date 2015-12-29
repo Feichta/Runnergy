@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
-import com.ffeichta.runnergy.model.Coordinate;
 
 import java.util.ArrayList;
 
@@ -20,56 +19,43 @@ import java.util.ArrayList;
 public class ActivityAdapter extends ArrayAdapter<Activity> {
 
     public ActivityAdapter(android.app.Activity context, ArrayList<Activity> activities) {
-        super(context, R.layout.item_track, activities);
+        super(context, R.layout.item_activity, activities);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View ret = convertView;
-        ActivityHolder activityHolder = null;
+        ActivityHolder activityHolder;
         if (ret == null) {
             LayoutInflater inflater = ((android.app.Activity) getContext())
                     .getLayoutInflater();
-            ret = inflater.inflate(R.layout.item_track, parent, false);
+            ret = inflater.inflate(R.layout.item_activity, parent, false);
             activityHolder = new ActivityHolder();
             activityHolder.distance = (TextView) ret.findViewById(R.id.item_activity_distance);
             activityHolder.avg = (TextView) ret.findViewById(R.id.item_activity_avg);
             activityHolder.duration = (TextView) ret.findViewById(R.id.item_activity_duration);
             activityHolder.date = (TextView) ret.findViewById(R.id.item_activity_date);
+            ret.setTag(activityHolder);
         } else {
             activityHolder = (ActivityHolder) ret.getTag();
         }
 
         Activity a = getItem(position);
 
-        double distance = 0.0;
-        double avg = 0.0;
-        String duration = "";
-        String date = "";
-
-        double distanceInMeter = 0.0;
-        for (Coordinate c : a.getCoordinates()) {
-            distanceInMeter += c.getDistanceFromPrevious();
-        }
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
-        switch (sp.getString("unit", "km")) {
-            case "km":
-                if (distanceInMeter >= 1000) {
-                    distance = distanceInMeter / 1000;
-                } else {
-                    distance = distanceInMeter;
-                }
-                break;
-            case "mi":
 
-                break;
-        }
+        String unit = sp.getString("unit", "km");
+        String dateFormat = sp.getString("format", "dd.MM.yyyy");
 
+        String distance = a.getFormattedDistance(unit);
+        String avg = a.getFormattedAvg(unit);
+        String date = a.getFormattedDate(dateFormat);
+        String duration = a.getFormattedDuration();
 
-        activityHolder.distance.setText(String.valueOf(distance));
-        activityHolder.avg.setText(String.valueOf(avg));
+        activityHolder.distance.setText(distance);
+        activityHolder.avg.setText(avg);
         activityHolder.duration.setText(duration);
-        activityHolder.duration.setText(date);
+        activityHolder.date.setText(date);
         return ret;
     }
 
