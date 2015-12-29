@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * Created by Fabian on 29.12.2015.
  */
 public class TrackAdapter extends ArrayAdapter<Track> {
-
     public TrackAdapter(Activity context, ArrayList<Track> tracks) {
         super(context, R.layout.item_track, tracks);
     }
@@ -35,20 +34,21 @@ public class TrackAdapter extends ArrayAdapter<Track> {
             ret.setTag(trackHolder);
         } else {
             trackHolder = (TrackHolder) ret.getTag();
-            Track t = getItem(position);
-            trackHolder.name.setText(t.getName());
-            ArrayList<com.ffeichta.runnergy.model.Activity> activities = t.getActivities();
-            if (activities == null) {
-                trackHolder.count.setText("0" + getContext().getString(R.string.adapter_track_plural));
+        }
+        Track t = getItem(position);
+        trackHolder.name.setText(t.getName());
+        ArrayList<com.ffeichta.runnergy.model.Activity> activities = t.getActivities();
+        if (activities == null) {
+            trackHolder.count.setText("0" + getContext().getString(R.string.adapter_track_plural));
+        } else {
+            int count = activities.size();
+            if (count == 0) {
+                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_plural));
             } else {
-                int count = activities.size();
-                if (count == 0) {
-                    trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_plural));
-                } else {
-                    trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_plural));
-                }
+                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_plural));
             }
         }
+
         return ret;
     }
 
