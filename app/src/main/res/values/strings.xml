@@ -10,6 +10,12 @@
 
     <!-- Activity Activity -->
 
+    <!-- Activity Item -->
+    <string name="item_activity_distance_title">Distance</string>
+    <string name="item_activity_avg_title">Average</string>
+    <string name="item_activity_duration_title">Duration</string>
+    <string name="item_activity_date_title">Date</string>
+
     <!-- Tracks Activity-->
 
     <!-- Track Adapter -->

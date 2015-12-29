@@ -1,5 +1,7 @@
 package com.ffeichta.runnergy.model;
 
+import com.ffeichta.runnergy.utils.TimeUtils;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +10,8 @@ import java.util.ArrayList;
  * Created by Fabian on 19.11.2015.
  */
 public class Activity implements Serializable {
+    private static final double FACTOR_MILE = 0.621371;
+
     private int id = -1;
     private Type type = null;
     private long date = 0;
@@ -81,13 +85,63 @@ public class Activity implements Serializable {
         this.coordinates = coordinates;
     }
 
+    public String getFormattedDistance(String unit) {
+        String ret = "";
+
+        double distanceInMeter = 0.0;
+        for (Coordinate c : this.getCoordinates()) {
+            distanceInMeter += c.getDistanceFromPrevious();
+        }
+
+        switch (unit) {
+            case "km":
+                if (distanceInMeter >= 1000) {
+                    ret = distanceInMeter / 1000 + "km";
+                } else {
+                    ret = Math.round(distanceInMeter * 100.00) / 100.0 + "m";
+                }
+                break;
+            case "mi":
+                ret = Math.round(distanceInMeter / 1000 * FACTOR_MILE * 100.0) / 100.0 + "mi";
+                break;
+            default:
+                break;
+        }
+        return ret;
+    }
+
+    public String getFormattedAvg(String unit) {
+        String ret = "";
+
+        double distanceInMeter = 0.0;
+        for (Coordinate c : this.getCoordinates()) {
+            distanceInMeter += c.getDistanceFromPrevious();
+        }
+
+        switch (unit) {
+            case "km":
+                ret = Math.round(distanceInMeter / this.duration * 3.6 * 100.0) / 100.0 + "km/h";
+                break;
+            case "mi":
+                ret = Math.round(distanceInMeter / this.duration * 3.6 * FACTOR_MILE * 100.0) / 100.0 + "mph";
+                break;
+            default:
+                break;
+        }
+        return ret;
+    }
+
+    public String getFormattedDuration() {
+        return TimeUtils.convertDurationToString(this.duration);
+    }
+
     /**
      * Returns the date in a certain format
      *
      * @return
      */
     public String getFormattedDate(String format) {
-        String ret = null;
+        String ret;
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         ret = sdf.format(new java.util.Date(this.date));
         return ret;

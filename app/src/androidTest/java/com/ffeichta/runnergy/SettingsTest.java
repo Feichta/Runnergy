@@ -23,7 +23,7 @@ public class SettingsTest extends ApplicationTestCase<Application> {
     }
 
     public void testUnit() {
-        assertEquals("km", sp.getString("unit", "k"));
+        assertEquals("km", sp.getString("unit", "km"));
     }
 
     public void testInterval() {

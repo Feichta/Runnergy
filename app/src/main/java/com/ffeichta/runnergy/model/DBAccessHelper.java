@@ -48,7 +48,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             "cisstart INTEGER NOT NULL," +
             "cisend INTEGER NOT NULL," +
             "ctimefromstart INTEGER NOT NULL," +
-            "cdistancefromprevious INTEGER NOT NULL," +
+            "cdistancefromprevious REAL NOT NULL," +
             "aid INTEGER NOT NULL, " +
             "FOREIGN KEY (aid) REFERENCES activities(aid) " +
             "ON DELETE CASCADE ON UPDATE CASCADE" +
@@ -295,7 +295,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 while (c.moveToNext()) {
                     if (ret == null)
                         ret = new ArrayList<Coordinate>();
-                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getInt(6), a));
+                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), a));
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in getCoordinates(): " + e.getMessage());
@@ -332,7 +332,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                             + "  WHERE cid = ?;",
                     new String[]{String.valueOf(id)});
             if (c.moveToFirst()) {
-                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getInt(6));
+                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6));
             }
         } catch (SQLiteException e) {
             Log.d(TAG, "Error in getCoordinate(): " + e.getMessage());

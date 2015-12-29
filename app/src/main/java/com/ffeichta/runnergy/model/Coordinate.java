@@ -10,13 +10,13 @@ public class Coordinate {
     private boolean start = false;
     private boolean end = false;
     private int timeFromStart = -1;
-    private int distanceFromPrevious = -1;
+    private double distanceFromPrevious = -1;
     private Activity activity = null;
 
     public Coordinate() {
     }
 
-    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, int distanceFromPrevious) {
+    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, double distanceFromPrevious) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -26,7 +26,7 @@ public class Coordinate {
         this.distanceFromPrevious = distanceFromPrevious;
     }
 
-    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, int distanceFromPrevious, Activity activity) {
+    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, double distanceFromPrevious, Activity activity) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -85,11 +85,11 @@ public class Coordinate {
         this.timeFromStart = timeFromStart;
     }
 
-    public int getDistanceFromPrevious() {
+    public double getDistanceFromPrevious() {
         return distanceFromPrevious;
     }
 
-    public void setDistanceFromPrevious(int distanceFromPrevious) {
+    public void setDistanceFromPrevious(double distanceFromPrevious) {
         this.distanceFromPrevious = distanceFromPrevious;
     }
 
