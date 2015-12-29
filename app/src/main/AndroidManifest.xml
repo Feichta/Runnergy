@@ -40,6 +40,12 @@
         </activity>
 
         <activity
+            android:name=".gui.ActivitiesActivity"
+            android:label="@string/settings_title"
+            android:parentActivityName=".gui.MainActivity"
+            android:theme="@style/AppThemeWithActionBar"></activity>
+
+        <activity
             android:name=".gui.SettingsActivity"
             android:label="@string/settings_title"
             android:parentActivityName=".gui.MainActivity"

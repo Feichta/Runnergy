@@ -1,12 +1,13 @@
 package com.ffeichta.runnergy.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 /**
  * Created by Fabian on 19.11.2015.
  */
-public class Track {
+public class Track implements Serializable {
     public static final int NAME_IS_NOT_SET = -1;
     public static final int NAME_ALREADY_EXISTS = -2;
 

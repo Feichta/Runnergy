@@ -1,12 +1,13 @@
 package com.ffeichta.runnergy.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
  * Created by Fabian on 19.11.2015.
  */
-public class Activity {
+public class Activity implements Serializable {
     private int id = -1;
     private Type type = null;
     private long date = 0;
@@ -96,7 +97,7 @@ public class Activity {
         return this.id + ";" + this.type + ";" + getFormattedDate("dd.MM.yyyy") + ";" + this.duration;
     }
 
-    public enum Type {
+    public enum Type implements Serializable {
         RUNNING,
         JOGGING,
         HIKING,
