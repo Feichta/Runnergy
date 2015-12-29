@@ -7,6 +7,7 @@ import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
+import com.ffeichta.runnergy.model.enums.ActivityTypes;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
 
     public void testTypeOfActivityOfTrack() {
         Activity a = db.getTracks().get(0).getActivities().get(0);
-        assertEquals(Activity.Type.RUNNING.toString(), a.getType().toString());
+        assertEquals(ActivityTypes.Type.RUNNING.toString(), a.getType().toString());
     }
 
     public void testCountOfCoordinatesOfActivity() {
@@ -95,7 +96,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
 
     public void testInsertActivityWithErrorInCoordinate() {
         Activity a = new Activity();
-        a.setType(Activity.Type.RUNNING);
+        a.setType(ActivityTypes.Type.RUNNING);
         a.setDate(new Date().getTime());
         a.setDuration(1259);
         a.setTrack(db.getTracks().get(0));
@@ -108,7 +109,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
         c.setDistanceFromPrevious(0);
         ArrayList<Coordinate> coordinates = new ArrayList<>();
         coordinates.add(c);
-        // No activity
+        // Activity is missing
         //c.setActivity(a);
         a.setCoordinates(coordinates);
         assertEquals(-1, db.insertActivity(a));
@@ -117,7 +118,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
 
     public void testInsertActivity() {
         Activity a = new Activity();
-        a.setType(Activity.Type.RUNNING);
+        a.setType(ActivityTypes.Type.RUNNING);
         a.setDate(new Date().getTime());
         a.setDuration(1259);
         a.setTrack(db.getTracks().get(0));

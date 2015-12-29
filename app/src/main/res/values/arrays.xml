@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="settings_activity_category_general_unit_entries">
+        <item>km</item>
+        <item>mi</item>
+    </string-array>
+
+    <string-array name="settings_activity_category_general_unit_entry_values">
+        <item>km</item>
+        <item>mi</item>
+    </string-array>
+
+    <string-array name="settings_activity_category_general_date_entries">
+        <item>TT.MM.YYYY</item>
+        <item>MM-TT-YYYY</item>
+    </string-array>
+
+    <string-array name="settings_activity_category_general_date_entry_values">
+        <item>dd.MM.yyyy</item>
+        <item>MM-dd-yyyy</item>
+    </string-array>
+
+    <string-array name="settings_activity_category_activity_interval_entries">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+
+    <string-array name="settings_activity_category_activity_interval_entry_values">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+</resources>

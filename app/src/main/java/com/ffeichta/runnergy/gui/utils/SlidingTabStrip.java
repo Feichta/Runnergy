@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.utils;
 
 import android.content.Context;
 import android.graphics.Canvas;

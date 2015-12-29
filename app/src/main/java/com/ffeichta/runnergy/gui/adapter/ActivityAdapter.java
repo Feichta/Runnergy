@@ -1,4 +1,4 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.adapter;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -39,7 +39,6 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         } else {
             activityHolder = (ActivityHolder) ret.getTag();
         }
-
         Activity a = getItem(position);
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());

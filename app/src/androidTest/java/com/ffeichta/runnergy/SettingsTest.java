@@ -26,6 +26,10 @@ public class SettingsTest extends ApplicationTestCase<Application> {
         assertEquals("km", sp.getString("unit", "km"));
     }
 
+    public void testDate() {
+        assertEquals("dd.MM.yyyy", sp.getString("date", "dd.MM.yyyy"));
+    }
+
     public void testInterval() {
         // Get a string because ListPreference cannot support int values
         int unit = Integer.valueOf(sp.getString("interval", "0"));

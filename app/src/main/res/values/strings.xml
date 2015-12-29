@@ -22,30 +22,22 @@
     <string name="adapter_track_singular">\u0020activitie</string>
     <string name="adapter_track_plural">\u0020activities</string>
 
-    <!-- Activities Activity -->
+    <!-- Activities activity -->
 
     <!-- Settings Activity -->
-    <string name="settings_title">Settings</string>
+    <string name="settings_activity_title">Settings</string>
     <string name="settings_activity_category_general_title">General</string>
-    <string name="settings_activity_category_general_key">Unit of length</string>
-    <string name="settings_activity_category_general_default_value">km</string>
-    <string-array name="settings_activity_category_general_unit_values">
-        <item>km</item>
-        <item>mi</item>
-    </string-array>
+    <string name="settings_activity_category_general_unit_title">Unit of length</string>
+    <string name="settings_activity_category_general_unit_default_value">km</string>
+    <string name="settings_activity_category_general_date_title">Format of date</string>
+    <string name="settings_activity_category_general_date_default_value">dd.MM.yyyy</string>
     <string name="settings_activity_category_activity_title">Activity</string>
-    <string name="settings_activity_category_activity_key">Interval of saving position</string>
+    <string name="settings_activity_category_activity_interval_title">Interval of saving positions</string>
     <string name="settings_activity_category_activity_default_value">5</string>
-    <string-array name="settings_activity_category_activity_unit_values">
-        <item>5</item>
-        <item>10</item>
-        <item>20</item>
-        <item>30</item>
-        <item>60</item>
-    </string-array>
 
     <!-- About Activity -->
     <string name="about_title">About</string>
+
     <!-- Menu Main -->
     <string name="menu_main_settings">Settings</string>
     <string name="menu_main_about">About</string>

@@ -1,4 +1,4 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

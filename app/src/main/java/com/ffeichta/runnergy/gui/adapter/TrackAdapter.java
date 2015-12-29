@@ -1,4 +1,4 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

@@ -2,20 +2,31 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="@string/settings_activity_category_general_title">
         <ListPreference
-            android:defaultValue="@string/settings_activity_category_general_default_value"
-            android:entries="@array/settings_activity_category_general_unit_values"
-            android:entryValues="@array/settings_activity_category_general_unit_values"
+            android:defaultValue="@string/settings_activity_category_general_unit_default_value"
+            android:entries="@array/settings_activity_category_general_unit_entries"
+            android:entryValues="@array/settings_activity_category_general_unit_entry_values"
             android:key="unit"
             android:summary="%s"
-            android:title="@string/settings_activity_category_general_key" />
+            android:title="@string/settings_activity_category_general_unit_title" />
+
+        <ListPreference
+            android:defaultValue="@string/settings_activity_category_general_date_default_value"
+            android:entries="@array/settings_activity_category_general_date_entries"
+            android:entryValues="@array/settings_activity_category_general_date_entry_values"
+            android:key="date"
+            android:summary="%s"
+            android:title="@string/settings_activity_category_general_date_title" />
+
     </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/settings_activity_category_activity_title">
         <ListPreference
             android:defaultValue="@string/settings_activity_category_activity_default_value"
-            android:entries="@array/settings_activity_category_activity_unit_values"
-            android:entryValues="@array/settings_activity_category_activity_unit_values"
+            android:entries="@array/settings_activity_category_activity_interval_entries"
+            android:entryValues="@array/settings_activity_category_activity_interval_entry_values"
             android:key="interval"
             android:summary="%s"
-            android:title="@string/settings_activity_category_activity_key" />
+            android:title="@string/settings_activity_category_activity_interval_title" />
+
     </PreferenceCategory>
 </PreferenceScreen>

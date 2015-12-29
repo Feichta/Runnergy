@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.ffeichta.runnergy.model.enums.ActivityTypes;
+
 import java.util.ArrayList;
 
 /**
@@ -75,6 +77,12 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             + "  VALUES(3, 11.355027, 46.497625, 0, 0, 10, 14, 1);";
     private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
             + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 9, 1);";
+    private static String INSERT_COORDINATE5 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(5, -14.589844, 22.715390, 1, 0, 0, 12903, 2);";
+    private static String INSERT_COORDINATE6 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(6, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 2);";
+    private static String INSERT_COORDINATE7 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(7, 31.047363, 30.916364, 0, 1, 211002, 976.8, 2);";
 
     private static DBAccessHelper instance = null;
 
@@ -152,6 +160,9 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqlLiteDatabase.execSQL(INSERT_COORDINATE2);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE3);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE4);
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE5);
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE6);
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE7);
     }
 
     /**
@@ -220,7 +231,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                     if (ret == null) {
                         ret = new ArrayList<Activity>();
                     }
-                    ret.add(new Activity(c.getInt(0), Activity.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), t));
+                    ret.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), t));
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in getActivities(): " + e.getMessage());
@@ -257,7 +268,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                             + "  WHERE aid = ?;",
                     new String[]{String.valueOf(id)});
             if (c.moveToFirst()) {
-                ret = new Activity(c.getInt(0), Activity.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3));
+                ret = new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3));
             }
         } catch (SQLiteException e) {
             Log.d(TAG, "Error in getActivity(): " + e.getMessage());

@@ -1,4 +1,4 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.adapter.TrackAdapter;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
 
@@ -30,7 +31,6 @@ public class TracksActivity extends android.support.v4.app.Fragment {
         if (tracks == null) {
             tracks = new ArrayList<>();
         }
-
         TrackAdapter trackAdapter = new TrackAdapter(this.getActivity(), tracks);
         listView.setAdapter(trackAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

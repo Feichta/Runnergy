@@ -1,6 +1,7 @@
 package com.ffeichta.runnergy.model;
 
-import com.ffeichta.runnergy.utils.TimeUtils;
+import com.ffeichta.runnergy.model.enums.ActivityTypes;
+import com.ffeichta.runnergy.model.utils.TimeUtils;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -13,7 +14,7 @@ public class Activity implements Serializable {
     private static final double FACTOR_MILE = 0.621371;
 
     private int id = -1;
-    private Type type = null;
+    private ActivityTypes.Type type = null;
     private long date = 0;
     private int duration = -1;
     private Track track = null;
@@ -22,14 +23,14 @@ public class Activity implements Serializable {
     public Activity() {
     }
 
-    public Activity(int id, Type type, long date, int duration) {
+    public Activity(int id, ActivityTypes.Type type, long date, int duration) {
         this.id = id;
         this.type = type;
         this.date = date;
         this.duration = duration;
     }
 
-    public Activity(int id, Type type, long date, int duration, Track track) {
+    public Activity(int id, ActivityTypes.Type type, long date, int duration, Track track) {
         this.id = id;
         this.type = type;
         this.date = date;
@@ -45,11 +46,11 @@ public class Activity implements Serializable {
         this.id = id;
     }
 
-    public Type getType() {
+    public ActivityTypes.Type getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    public void setType(ActivityTypes.Type type) {
         this.type = type;
     }
 
@@ -87,12 +88,10 @@ public class Activity implements Serializable {
 
     public String getFormattedDistance(String unit) {
         String ret = "";
-
         double distanceInMeter = 0.0;
         for (Coordinate c : this.getCoordinates()) {
             distanceInMeter += c.getDistanceFromPrevious();
         }
-
         switch (unit) {
             case "km":
                 if (distanceInMeter >= 1000) {
@@ -112,12 +111,10 @@ public class Activity implements Serializable {
 
     public String getFormattedAvg(String unit) {
         String ret = "";
-
         double distanceInMeter = 0.0;
         for (Coordinate c : this.getCoordinates()) {
             distanceInMeter += c.getDistanceFromPrevious();
         }
-
         switch (unit) {
             case "km":
                 ret = Math.round(distanceInMeter / this.duration * 3.6 * 100.0) / 100.0 + "km/h";
@@ -149,13 +146,5 @@ public class Activity implements Serializable {
 
     public String toString() {
         return this.id + ";" + this.type + ";" + getFormattedDate("dd.MM.yyyy") + ";" + this.duration;
-    }
-
-    public enum Type implements Serializable {
-        RUNNING,
-        JOGGING,
-        HIKING,
-        CYCLING,
-        DOWNHILL
     }
 }

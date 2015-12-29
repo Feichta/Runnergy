@@ -1,4 +1,4 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.adapter.ActivityAdapter;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
 
@@ -39,10 +40,8 @@ public class ActivitiesActivity extends Activity {
         for (com.ffeichta.runnergy.model.Activity activity : activities) {
             activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates(activity));
         }
-
         ActivityAdapter activityAdapter = new ActivityAdapter(this, activities);
         listView.setAdapter(activityAdapter);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

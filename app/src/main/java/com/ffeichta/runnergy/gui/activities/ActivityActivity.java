@@ -1,4 +1,4 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.activities;
 
 /**
  * Created by Fabian on 28.12.2015.
@@ -23,6 +23,4 @@ public class ActivityActivity extends Fragment {
         View v = inflater.inflate(R.layout.activity_activity, container, false);
         return v;
     }
-
-
 }

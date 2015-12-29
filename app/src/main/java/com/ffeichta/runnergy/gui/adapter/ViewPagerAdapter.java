@@ -1,15 +1,18 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.ffeichta.runnergy.gui.activities.ActivityActivity;
+import com.ffeichta.runnergy.gui.activities.TracksActivity;
 
 /**
  * Created by Fabian on 28.12.2015.
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
-    private final int NUMBER_TABS = 2;
+    private static final int NUMBER_TABS = 2;
     private CharSequence TitlesOfTabs[];
 
     public ViewPagerAdapter(FragmentManager fragmentManager, CharSequence mTitles[]) {

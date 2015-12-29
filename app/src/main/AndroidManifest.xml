@@ -30,7 +30,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".gui.MainActivity"
+            android:name=".gui.activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppThemeWithoutActionBar">
             <intent-filter>
@@ -40,28 +40,26 @@
         </activity>
 
         <activity
-            android:name=".gui.ActivitiesActivity"
-            android:label="@string/settings_title"
-            android:parentActivityName=".gui.MainActivity"
+            android:name=".gui.activities.ActivitiesActivity"
+            android:parentActivityName=".gui.activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
         <activity
-            android:name=".gui.MapsActivity"
-            android:label="@string/settings_title"
-            android:parentActivityName=".gui.ActivitiesActivity"
+            android:name=".gui.activities.MapsActivity"
+            android:parentActivityName=".gui.activities.ActivitiesActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
         <activity
-            android:name=".gui.SettingsActivity"
-            android:label="@string/settings_title"
-            android:parentActivityName=".gui.MainActivity"
+            android:name=".gui.activities.SettingsActivity"
+            android:label="@string/settings_activity_title"
+            android:parentActivityName=".gui.activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar">
         </activity>
 
         <activity
-            android:name=".gui.AboutActivity"
+            android:name=".gui.activities.AboutActivity"
             android:label="@string/about_title"
-            android:parentActivityName=".gui.MainActivity"
+            android:parentActivityName=".gui.activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
     </application>

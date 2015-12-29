@@ -1,4 +1,4 @@
-package com.ffeichta.runnergy.gui;
+package com.ffeichta.runnergy.gui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.adapter.ViewPagerAdapter;
+import com.ffeichta.runnergy.gui.utils.SlidingTabLayout;
 
 
 /**
@@ -85,6 +87,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return ret;
     }
-
-
 }
