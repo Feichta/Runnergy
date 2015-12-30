@@ -9,6 +9,8 @@
     </string-array>
 
     <!-- Activity Activity -->
+    <string name="activity_fragment_start">Start activity</string>
+    <string name="activity_fragment_stop">Stop activity</string>
 
     <!-- Activity Item -->
     <string name="item_activity_distance_title">Distance</string>
@@ -23,9 +25,10 @@
     <string name="adapter_track_plural">\u0020activities</string>
 
     <!-- Maps Activity -->
-    <string name="maps_activity_comparison">Start comparison</string>
-    <string name="maps_activity_start">Start</string>
-    <string name="maps_activity_end">End</string>
+    <string name="maps_activity_start">Start comparison</string>
+    <string name="maps_activity_stop">Stop comparison</string>
+    <string name="maps_activity_marker_start">Start</string>
+    <string name="maps_activity_marker_end">End</string>
 
     <!-- Settings Activity -->
     <string name="settings_activity_title">Settings</string>

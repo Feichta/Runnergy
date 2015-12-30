@@ -3,6 +3,7 @@ package com.ffeichta.runnergy.gui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by Fabian on 28.12.2015.
  */
-public class TracksActivity extends android.support.v4.app.Fragment {
+public class TracksFragment extends Fragment {
     private ArrayList<Track> tracks = null;
     private ListView listView = null;
 
@@ -57,7 +58,7 @@ public class TracksActivity extends android.support.v4.app.Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d(TracksActivity.class.getSimpleName(), "#####sdkajf");
+        Log.d(TracksFragment.class.getSimpleName(), "#####sdkajf");
 
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {

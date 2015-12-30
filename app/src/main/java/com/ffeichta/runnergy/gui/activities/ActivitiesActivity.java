@@ -26,7 +26,7 @@ public class ActivitiesActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity);
+        setContentView(R.layout.activity_activities);
         listView = (ListView) findViewById(R.id.listViewActivity);
 
         Intent intent = getIntent();

@@ -29,15 +29,15 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap map = null;
-    private Button startComparison = null;
+    private Button startStopComparison = null;
     private ArrayList<Coordinate> coordinates = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.fragment_maps);
 
-        startComparison = (Button) findViewById(R.id.activityMapsComparison);
+        startStopComparison = (Button) findViewById(R.id.activityMapsStartStop);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.activityMapsGoogleMap);
@@ -46,12 +46,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         this.coordinates = (ArrayList<Coordinate>) intent.getSerializableExtra("coordinates");
 
-        startComparison.setOnClickListener(new View.OnClickListener() {
+        startStopComparison.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MapsActivity.this, "Not implemented yet", Toast.LENGTH_SHORT).show();
+                if (startStopComparison.getText().equals(getResources().getString(R.string.maps_activity_start))) {
+                    startStopComparison.setText(getResources().getString(R.string.maps_activity_stop));
+                    Toast.makeText(MapsActivity.this, "Start comparison not implemented yet", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MapsActivity.this, "Stop comparison not implemented yet", Toast.LENGTH_SHORT).show();
+                    startStopComparison.setText(getResources().getString(R.string.maps_activity_start));
+                }
             }
         });
+
     }
 
     /**
@@ -105,7 +112,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (c.isStart()) {
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
-                        .title(getResources().getString(R.string.maps_activity_start))
+                        .title(getResources().getString(R.string.maps_activity_marker_start))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                 builder.include(marker.getPosition());
                 // Only this InfoWindow is shown because only one info window can be displayed at a time
@@ -114,7 +121,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (c.isEnd()) {
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
-                        .title(getResources().getString(R.string.maps_activity_end))
+                        .title(getResources().getString(R.string.maps_activity_marker_end))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                 builder.include(marker.getPosition());
             }

@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.ffeichta.runnergy.gui.activities.ActivityActivity;
-import com.ffeichta.runnergy.gui.activities.TracksActivity;
+import com.ffeichta.runnergy.gui.activities.ActivityFragment;
+import com.ffeichta.runnergy.gui.activities.TracksFragment;
 
 /**
  * Created by Fabian on 28.12.2015.
@@ -24,11 +24,11 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            ActivityActivity activityActivity = new ActivityActivity();
-            return activityActivity;
+            ActivityFragment activityFragment = new ActivityFragment();
+            return activityFragment;
         } else {
-            TracksActivity tracksActivity = new TracksActivity();
-            return tracksActivity;
+            TracksFragment tracksFragment = new TracksFragment();
+            return tracksFragment;
         }
     }
 
