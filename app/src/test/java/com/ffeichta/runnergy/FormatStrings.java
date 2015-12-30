@@ -40,7 +40,7 @@ public class FormatStrings extends TestCase {
 
     @Test
     public void testDistanceKm() throws Exception {
-        assertEquals("34.0m", a.getFormattedDistance("km"));
+        assertEquals("34.0 m", a.getFormattedDistance("km"));
     }
 
     @Test
@@ -61,24 +61,24 @@ public class FormatStrings extends TestCase {
         coordinates.add(c4);
 
         a.setCoordinates(coordinates);
-        assertEquals("9.025km", a.getFormattedDistance("km"));
+        assertEquals("9.025 km", a.getFormattedDistance("km"));
     }
 
     @Test
     public void testDistanceMi() throws Exception {
-        assertEquals("0.02mi", a.getFormattedDistance("mi"));
+        assertEquals("0.02 mi", a.getFormattedDistance("mi"));
     }
 
     @Test
     public void testAvgInKm() throws Exception {
         a.setDuration(660);
-        assertEquals("0.19km/h", a.getFormattedAvg("km"));
+        assertEquals("0.19 km/h", a.getFormattedAvg("km"));
     }
 
     @Test
     public void testAvgInMi() throws Exception {
         a.setDuration(660);
-        assertEquals("0.12mph", a.getFormattedAvg("mi"));
+        assertEquals("0.12 mph", a.getFormattedAvg("mi"));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class FormatStrings extends TestCase {
 
     @Test
     public void testWithHyphen() throws Exception {
-        assertEquals("2015-11-10", a.getFormattedDate("yyyy-MM-dd"));
+        assertEquals("11-10-2015", a.getFormattedDate("MM-dd-yyyy"));
     }
 }

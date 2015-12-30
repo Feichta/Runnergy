@@ -22,7 +22,8 @@
     <string name="adapter_track_singular">\u0020activity</string>
     <string name="adapter_track_plural">\u0020activities</string>
 
-    <!-- Activities activity -->
+    <!-- Maps Activity -->
+    <string name="maps_activity_comparison">Start comparison</string>
 
     <!-- Settings Activity -->
     <string name="settings_activity_title">Settings</string>

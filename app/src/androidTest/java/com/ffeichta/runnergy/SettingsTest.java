@@ -26,7 +26,7 @@ public class SettingsTest extends ApplicationTestCase<Application> {
         assertEquals("km", sp.getString("unit", "km"));
     }
 
-    public void testDate() {
+    public void testDateEU() {
         assertEquals("dd.MM.yyyy", sp.getString("date", "dd.MM.yyyy"));
     }
 

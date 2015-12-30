@@ -95,13 +95,13 @@ public class Activity implements Serializable {
         switch (unit) {
             case "km":
                 if (distanceInMeter >= 1000) {
-                    ret = distanceInMeter / 1000 + "km";
+                    ret = distanceInMeter / 1000 + " km";
                 } else {
-                    ret = Math.round(distanceInMeter * 100.00) / 100.0 + "m";
+                    ret = Math.round(distanceInMeter * 100.0) / 100.0 + " m";
                 }
                 break;
             case "mi":
-                ret = Math.round(distanceInMeter / 1000 * FACTOR_MILE * 100.0) / 100.0 + "mi";
+                ret = Math.round(distanceInMeter / 1000 * FACTOR_MILE * 100.0) / 100.0 + " mi";
                 break;
             default:
                 break;
@@ -117,10 +117,10 @@ public class Activity implements Serializable {
         }
         switch (unit) {
             case "km":
-                ret = Math.round(distanceInMeter / this.duration * 3.6 * 100.0) / 100.0 + "km/h";
+                ret = Math.round(distanceInMeter / this.duration * 3.6 * 100.0) / 100.0 + " km/h";
                 break;
             case "mi":
-                ret = Math.round(distanceInMeter / this.duration * 3.6 * FACTOR_MILE * 100.0) / 100.0 + "mph";
+                ret = Math.round(distanceInMeter / this.duration * 3.6 * FACTOR_MILE * 100.0) / 100.0 + " mph";
                 break;
             default:
                 break;
