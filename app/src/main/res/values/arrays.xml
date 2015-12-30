@@ -35,4 +35,20 @@
         <item>30</item>
         <item>60</item>
     </string-array>
+
+    <string-array name="settings_activity_category_map_type_entries">
+        <item>Normal</item>
+        <item>Hybrid</item>
+        <item>Satellite</item>
+        <item>Terrain</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="settings_activity_category_map_type_entry_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
 </resources>

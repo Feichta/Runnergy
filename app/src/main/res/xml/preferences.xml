@@ -21,12 +21,22 @@
 
     <PreferenceCategory android:title="@string/settings_activity_category_activity_title">
         <ListPreference
-            android:defaultValue="@string/settings_activity_category_activity_default_value"
+            android:defaultValue="@string/settings_activity_category_activity_interval_default_value"
             android:entries="@array/settings_activity_category_activity_interval_entries"
             android:entryValues="@array/settings_activity_category_activity_interval_entry_values"
             android:key="interval"
             android:summary="%s"
             android:title="@string/settings_activity_category_activity_interval_title" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_activity_category_map_title">
+        <ListPreference
+            android:defaultValue="@string/settings_activity_category_map_type_default_value"
+            android:entries="@array/settings_activity_category_map_type_entries"
+            android:entryValues="@array/settings_activity_category_map_type_entry_values"
+            android:key="type"
+            android:summary="%s"
+            android:title="@string/settings_activity_category_map_type_title" />
 
     </PreferenceCategory>
 </PreferenceScreen>
