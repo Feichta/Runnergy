@@ -3,20 +3,20 @@
 
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
+    android:id="@+id/activityMapsGoogleMap"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_weight="1"
     tools:context="com.example.LocationChooser">
 
 
     <Button
+        android:id="@+id/activityMapsComparison"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|top"
-        android:text="Demo Button"
-        android:padding="10dp"
-        android:layout_marginTop="20dp"
-        android:paddingRight="10dp"/>
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="10dp"
+        android:text="@string/maps_activity_comparison" />
 
 </fragment>

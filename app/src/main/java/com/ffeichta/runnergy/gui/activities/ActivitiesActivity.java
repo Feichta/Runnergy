@@ -46,6 +46,7 @@ public class ActivitiesActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ActivitiesActivity.this, MapsActivity.class);
+                intent.putExtra("coordinates",activities.get(position).getCoordinates() );
                 startActivity(intent);
             }
         });

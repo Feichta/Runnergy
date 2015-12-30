@@ -24,6 +24,8 @@
 
     <!-- Maps Activity -->
     <string name="maps_activity_comparison">Start comparison</string>
+    <string name="maps_activity_start">Start</string>
+    <string name="maps_activity_end">End</string>
 
     <!-- Settings Activity -->
     <string name="settings_activity_title">Settings</string>

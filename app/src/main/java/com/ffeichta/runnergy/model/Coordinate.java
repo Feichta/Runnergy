@@ -1,9 +1,11 @@
 package com.ffeichta.runnergy.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Fabian on 19.11.2015.
  */
-public class Coordinate {
+public class Coordinate implements Serializable {
     private int id = -1;
     private double longitude = -1.0;
     private double latitude = -1.0;

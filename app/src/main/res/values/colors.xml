@@ -4,4 +4,8 @@
     <color name="colorPrimaryDark">#C31C13</color>
     <color name="colorTabUnderline">#FFFFFF</color>
     <color name="colorNavigationBar">#000000</color>
+
+    <color name="mapsStart">#01DF01</color>
+    <color name="mapsEnd">#0040FF</color>
+    <color name="mapsPolyline">#01DFA5</color>
 </resources>
