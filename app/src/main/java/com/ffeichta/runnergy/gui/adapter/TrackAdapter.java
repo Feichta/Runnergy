@@ -42,8 +42,8 @@ public class TrackAdapter extends ArrayAdapter<Track> {
             trackHolder.count.setText("0" + getContext().getString(R.string.adapter_track_plural));
         } else {
             int count = activities.size();
-            if (count == 0) {
-                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_plural));
+            if (count == 1) {
+                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_singular));
             } else {
                 trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_plural));
             }

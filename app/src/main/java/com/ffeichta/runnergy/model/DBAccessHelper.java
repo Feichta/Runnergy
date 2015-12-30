@@ -83,6 +83,12 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             + "  VALUES(6, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 2);";
     private static String INSERT_COORDINATE7 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
             + "  VALUES(7, 31.047363, 30.916364, 0, 1, 211002, 976.8, 2);";
+    private static String INSERT_COORDINATE8 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(8, -14.589844, 22.715390, 1, 0, 0, 12903, 3);";
+    private static String INSERT_COORDINATE9 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(9, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 3);";
+    private static String INSERT_COORDINATE10 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
+            + "  VALUES(10, 31.047363, 30.916364, 0, 1, 211002, 976.8, 3);";
 
     private static DBAccessHelper instance = null;
 
@@ -163,6 +169,9 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqlLiteDatabase.execSQL(INSERT_COORDINATE5);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE6);
         sqlLiteDatabase.execSQL(INSERT_COORDINATE7);
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE8);
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE9);
+        sqlLiteDatabase.execSQL(INSERT_COORDINATE10);
     }
 
     /**

@@ -19,7 +19,7 @@
     <!-- Tracks Activity-->
 
     <!-- Track Adapter -->
-    <string name="adapter_track_singular">\u0020activitie</string>
+    <string name="adapter_track_singular">\u0020activity</string>
     <string name="adapter_track_plural">\u0020activities</string>
 
     <!-- Activities activity -->

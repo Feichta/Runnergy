@@ -89,7 +89,7 @@ public class Activity implements Serializable {
     public String getFormattedDistance(String unit) {
         String ret = "";
         double distanceInMeter = 0.0;
-        for (Coordinate c : this.getCoordinates()) {
+        for (Coordinate c : getCoordinates()) {
             distanceInMeter += c.getDistanceFromPrevious();
         }
         switch (unit) {

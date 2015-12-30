@@ -2,6 +2,7 @@ package com.ffeichta.runnergy.gui.adapter;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.activities.ActivitiesActivity;
 import com.ffeichta.runnergy.model.Activity;
 
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        Log.d(ActivitiesActivity.class.getSimpleName(), "#### ");
         View ret = convertView;
         ActivityHolder activityHolder;
         if (ret == null) {
@@ -40,6 +43,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
             activityHolder = (ActivityHolder) ret.getTag();
         }
         Activity a = getItem(position);
+        Log.d(ActivitiesActivity.class.getSimpleName(), "#### " + a.getCoordinates().size());
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
 
