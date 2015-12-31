@@ -50,6 +50,12 @@
             android:theme="@style/AppThemeWithActionBar"></activity>
 
         <activity
+            android:name=".gui.activities.SaveActivityActivity"
+            android:parentActivityName=".gui.activities.MainActivity"
+            android:theme="@style/AppThemeWithActionBar"></activity>
+
+
+        <activity
             android:name=".gui.activities.MapsActivity"
             android:parentActivityName=".gui.activities.ActivitiesActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
