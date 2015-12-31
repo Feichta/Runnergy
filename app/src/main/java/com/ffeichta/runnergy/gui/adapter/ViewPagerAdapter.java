@@ -4,8 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.ffeichta.runnergy.gui.activities.ActivityFragment;
-import com.ffeichta.runnergy.gui.activities.TracksFragment;
+import com.ffeichta.runnergy.gui.fragments.ActivityFragment;
+import com.ffeichta.runnergy.gui.fragments.TracksFragment;
 
 /**
  * Created by Fabian on 28.12.2015.
