@@ -12,6 +12,26 @@
     <string name="activity_fragment_start">Start activity</string>
     <string name="activity_fragment_stop">Stop activity</string>
 
+    <!-- Save Activity Activity -->
+    <string name="activity_save_activity_track_title">Track</string>
+    <string name="activity_save_activity_type_title">Type</string>
+    <string name="activity_save_activity_distance_title">Distance</string>
+    <string name="activity_save_activity_duration_title">Duration</string>
+    <string name="activity_save_activity_avg_title">Average</string>
+    <string name="activity_save_activity_new">+</string>
+    <string name="activity_save_activity_save_activity">Save activity</string>
+
+    <!-- Add Track -->
+    <string name="dialog_fragment_title_add">Add track</string>
+    <string name="dialog_fragment_title_change">Change track</string>
+    <string name="dialog_fragment_title">Please enter the name of the track</string>
+    <string name="dialog_fragment_ok">OK</string>
+    <string name="dialog_fragment_cancel">Cancel</string>
+
+    <!-- AddTrackDialog Fragment-->
+    <string name="dialog_fragment_already_set">Track already exists</string>
+    <string name="dialog_fragment_not_set">Name is not set</string>
+
     <!-- Activity Item -->
     <string name="item_activity_distance_title">Distance</string>
     <string name="item_activity_avg_title">Average</string>

@@ -22,6 +22,7 @@ import android.widget.Button;
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.activities.ConnectionFailed;
 import com.ffeichta.runnergy.gui.activities.ConnectionServices;
+import com.ffeichta.runnergy.gui.activities.LocationListener;
 import com.ffeichta.runnergy.gui.activities.SaveActivityActivity;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
@@ -83,7 +84,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                 if (!startButtonEnabled) {
                     startButtonEnabled = true;
                     startStopButton.setText(getResources().getString(R.string.activity_fragment_stop));
-
+                    locationListener = new LocationListener(mMap, getContext());
                     startLocationUpdates();
                 } else {
                     startButtonEnabled = false;
