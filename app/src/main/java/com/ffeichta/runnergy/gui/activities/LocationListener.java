@@ -71,6 +71,7 @@ public class LocationListener implements com.google.android.gms.location.Locatio
             coordinate.setDistanceFromPrevious(result[0]);
             coordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
         }
+        coordinate.setActivity(activity);
         coordinates.add(coordinate);
     }
 

@@ -108,13 +108,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for (Coordinate c : coordinates) {
             LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
+            builder.include(latLng);
             latLngs.add(latLng);
             if (c.isStart()) {
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title(getResources().getString(R.string.maps_activity_marker_start))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-                builder.include(marker.getPosition());
+               // builder.include(marker.getPosition());
                 // Only this InfoWindow is shown because only one info window can be displayed at a time
                 marker.showInfoWindow();
             }
@@ -123,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .position(latLng)
                         .title(getResources().getString(R.string.maps_activity_marker_end))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                builder.include(marker.getPosition());
+               // builder.include(marker.getPosition());
             }
         }
         polylineOptions.addAll(latLngs).color(Color.MAGENTA);

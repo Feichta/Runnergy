@@ -40,7 +40,7 @@ public class FormatStrings extends TestCase {
 
     @Test
     public void testDistanceKm() throws Exception {
-        assertEquals("34.0 m", a.getFormattedDistance("km"));
+        assertEquals("34 m", a.getFormattedDistance("km"));
     }
 
     @Test

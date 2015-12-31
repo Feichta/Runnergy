@@ -95,13 +95,16 @@ public class Activity implements Serializable {
         switch (unit) {
             case "km":
                 if (distanceInMeter >= 1000) {
-                    ret = distanceInMeter / 1000 + " km";
+                    double result = Math.round(distanceInMeter / 1000 * 100.0) / 100.0;
+                    ret = getFormattedValue(result) +  " km";
                 } else {
-                    ret = Math.round(distanceInMeter * 100.0) / 100.0 + " m";
+                    double result = Math.round(distanceInMeter * 100.0) / 100.0;
+                    ret = getFormattedValue(result) +  " m";
                 }
                 break;
             case "mi":
-                ret = Math.round(distanceInMeter / 1000 * FACTOR_MILE * 100.0) / 100.0 + " mi";
+                double result = Math.round(distanceInMeter / 1000 * FACTOR_MILE * 100.0) / 100.0;
+                ret = getFormattedValue(result) + " mi";
                 break;
             default:
                 break;
@@ -115,12 +118,15 @@ public class Activity implements Serializable {
         for (Coordinate c : this.getCoordinates()) {
             distanceInMeter += c.getDistanceFromPrevious();
         }
+        double result;
         switch (unit) {
             case "km":
-                ret = Math.round(distanceInMeter / this.duration * 3.6 * 100.0) / 100.0 + " km/h";
+                result = Math.round(distanceInMeter / this.duration * 3.6 * 100.0) / 100.0;
+                ret = getFormattedValue(result) + " km/h";
                 break;
             case "mi":
-                ret = Math.round(distanceInMeter / this.duration * 3.6 * FACTOR_MILE * 100.0) / 100.0 + " mph";
+                result = Math.round(distanceInMeter / this.duration * 3.6 * FACTOR_MILE * 100.0) / 100.0;
+                ret = getFormattedValue(result) + " mph";
                 break;
             default:
                 break;
@@ -141,6 +147,24 @@ public class Activity implements Serializable {
         String ret;
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         ret = sdf.format(new java.util.Date(this.date));
+        return ret;
+    }
+
+    private boolean needToCast(double d) {
+        boolean ret = false;
+        if(d % 1 == 0) {
+           ret = true;
+        }
+        return ret;
+    }
+
+    private String getFormattedValue(double value) {
+        String ret = null;
+        if(needToCast(value)) {
+            ret = String.valueOf((int)value);
+        } else  {
+            ret = String.valueOf(value);
+        }
         return ret;
     }
 

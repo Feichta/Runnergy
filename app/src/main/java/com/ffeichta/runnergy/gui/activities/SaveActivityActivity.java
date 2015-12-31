@@ -1,25 +1,24 @@
 package com.ffeichta.runnergy.gui.activities;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
+import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
+import com.ffeichta.runnergy.model.enums.ActivityTypes;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 /**
  * Created by Fabian on 31.12.2015.
@@ -29,12 +28,13 @@ public class SaveActivityActivity extends android.app.Activity {
     // Activity
     Activity activity = null;
     // UI Widgets
-    private Spinner spinnerTrack = null;
+    protected Spinner spinnerTrack = null;
     private Spinner spinnerType = null;
     private Button newTrack = null;
     private TextView distance = null;
     private TextView duration = null;
     private TextView avg = null;
+    private Button saveActivity = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,8 @@ public class SaveActivityActivity extends android.app.Activity {
         duration = (TextView) findViewById(R.id.activity_save_activity_duration);
         avg = (TextView) findViewById(R.id.activity_save_activity_avg);
 
+        saveActivity = (Button) findViewById(R.id.activity_save_save);
+
         Intent intent = getIntent();
         activity = (Activity) intent.getSerializableExtra("activity");
 
@@ -59,7 +61,24 @@ public class SaveActivityActivity extends android.app.Activity {
         newTrack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInputDialog();
+                AddChangeTrack addChangeTrack = new AddChangeTrack(SaveActivityActivity.this);
+                addChangeTrack.showInputDialog();
+                Log.d("söadlkf", "####97");
+            }
+        });
+
+        saveActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.setType(ActivityTypes.Type.CYCLING);
+                activity.setTrack(DBAccessHelper.getInstance(SaveActivityActivity.this).getTracks().get(0));
+                Log.d("söadlk", "####" + activity.getTrack().toString());
+                Log.d("asdfad", "####" + activity.toString());
+                for (Coordinate c: activity.getCoordinates()) {
+                    Log.d("asdfad", "####" + c.toString());
+                }
+                int result = DBAccessHelper.getInstance(SaveActivityActivity.this).insertActivity(activity);
+                Log.d("asdfad", "####" + result);
             }
         });
 
@@ -84,7 +103,7 @@ public class SaveActivityActivity extends android.app.Activity {
         return sp.getString("unit", "km");
     }
 
-    private void setUpSpinners() {
+     void setUpSpinners() {
         ArrayList<Track> tracks = DBAccessHelper.getInstance(this).getTracks();
         if (tracks != null) {
             ArrayList<String> names = new ArrayList<>();
@@ -98,48 +117,5 @@ public class SaveActivityActivity extends android.app.Activity {
     }
 
 
-    protected void showInputDialog() {
-        LayoutInflater layoutInflater = getLayoutInflater();
-        final View promptView = layoutInflater.inflate(R.layout.dialog_fragment_track, null);
 
-        final AlertDialog d = new AlertDialog.Builder(this)
-                .setPositiveButton(R.string.dialog_fragment_ok, null)
-                .setNegativeButton(R.string.dialog_fragment_cancel, null)
-                .setTitle(R.string.dialog_fragment_title_add)
-                .setView(promptView)
-                .create();
-        d.show();
-        d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-            @Override
-
-            public void onClick(View v) {
-                EditText name = (EditText) promptView.findViewById(R.id.dialog_fragment_edit_text);
-                TextView errorTextView = (TextView) promptView.findViewById(R.id.dialog_fragment_error);
-
-                Track track = new Track();
-                String input = name.getText().toString();
-                if (input != null) {
-                    track.setName(name.getText().toString());
-                }
-                int result = DBAccessHelper.getInstance(null).insertTrack(track);
-                if (result == 0) {
-                    d.dismiss();
-                } else {
-                    Hashtable<String, Integer> error = track.getError();
-                    if (error != null) {
-                        if (error.get("name") == Track.NAME_IS_NOT_SET) {
-                            errorTextView.setVisibility(View.VISIBLE);
-                            errorTextView.setText(getResources().getString(R.string.dialog_fragment_not_set));
-                        }
-                        if (error.get("name") == Track.NAME_ALREADY_EXISTS) {
-                            errorTextView.setVisibility(View.VISIBLE);
-                            errorTextView.setText(getResources().getString(R.string.dialog_fragment_already_set));
-                        }
-                    }
-                }
-
-                //d.dismiss();
-            }
-        });
-    }
 }
