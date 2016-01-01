@@ -169,6 +169,6 @@ public class Activity implements Serializable {
     }
 
     public String toString() {
-        return this.id + ";" + this.type + ";" + getFormattedDate("dd.MM.yyyy") + ";" + this.duration;
+        return this.id + ";" + this.type + ";" + getFormattedDate("dd.MM.yyyy") + ";" + this.duration + ";" + this.track.getId();
     }
 }

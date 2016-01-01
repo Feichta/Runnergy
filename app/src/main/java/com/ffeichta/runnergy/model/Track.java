@@ -58,7 +58,7 @@ public class Track implements Serializable {
 
     public void setError(String key, Integer value) {
         if (key != null && key.length() > 0 && value != null) {
-            if(this.error == null) {
+            if (this.error == null) {
                 this.error = new Hashtable<String, Integer>();
             }
             this.error.put(key, value);

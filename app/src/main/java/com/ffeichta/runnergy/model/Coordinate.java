@@ -104,6 +104,6 @@ public class Coordinate implements Serializable {
     }
 
     public String toString() {
-        return this.id + ";" + this.longitude + ";" + this.latitude + ";" + this.start + ";" + this.end + ";" + this.timeFromStart + ";" + this.distanceFromPrevious;
+        return this.id + ";" + this.longitude + ";" + this.latitude + ";" + this.start + ";" + this.end + ";" + this.timeFromStart + ";" + this.distanceFromPrevious + ";" + this.activity.getId();
     }
 }
