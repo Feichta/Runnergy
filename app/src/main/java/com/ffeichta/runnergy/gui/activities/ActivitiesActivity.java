@@ -27,7 +27,7 @@ public class ActivitiesActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activities_activity);
-        listView = (ListView) findViewById(R.id.listViewActivity);
+        listView = (ListView) findViewById(R.id.listViewActivities);
 
         Intent intent = getIntent();
         track = (Track) intent.getSerializableExtra("track");

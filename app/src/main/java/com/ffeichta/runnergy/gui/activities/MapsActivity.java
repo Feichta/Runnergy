@@ -37,10 +37,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.maps_fragment);
 
-        startStopComparison = (Button) findViewById(R.id.activityMapsStartStop);
+        startStopComparison = (Button) findViewById(R.id.mapsStartStop);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.activityMapsGoogleMap);
+                .findFragmentById(R.id.mapsGoogleMap);
         mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();

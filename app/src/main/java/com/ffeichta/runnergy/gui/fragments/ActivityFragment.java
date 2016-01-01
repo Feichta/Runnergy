@@ -71,11 +71,11 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.activity_fragment, container, false);
 
         // Locate UI Widgets
-        startStopButton = (Button) v.findViewById(R.id.activityActivityStartStop);
+        startStopButton = (Button) v.findViewById(R.id.activityStartStop);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.activityActivityGoogleMap);
+                .findFragmentById(R.id.activityGoogleMap);
         mapFragment.getMapAsync(this);
 
         startStopButton.setOnClickListener(new View.OnClickListener() {
