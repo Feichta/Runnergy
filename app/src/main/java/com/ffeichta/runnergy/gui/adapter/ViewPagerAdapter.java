@@ -11,7 +11,6 @@ import com.ffeichta.runnergy.gui.fragments.TracksFragment;
  * Created by Fabian on 28.12.2015.
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
-
     private static final int NUMBER_TABS = 2;
     private CharSequence titles[];
 
@@ -24,15 +23,17 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
+            // First Tab (Activity)
             ActivityFragment activityFragment = new ActivityFragment();
             return activityFragment;
         } else {
+            // Second Tab (Tracks)
             TracksFragment tracksFragment = new TracksFragment();
             return tracksFragment;
         }
     }
 
-    // Return the titles for the tabs
+    // Return the title for the tab at a specific position
     @Override
     public CharSequence getPageTitle(int position) {
         return titles[position];

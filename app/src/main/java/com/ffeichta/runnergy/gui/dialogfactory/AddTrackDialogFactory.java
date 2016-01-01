@@ -17,7 +17,6 @@ import java.util.Hashtable;
  * Created by Fabian on 31.12.2015.
  */
 public class AddTrackDialogFactory {
-
     private SaveActivityActivity saveActivityActivity = null;
 
     public AddTrackDialogFactory(SaveActivityActivity saveActivityActivity) {
@@ -28,14 +27,19 @@ public class AddTrackDialogFactory {
         LayoutInflater layoutInflater = saveActivityActivity.getLayoutInflater();
         final View promptView = layoutInflater.inflate(R.layout.add_change_track_dialog, null);
 
+        // Set visibility of the dialog to final because it's used in an anonymous method
         final AlertDialog d = new AlertDialog.Builder(saveActivityActivity)
                 .setPositiveButton(R.string.ok, null)
                 .setNegativeButton(R.string.cancel, null)
                 .setTitle(R.string.dialog_add_track_title)
                 .setView(promptView)
                 .create();
+
+        // Important: Show the dialog here an not somewhere else
         d.show();
 
+        // Set an OnClickListener to the positive button of the dialog.
+        // This is needed because the dialog can not be closed until the user input is valid
         d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
 
@@ -52,11 +56,15 @@ public class AddTrackDialogFactory {
                 }
                 int result = DBAccessHelper.getInstance(null).insertTrack(track);
                 if (result == 0) {
+                    // Inserting track was successful now the Spinner has to update
                     saveActivityActivity.setUpSpinners();
+                    // Set the actual value in the spinner to the inserted Track
                     saveActivityActivity.spinnerTrack.setSelection(saveActivityActivity.spinnerTrack.getAdapter().getCount()-1);
+                    // Finally close the dialog
                     d.dismiss();
 
                 } else {
+                    // An error occured and the error is set into the TextView
                     Hashtable<String, Integer> errors = track.getError();
                     if (error != null) {
                         if (errors.get("name") == Track.NAME_IS_NOT_SET) {

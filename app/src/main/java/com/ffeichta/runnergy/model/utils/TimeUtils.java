@@ -10,38 +10,45 @@ public class TimeUtils {
     public final static long ONE_DAY = ONE_HOUR * 24;
 
     /**
-     * converts time (in milliseconds) to human-readable format
-     * "<w> days, <x> hours, <y> minutes and (z) seconds"
+     * Converts a duration in seconds to a human-readable format
+     * For example: convertDurationToString(661) --> "11min, 1sec"
      */
     public static String convertDurationToString(int durationInSeconds) {
-        StringBuffer res = new StringBuffer();
+        StringBuffer ret = new StringBuffer();
         long duration = durationInSeconds * 1000;
-        long temp = 0;
+        long temp;
         if (duration >= ONE_SECOND) {
             temp = duration / ONE_DAY;
             if (temp > 0) {
                 duration -= temp * ONE_DAY;
-                res.append(temp).append("d")
-                        .append(duration >= ONE_MINUTE ? ", " : "");
+                ret.append(temp).append("d");
+                if (duration >= ONE_MINUTE) {
+                    ret.append(", ");
+                }
             }
             temp = duration / ONE_HOUR;
             if (temp > 0) {
                 duration -= temp * ONE_HOUR;
-                res.append(temp).append("h")
-                        .append(duration >= ONE_MINUTE ? ", " : "");
+                ret.append(temp).append("h");
+                if (duration >= ONE_MINUTE) {
+                    ret.append(", ");
+                }
             }
             temp = duration / ONE_MINUTE;
             if (temp > 0) {
                 duration -= temp * ONE_MINUTE;
-                res.append(temp).append("min").append(duration >= ONE_SECOND ? ", " : "");
+                ret.append(temp).append("min");
+                if (duration >= ONE_SECOND) {
+                    ret.append(", ");
+                }
             }
             temp = duration / ONE_SECOND;
             if (temp > 0) {
-                res.append(temp).append("sec");
+                ret.append(temp).append("sec");
             }
-            return res.toString();
         } else {
-            return "0sec";
+            ret.append("0sec");
         }
+        return ret.toString();
     }
 }

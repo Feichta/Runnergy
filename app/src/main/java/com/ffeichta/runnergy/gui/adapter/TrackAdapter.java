@@ -42,17 +42,18 @@ public class TrackAdapter extends ArrayAdapter<Track> {
             trackHolder.count.setText("0" + getContext().getString(R.string.track_adapter_plural));
         } else {
             int count = activities.size();
+            // Because it is one Activity set for this Track we don't need the 's' at the end of
+            // the word 'activites'
             if (count == 1) {
                 trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.track_adapter_singular));
             } else {
                 trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.track_adapter_plural));
             }
         }
-
         return ret;
     }
 
-    // GUI components
+    // UI Widgets
     private class TrackHolder {
         TextView name = null;
         TextView count = null;

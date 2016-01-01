@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,8 +12,8 @@ import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.dialogfactory.AddTrackDialogFactory;
+import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.model.Activity;
-import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
 import com.ffeichta.runnergy.model.enums.ActivityTypes;
@@ -25,11 +24,13 @@ import java.util.ArrayList;
  * Created by Fabian on 31.12.2015.
  */
 public class SaveActivityActivity extends android.app.Activity {
-
     // UI Widgets
     public Spinner spinnerTrack = null;
+
     // Activity
     Activity activity = null;
+    // All actual Tracks
+    ArrayList<Track> tracks = null;
     private Spinner spinnerType = null;
     private Button add = null;
     private TextView distance = null;
@@ -44,17 +45,14 @@ public class SaveActivityActivity extends android.app.Activity {
 
         spinnerTrack = (Spinner) findViewById(R.id.spinner_track);
         spinnerType = (Spinner) findViewById(R.id.spinner_type);
-
         add = (Button) findViewById(R.id.add);
-
         distance = (TextView) findViewById(R.id.distance);
         duration = (TextView) findViewById(R.id.duration);
         avg = (TextView) findViewById(R.id.avg);
-
         save = (Button) findViewById(R.id.save);
 
-        Intent intent = getIntent();
-        activity = (Activity) intent.getSerializableExtra("activity");
+        // Get the Activity created in ActivityFragment
+        activity = (Activity) (getIntent().getSerializableExtra("activity"));
 
         setUpSpinners();
         setUpTextViews();
@@ -64,22 +62,20 @@ public class SaveActivityActivity extends android.app.Activity {
             public void onClick(View v) {
                 AddTrackDialogFactory addTrackDialogFactory = new AddTrackDialogFactory(SaveActivityActivity.this);
                 addTrackDialogFactory.makeCustomInputDialog();
-                Log.d("söadlkf", "####97");
             }
         });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activity.setType(ActivityTypes.Type.CYCLING);
-                activity.setTrack(DBAccessHelper.getInstance(SaveActivityActivity.this).getTracks().get(0));
-                Log.d("söadlk", "####" + activity.getTrack().toString());
-                Log.d("asdfad", "####" + activity.toString());
-                for (Coordinate c: activity.getCoordinates()) {
-                    Log.d("asdfad", "####" + c.toString());
-                }
+                prepareActivity();
                 int result = DBAccessHelper.getInstance(SaveActivityActivity.this).insertActivity(activity);
-                Log.d("asdfad", "####" + result);
+                if (result == 0) {
+                    Intent intent = new Intent(SaveActivityActivity.this, MainActivity.class);
+                    startActivity(intent);
+                } else {
+                    ToastFactory.makeToast(SaveActivityActivity.this, getResources().getString(R.string.toast_error_save_track));
+                }
             }
         });
 
@@ -105,18 +101,20 @@ public class SaveActivityActivity extends android.app.Activity {
     }
 
     public void setUpSpinners() {
-        ArrayList<Track> tracks = DBAccessHelper.getInstance(this).getTracks();
+        tracks = DBAccessHelper.getInstance(this).getTracks();
         if (tracks != null) {
             ArrayList<String> names = new ArrayList<>();
             for (Track t : tracks) {
                 names.add(t.getName());
             }
             ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerTrack.setAdapter(adapter);
         }
     }
 
-
-
+    public void prepareActivity() {
+        activity.setType(ActivityTypes.Type.CYCLING);
+        activity.setTrack(tracks.get(spinnerTrack.getSelectedItemPosition()));
+    }
 }

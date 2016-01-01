@@ -11,6 +11,8 @@
     <!-- ActivityFragment.java -->
     <string name="activity_fragment_start">Start activity</string>
     <string name="activity_fragment_stop">Stop activity</string>
+    <string name="activity_fragment_pause">Pause activity</string>
+    <string name="activity_fragment_resume">Resume activity</string>
 
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020activity</string>
@@ -65,4 +67,10 @@
     <!-- main_menu.xml + AndroidManifest.xml -->
     <string name="about">About</string>
     <string name="settings">Settings</string>
+
+    <!-- Toasts -->
+    <string name="toast_wait">Wait a moment...</string>
+    <string name="toast_connection_lost">Connection to Play Services was lost with error\u0020</string>
+    <string name="toast_connection_failed">Connection to Play Services faild</string>
+    <string name="toast_error_save_track">An error has occured when inserting the activity</string>
 </resources>

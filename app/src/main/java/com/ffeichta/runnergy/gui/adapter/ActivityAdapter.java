@@ -41,6 +41,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         }
         Activity a = getItem(position);
 
+        // The outputs in the TextViews are based on the Settings
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         String unit = sp.getString("unit", "km");
@@ -58,7 +59,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         return ret;
     }
 
-    // GUI components
+    // UI Widgets
     private class ActivityHolder {
         TextView distance = null;
         TextView avg = null;

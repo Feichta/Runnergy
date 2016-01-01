@@ -61,7 +61,7 @@ public class FormatStrings extends TestCase {
         coordinates.add(c4);
 
         a.setCoordinates(coordinates);
-        assertEquals("9.025 km", a.getFormattedDistance("km"));
+        assertEquals("9.03 km", a.getFormattedDistance("km"));
     }
 
     @Test

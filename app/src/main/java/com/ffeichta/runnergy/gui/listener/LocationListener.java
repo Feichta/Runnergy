@@ -3,7 +3,6 @@ package com.ffeichta.runnergy.gui.listener;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
-import android.util.Log;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
@@ -21,32 +20,33 @@ import java.util.ArrayList;
  * Created by Fabian on 31.12.2015.
  */
 public class LocationListener implements com.google.android.gms.location.LocationListener {
-    // Coordinates of Activity
-    ArrayList<Coordinate> coordinates = null;
     // Current location
     LatLng actualLatLng = null;
     // Previous location
     LatLng previousLatLng = null;
+    // Coordinates of Activity
+    ArrayList<Coordinate> coordinates = null;
+    // UI Widgets
+    private GoogleMap map = null;
     // Used for getRessources()
     private Context context = null;
-    // UI Widgets
-    private GoogleMap mMap = null;
     // Current Activity
     private Activity activity = null;
 
-    public LocationListener(GoogleMap mMap, Context context) {
-        this.mMap = mMap;
+    public LocationListener(GoogleMap map, Context context) {
+        this.map = map;
         this.context = context;
-
+        // Initialize objects
         coordinates = new ArrayList<>();
-
         activity = new Activity();
+        // Set current date(when activity starts) as the date for the activity
         activity.setDate(System.currentTimeMillis());
+        // Set the coordinates for the activity
         activity.setCoordinates(coordinates);
     }
 
     /**
-     * Callback that fires when the location changes.
+     * Callback that fires when the location changes forced by
      */
     @Override
     public void onLocationChanged(Location location) {
@@ -54,7 +54,6 @@ public class LocationListener implements com.google.android.gms.location.Locatio
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         updateMap();
         addCoordinate();
-
     }
 
     private void addCoordinate() {
@@ -84,13 +83,11 @@ public class LocationListener implements com.google.android.gms.location.Locatio
         } else {
             addPolyline();
         }
-        Log.d("alkdsjf", "######" + actualLatLng.toString());
-
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, 18));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, 18));
     }
 
     private void addStartMarker() {
-        mMap.addMarker(new MarkerOptions()
+        map.addMarker(new MarkerOptions()
                 .position(actualLatLng)
                 .title(context.getResources().getString(R.string.marker_start))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
@@ -103,7 +100,7 @@ public class LocationListener implements com.google.android.gms.location.Locatio
                 .add(previousLatLng);
         // Get back the mutable Polyline
         polylineOptions.color(Color.MAGENTA);
-        mMap.addPolyline(polylineOptions);
+        map.addPolyline(polylineOptions);
     }
 
     public Activity getActivity() {

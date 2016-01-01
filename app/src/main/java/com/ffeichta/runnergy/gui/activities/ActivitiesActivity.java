@@ -18,10 +18,11 @@ import java.util.ArrayList;
  * Created by Fabian on 29.12.2015.
  */
 public class ActivitiesActivity extends Activity {
+    // UI Widgets
+    private ListView listView = null;
 
     private Track track = null;
     private ArrayList<com.ffeichta.runnergy.model.Activity> activities = null;
-    private ListView listView = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,8 @@ public class ActivitiesActivity extends Activity {
         if (activities == null) {
             activities = new ArrayList<>();
         }
+
+        // Set the Coodinates for each Activity because the ActivityAdapter needs them
         for (com.ffeichta.runnergy.model.Activity activity : activities) {
             activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates(activity));
         }
@@ -46,7 +49,7 @@ public class ActivitiesActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ActivitiesActivity.this, MapsActivity.class);
-                intent.putExtra("coordinates",activities.get(position).getCoordinates() );
+                intent.putExtra("coordinates", activities.get(position).getCoordinates());
                 startActivity(intent);
             }
         });

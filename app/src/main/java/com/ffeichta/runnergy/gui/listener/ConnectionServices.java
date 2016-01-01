@@ -1,18 +1,16 @@
 package com.ffeichta.runnergy.gui.listener;
 
 import android.os.Bundle;
-import android.util.Log;
 
+import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.fragments.ActivityFragment;
+import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 /**
  * Created by Fabian on 31.12.2015.
  */
 public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
-
-    protected static final String TAG = ConnectionServices.class.getSimpleName();
-
     ActivityFragment activityFragment = null;
 
     public ConnectionServices(ActivityFragment activityFragment) {
@@ -24,14 +22,10 @@ public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
      */
     @Override
     public void onConnected(Bundle connectionHint) {
-        Log.i(TAG, "Connected to GoogleApiClient");
-        // If the user presses the Start Updates button before GoogleApiClient connects, we set
-        // startButtonEnabled to true (see startUpdatesButtonHandler()). Here, we check
-        // the value of startButtonEnabled and if it is true, we start location updates.
+        // If user pressed the Start button before GoogleApiClient connects, we start getting
+        // location updates
         if (activityFragment.startButtonEnabled) {
             activityFragment.startLocationUpdates();
-        } else {
-            Log.i(TAG, "Just wait a moment...");
         }
     }
 
@@ -43,9 +37,7 @@ public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
     @Override
     public void onConnectionSuspended(int cause) {
         // Call connect() to attempt to re-establish the connection
-        Log.i(TAG, "Connection suspended");
-        activityFragment.mGoogleApiClient.connect();
+        ToastFactory.makeToast(activityFragment.getContext(), activityFragment.getResources().getString(R.string.toast_connection_lost) + cause);
+        activityFragment.googleApiClient.connect();
     }
-
-
 }

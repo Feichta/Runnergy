@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
-            android:text="@string/activity_fragment_start" />
+            android:text="@string/activity_fragment_pause"
+            android:visibility="gone" />
     </LinearLayout>
 
 
