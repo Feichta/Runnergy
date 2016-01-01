@@ -28,7 +28,7 @@ public class TracksFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_tracks, container, false);
+        View v = inflater.inflate(R.layout.tracks_fragment, container, false);
         listView = (ListView) v.findViewById(R.id.listViewTracks);
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {

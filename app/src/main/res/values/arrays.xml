@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- MainActivity.java -->
+    <string-array name="tabs_titles">
+        <item>Activity</item>
+        <item>Tracks</item>
+    </string-array>
+
+    <!-- preferences.xml -->
     <string-array name="category_general_unit_entries">
         <item>km</item>
         <item>mi</item>

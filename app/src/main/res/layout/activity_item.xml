@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#c0c0c0"
     android:weightSum="1">
 
     <ImageView
-        android:id="@+id/item_activity_image"
+        android:id="@+id/image_item"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:src="@drawable/cycling" />
@@ -26,35 +25,31 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_activity_distance_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="@string/item_activity_distance_title"
+                android:text="@string/distance_title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/item_activity_distance"
+                android:id="@+id/distance_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/item_activity_avg_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="@string/item_activity_avg_title"
+                android:text="@string/avg_title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/item_activity_avg"
+                android:id="@+id/avg_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
 
@@ -67,35 +62,31 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_activity_duration_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="@string/item_activity_duration_title"
+                android:text="@string/duration_title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/item_activity_duration"
+                android:id="@+id/duration_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
             <TextView
-                android:id="@+id/item_activity_date_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="@string/item_activity_date_title"
+                android:text="@string/date_title"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
-                android:id="@+id/item_activity_date"
+                android:id="@+id/date_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
         </LinearLayout>
     </LinearLayout>

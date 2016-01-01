@@ -62,13 +62,13 @@
 
         <activity
             android:name=".gui.activities.SettingsActivity"
-            android:label="@string/settings_activity_title"
+            android:label="@string/settings_title"
             android:parentActivityName=".gui.activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
         <activity
             android:name=".gui.activities.AboutActivity"
-            android:label="@string/about_title"
+            android:label="@string/about"
             android:parentActivityName=".gui.activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 

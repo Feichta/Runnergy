@@ -20,10 +20,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ffeichta.runnergy.R;
-import com.ffeichta.runnergy.gui.activities.ConnectionFailed;
-import com.ffeichta.runnergy.gui.activities.ConnectionServices;
-import com.ffeichta.runnergy.gui.activities.LocationListener;
 import com.ffeichta.runnergy.gui.activities.SaveActivityActivity;
+import com.ffeichta.runnergy.gui.listener.ConnectionFailed;
+import com.ffeichta.runnergy.gui.listener.ConnectionServices;
+import com.ffeichta.runnergy.gui.listener.LocationListener;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -55,7 +55,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     // Request to the FusedLocationProviderApi
     protected LocationRequest mLocationRequest;
     // Listener which is called when the location changes
-    protected com.ffeichta.runnergy.gui.activities.LocationListener locationListener = null;
+    protected LocationListener locationListener = null;
     // Listener which handles the states of the connection to the Play Services
     protected GoogleApiClient.ConnectionCallbacks connectionServices = null;
     // Listener which is called when the connection to the Play Services failed
@@ -68,7 +68,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_activity, container, false);
+        View v = inflater.inflate(R.layout.activity_fragment, container, false);
 
         // Locate UI Widgets
         startStopButton = (Button) v.findViewById(R.id.activityActivityStartStop);
@@ -136,7 +136,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
 
         // locationListener gets a reference to the map
-        locationListener = new com.ffeichta.runnergy.gui.activities.LocationListener(mMap, getContext());
+        locationListener = new LocationListener(mMap, getContext());
 
         // Set the map type
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());

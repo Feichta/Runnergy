@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.dialogfactory.AddTrackDialogFactory;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
@@ -25,32 +26,32 @@ import java.util.ArrayList;
  */
 public class SaveActivityActivity extends android.app.Activity {
 
+    // UI Widgets
+    public Spinner spinnerTrack = null;
     // Activity
     Activity activity = null;
-    // UI Widgets
-    protected Spinner spinnerTrack = null;
     private Spinner spinnerType = null;
-    private Button newTrack = null;
+    private Button add = null;
     private TextView distance = null;
     private TextView duration = null;
     private TextView avg = null;
-    private Button saveActivity = null;
+    private Button save = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_save_activity);
+        setContentView(R.layout.save_activity_activity);
 
-        spinnerTrack = (Spinner) findViewById(R.id.activity_save_activity_track_spinner);
-        spinnerType = (Spinner) findViewById(R.id.activity_save_activity_type_spinner);
+        spinnerTrack = (Spinner) findViewById(R.id.spinner_track);
+        spinnerType = (Spinner) findViewById(R.id.spinner_type);
 
-        newTrack = (Button) findViewById(R.id.activity_save_activity_track_new);
+        add = (Button) findViewById(R.id.add);
 
-        distance = (TextView) findViewById(R.id.activity_save_activity_distance);
-        duration = (TextView) findViewById(R.id.activity_save_activity_duration);
-        avg = (TextView) findViewById(R.id.activity_save_activity_avg);
+        distance = (TextView) findViewById(R.id.distance);
+        duration = (TextView) findViewById(R.id.duration);
+        avg = (TextView) findViewById(R.id.avg);
 
-        saveActivity = (Button) findViewById(R.id.activity_save_save);
+        save = (Button) findViewById(R.id.save);
 
         Intent intent = getIntent();
         activity = (Activity) intent.getSerializableExtra("activity");
@@ -58,16 +59,16 @@ public class SaveActivityActivity extends android.app.Activity {
         setUpSpinners();
         setUpTextViews();
 
-        newTrack.setOnClickListener(new View.OnClickListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddChangeTrack addChangeTrack = new AddChangeTrack(SaveActivityActivity.this);
-                addChangeTrack.showInputDialog();
+                AddTrackDialogFactory addTrackDialogFactory = new AddTrackDialogFactory(SaveActivityActivity.this);
+                addTrackDialogFactory.makeCustomInputDialog();
                 Log.d("söadlkf", "####97");
             }
         });
 
-        saveActivity.setOnClickListener(new View.OnClickListener() {
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.setType(ActivityTypes.Type.CYCLING);
@@ -103,7 +104,7 @@ public class SaveActivityActivity extends android.app.Activity {
         return sp.getString("unit", "km");
     }
 
-     void setUpSpinners() {
+    public void setUpSpinners() {
         ArrayList<Track> tracks = DBAccessHelper.getInstance(this).getTracks();
         if (tracks != null) {
             ArrayList<String> names = new ArrayList<>();

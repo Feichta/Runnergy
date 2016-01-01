@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         // Set color of the tabs
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Titles of the tabs
-        titles = this.getResources().getStringArray(R.array.main_activity_tabs);
+        titles = this.getResources().getStringArray(R.array.tabs_titles);
 
         // Use a Toolbar instead of ActionBar (only in this activity)
         toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     // Build the menu in the ActionBar
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class TrackAdapter extends ArrayAdapter<Track> {
     public TrackAdapter(Activity context, ArrayList<Track> tracks) {
-        super(context, R.layout.item_track, tracks);
+        super(context, R.layout.track_item, tracks);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
         if (ret == null) {
             LayoutInflater layoutInflater = ((Activity) getContext())
                     .getLayoutInflater();
-            ret = layoutInflater.inflate(R.layout.item_track, parent, false);
+            ret = layoutInflater.inflate(R.layout.track_item, parent, false);
             trackHolder = new TrackHolder();
             trackHolder.name = (TextView) ret.findViewById(R.id.item_track_name);
             trackHolder.count = (TextView) ret.findViewById(R.id.item_track_count);
@@ -39,13 +39,13 @@ public class TrackAdapter extends ArrayAdapter<Track> {
         trackHolder.name.setText(t.getName());
         ArrayList<com.ffeichta.runnergy.model.Activity> activities = t.getActivities();
         if (activities == null) {
-            trackHolder.count.setText("0" + getContext().getString(R.string.adapter_track_plural));
+            trackHolder.count.setText("0" + getContext().getString(R.string.track_adapter_plural));
         } else {
             int count = activities.size();
             if (count == 1) {
-                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_singular));
+                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.track_adapter_singular));
             } else {
-                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.adapter_track_plural));
+                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.track_adapter_plural));
             }
         }
 

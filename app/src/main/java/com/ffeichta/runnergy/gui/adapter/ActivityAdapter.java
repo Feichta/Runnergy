@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class ActivityAdapter extends ArrayAdapter<Activity> {
 
     public ActivityAdapter(android.app.Activity context, ArrayList<Activity> activities) {
-        super(context, R.layout.item_activity, activities);
+        super(context, R.layout.activity_item, activities);
     }
 
     @Override
@@ -29,12 +29,12 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         if (ret == null) {
             LayoutInflater inflater = ((android.app.Activity) getContext())
                     .getLayoutInflater();
-            ret = inflater.inflate(R.layout.item_activity, parent, false);
+            ret = inflater.inflate(R.layout.activity_item, parent, false);
             activityHolder = new ActivityHolder();
-            activityHolder.distance = (TextView) ret.findViewById(R.id.item_activity_distance);
-            activityHolder.avg = (TextView) ret.findViewById(R.id.item_activity_avg);
-            activityHolder.duration = (TextView) ret.findViewById(R.id.item_activity_duration);
-            activityHolder.date = (TextView) ret.findViewById(R.id.item_activity_date);
+            activityHolder.distance = (TextView) ret.findViewById(R.id.distance_item);
+            activityHolder.avg = (TextView) ret.findViewById(R.id.avg_item);
+            activityHolder.duration = (TextView) ret.findViewById(R.id.duration_item);
+            activityHolder.date = (TextView) ret.findViewById(R.id.date_item);
             ret.setTag(activityHolder);
         } else {
             activityHolder = (ActivityHolder) ret.getTag();

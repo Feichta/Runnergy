@@ -10,7 +10,6 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/activity_save_activity_track_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/activity_save_activity_track_title"
@@ -22,80 +21,73 @@
             android:orientation="horizontal">
 
             <Spinner
-                android:id="@+id/activity_save_activity_track_spinner"
+                android:id="@+id/spinner_track"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_weight="0.5" />
 
             <Button
-                android:id="@+id/activity_save_activity_track_new"
+                android:id="@+id/add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left|center_vertical"
-                android:text="@string/activity_save_activity_new" />
+                android:text="@string/add" />
         </LinearLayout>
 
         <TextView
-            android:id="@+id/activity_save_activity_type_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_save_activity_type_title"
+            android:text="@string/type_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Spinner
-            android:id="@+id/activity_save_activity_type_spinner"
+            android:id="@+id/spinner_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/activity_save_activity_distance_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_save_activity_distance_title"
+            android:text="@string/distance_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/activity_save_activity_distance"
+            android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/activity_save_activity_duration_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_save_activity_duration_title"
+            android:text="@string/duration_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/activity_save_activity_duration"
+            android:id="@+id/duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:id="@+id/activity_save_activity_avg_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_save_activity_avg_title"
+            android:text="@string/avg_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/activity_save_activity_avg"
+            android:id="@+id/avg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <Button
-            android:id="@+id/activity_save_save"
+            android:id="@+id/save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/activity_save_activity_save_activity" />
+            android:text="@string/save_activity" />
 
     </LinearLayout>
 </LinearLayout>

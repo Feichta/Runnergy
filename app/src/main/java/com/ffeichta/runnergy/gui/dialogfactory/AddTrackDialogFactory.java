@@ -1,13 +1,13 @@
-package com.ffeichta.runnergy.gui.activities;
+package com.ffeichta.runnergy.gui.dialogfactory;
 
 import android.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.activities.SaveActivityActivity;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
 
@@ -16,33 +16,34 @@ import java.util.Hashtable;
 /**
  * Created by Fabian on 31.12.2015.
  */
-public class AddChangeTrack {
+public class AddTrackDialogFactory {
 
     private SaveActivityActivity saveActivityActivity = null;
 
-    public AddChangeTrack(SaveActivityActivity saveActivityActivity) {
+    public AddTrackDialogFactory(SaveActivityActivity saveActivityActivity) {
         this.saveActivityActivity = saveActivityActivity;
-
     }
 
-    public void showInputDialog() {
+    public void makeCustomInputDialog() {
         LayoutInflater layoutInflater = saveActivityActivity.getLayoutInflater();
-        final View promptView = layoutInflater.inflate(R.layout.dialog_fragment_track, null);
+        final View promptView = layoutInflater.inflate(R.layout.add_change_track_dialog, null);
 
         final AlertDialog d = new AlertDialog.Builder(saveActivityActivity)
-                .setPositiveButton(R.string.dialog_fragment_ok, null)
-                .setNegativeButton(R.string.dialog_fragment_cancel, null)
-                .setTitle(R.string.dialog_fragment_title_add)
+                .setPositiveButton(R.string.ok, null)
+                .setNegativeButton(R.string.cancel, null)
+                .setTitle(R.string.dialog_add_track_title)
                 .setView(promptView)
                 .create();
         d.show();
-        Log.d("adfdadf", "####1");
+
         d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
 
             public void onClick(View v) {
-                EditText name = (EditText) promptView.findViewById(R.id.dialog_fragment_edit_text);
-                TextView errorTextView = (TextView) promptView.findViewById(R.id.dialog_fragment_error);
+
+                // UI Widgets
+                EditText name = (EditText) promptView.findViewById(R.id.dialog_name);
+                TextView error = (TextView) promptView.findViewById(R.id.dialog_error);
 
                 Track track = new Track();
                 String input = name.getText().toString();
@@ -56,20 +57,19 @@ public class AddChangeTrack {
                     d.dismiss();
 
                 } else {
-                    Hashtable<String, Integer> error = track.getError();
+                    Hashtable<String, Integer> errors = track.getError();
                     if (error != null) {
-                        if (error.get("name") == Track.NAME_IS_NOT_SET) {
-                            errorTextView.setVisibility(View.VISIBLE);
-                            errorTextView.setText(saveActivityActivity.getResources().getString(R.string.dialog_fragment_not_set));
+                        if (errors.get("name") == Track.NAME_IS_NOT_SET) {
+                            error.setVisibility(View.VISIBLE);
+                            error.setText(saveActivityActivity.getResources().getString(R.string.dialog_error_no_name));
                         }
-                        if (error.get("name") == Track.NAME_ALREADY_EXISTS) {
-                            errorTextView.setVisibility(View.VISIBLE);
-                            errorTextView.setText(saveActivityActivity.getResources().getString(R.string.dialog_fragment_already_set));
+                        if (errors.get("name") == Track.NAME_ALREADY_EXISTS) {
+                            error.setVisibility(View.VISIBLE);
+                            error.setText(saveActivityActivity.getResources().getString(R.string.dialog_error_already_exists));
                         }
                     }
                 }
             }
         });
     }
-
 }
