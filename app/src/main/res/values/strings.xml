@@ -19,8 +19,8 @@
     <!-- MapsActivity.java -->
     <string name="maps_activity_start">Start comparison</string>
     <string name="maps_activity_stop">Stop comparison</string>
-    <string name="maps_activity_marker_start">Start</string>
-    <string name="maps_activity_marker_end">End</string>
+    <string name="marker_start">Start</string>
+    <string name="marker_end">End</string>
 
     <!-- SaveActivityActivity -->
     <string name="save_activity">Save activity</string>
@@ -32,9 +32,6 @@
 
     <!-- ChangeTrackDialogFactory.java -->
     <string name="dialog_change_track_title">Change track</string>
-
-    <!-- AboutActivity.java -->
-    <string name="about">About</string>
 
     <!-- activity_item.xml -->
     <string name="track_title">Track</string>
@@ -50,7 +47,6 @@
     <string name="dialog_subtitle">Please enter the name of the track</string>
 
     <!-- preferences.xml -->
-    <string name="settings_title">Settings</string>
     // General
     <string name="category_general_title">General</string>
     <string name="category_general_unit_title">Unit of length</string>
@@ -66,7 +62,7 @@
     <string name="category_map_type_title">Type of map</string>
     <string name="category_map_type_default_value">1</string>
 
-    <!-- main_menu.xml -->
-    <string name="main_menu_settings">Settings</string>
-    <string name="main_menu_about">About</string>
+    <!-- main_menu.xml + AndroidManifest.xml -->
+    <string name="about">About</string>
+    <string name="settings">Settings</string>
 </resources>

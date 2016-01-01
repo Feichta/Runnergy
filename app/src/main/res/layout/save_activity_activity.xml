@@ -7,12 +7,15 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/activity_save_activity_track_title"
+            android:text="@string/track_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
@@ -24,15 +27,19 @@
                 android:id="@+id/spinner_track"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_weight="0.5" />
+                android:layout_gravity="center_vertical" />
 
             <Button
                 android:id="@+id/add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="left|center_vertical"
-                android:text="@string/add" />
+                android:background="@drawable/round_button"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/add"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="30dp" />
         </LinearLayout>
 
         <TextView
@@ -43,8 +50,9 @@
 
         <Spinner
             android:id="@+id/spinner_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,6 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/save_activity" />
+
 
     </LinearLayout>
 </LinearLayout>

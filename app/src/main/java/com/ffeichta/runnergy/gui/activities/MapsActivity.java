@@ -113,7 +113,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (c.isStart()) {
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
-                        .title(getResources().getString(R.string.maps_activity_marker_start))
+                        .title(getResources().getString(R.string.marker_start))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
                // builder.include(marker.getPosition());
                 // Only this InfoWindow is shown because only one info window can be displayed at a time
@@ -122,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (c.isEnd()) {
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
-                        .title(getResources().getString(R.string.maps_activity_marker_end))
+                        .title(getResources().getString(R.string.marker_end))
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                // builder.include(marker.getPosition());
             }

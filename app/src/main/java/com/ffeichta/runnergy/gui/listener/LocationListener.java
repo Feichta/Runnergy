@@ -92,7 +92,7 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     private void addStartMarker() {
         mMap.addMarker(new MarkerOptions()
                 .position(actualLatLng)
-                .title(context.getResources().getString(R.string.maps_activity_marker_start))
+                .title(context.getResources().getString(R.string.marker_start))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
     }
 
