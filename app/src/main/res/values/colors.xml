@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#e62117</color>
-    <color name="colorPrimaryDark">#C31C13</color>
-
-    <color name="colorText">#1F1F1F</color>
-    <color name="colorTextPrimary">#FFFFFF</color>
-
+    <!-- Background of the StatusBar -->
+    <color name="colorPrimaryDark">#1976D2</color>
+    <!-- Background of the ActionBar -->
+    <color name="colorPrimary">#2196F3</color>
+    <!-- Text -->
+    <color name="textColor">#1F1F1F</color>
+    <!-- Text in  ActionBar -->
+    <color name="textColorPrimary">#FFFFFF</color>
+    <!-- Line under the Tabs-->
     <color name="colorTabUnderline">#FFFFFF</color>
-    <color name="colorNavigationBar">#000000</color>
-
-    <color name="mapsStart">#01DF01</color>
-    <color name="mapsEnd">#0040FF</color>
-    <color name="mapsPolyline">#01DFA5</color>
+    <!-- Background of the NavigationBar -->
+    <color name="navigationBarColor">#000000</color>
+    <!-- Text when Tab is selected -->
+    <color name="state_selected">#FFFFFF</color>
+    <!-- Text when Tab is pressed -->
+    <color name="state_pressed">#FFFFFF</color>
+    <!-- Text when Tab is not selected -->
+    <color name="color">#E6E6E6</color>
 </resources>
