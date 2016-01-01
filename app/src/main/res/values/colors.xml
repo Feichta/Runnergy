@@ -4,18 +4,20 @@
     <color name="colorPrimaryDark">#1976D2</color>
     <!-- Background of the ActionBar -->
     <color name="colorPrimary">#2196F3</color>
-    <!-- Text -->
-    <color name="textColor">#1F1F1F</color>
-    <!-- Text in  ActionBar -->
+    <!-- Text in ActionBar -->
     <color name="textColorPrimary">#FFFFFF</color>
-    <!-- Line under the Tabs-->
-    <color name="colorTabUnderline">#FFFFFF</color>
-    <!-- Background of the NavigationBar -->
-    <color name="navigationBarColor">#000000</color>
     <!-- Text when Tab is selected -->
     <color name="state_selected">#FFFFFF</color>
     <!-- Text when Tab is pressed -->
     <color name="state_pressed">#FFFFFF</color>
+    <!-- Text when Tab is focused (Example: Trackball focuses something) -->
+    <color name="state_focused">#FFFFFF</color>
     <!-- Text when Tab is not selected -->
     <color name="color">#E6E6E6</color>
+    <!-- Line under the Tabs-->
+    <color name="colorTabUnderline">#FFFFFF</color>
+    <!-- Text -->
+    <color name="textColor">#1F1F1F</color>
+    <!-- Background of the NavigationBar -->
+    <color name="navigationBarColor">#000000</color>
 </resources>
