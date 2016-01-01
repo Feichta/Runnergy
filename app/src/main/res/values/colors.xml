@@ -2,6 +2,10 @@
 <resources>
     <color name="colorPrimary">#e62117</color>
     <color name="colorPrimaryDark">#C31C13</color>
+
+    <color name="colorText">#1F1F1F</color>
+    <color name="colorTextPrimary">#FFFFFF</color>
+
     <color name="colorTabUnderline">#FFFFFF</color>
     <color name="colorNavigationBar">#000000</color>
 

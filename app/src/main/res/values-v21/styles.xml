@@ -2,16 +2,20 @@
     <style name="AppThemeWithoutActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!-- <item name="android:textColorPrimary"></item>
-         <item name="android:textColor"></item>-->
+
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColor">@color/colorText</item>
+
         <item name="android:navigationBarColor">@color/colorNavigationBar</item>
     </style>
 
     <style name="AppThemeWithActionBar" parent="android:Theme.Material.Light">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <!-- <item name="android:textColorPrimary"></item>
-         <item name="android:textColor"></item>-->
+
+        <item name="android:textColorPrimary">@color/colorTextPrimary</item>
+        <item name="android:textColor">@color/colorText</item>
+
         <item name="android:navigationBarColor">@color/colorNavigationBar</item>
     </style>
 

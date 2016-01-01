@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ffeichta.runnergy.gui.utils;
+package com.ffeichta.runnergy.gui.tabs;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -24,7 +24,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
-
 
 class SlidingTabStrip extends LinearLayout {
 

@@ -2,7 +2,7 @@ package com.ffeichta.runnergy.gui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
 import com.ffeichta.runnergy.gui.fragments.ActivityFragment;
 import com.ffeichta.runnergy.gui.fragments.TracksFragment;
@@ -10,14 +10,14 @@ import com.ffeichta.runnergy.gui.fragments.TracksFragment;
 /**
  * Created by Fabian on 28.12.2015.
  */
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private static final int NUMBER_TABS = 2;
-    private CharSequence TitlesOfTabs[];
+    private CharSequence titles[];
 
-    public ViewPagerAdapter(FragmentManager fragmentManager, CharSequence mTitles[]) {
-        super(fragmentManager);
-        this.TitlesOfTabs = mTitles;
+    public ViewPagerAdapter(FragmentManager fm, CharSequence titles[]) {
+        super(fm);
+        this.titles = titles;
     }
 
     // Return a fragment object for the tabs
@@ -35,7 +35,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     // Return the titles for the tabs
     @Override
     public CharSequence getPageTitle(int position) {
-        return TitlesOfTabs[position];
+        return titles[position];
     }
 
     // Return the count of tabs
