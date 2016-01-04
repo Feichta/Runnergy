@@ -102,6 +102,17 @@ public class SaveActivityActivity extends android.app.Activity {
 
     public void setUpSpinners() {
         tracks = DBAccessHelper.getInstance(this).getTracks();
+        setUpSpinnerTrack();
+        setUpSpinnerType();
+
+    }
+
+    private void prepareActivity() {
+        activity.setType(ActivityTypes.Type.values()[spinnerType.getSelectedItemPosition()]);
+        activity.setTrack(tracks.get(spinnerTrack.getSelectedItemPosition()));
+    }
+
+    private void setUpSpinnerTrack() {
         if (tracks != null) {
             ArrayList<String> names = new ArrayList<>();
             for (Track t : tracks) {
@@ -113,8 +124,13 @@ public class SaveActivityActivity extends android.app.Activity {
         }
     }
 
-    public void prepareActivity() {
-        activity.setType(ActivityTypes.Type.CYCLING);
-        activity.setTrack(tracks.get(spinnerTrack.getSelectedItemPosition()));
+    private void setUpSpinnerType() {
+        ArrayList<String> types = new ArrayList<>();
+        for (ActivityTypes.Type type : ActivityTypes.Type.values()) {
+            types.add(type.toString(this));
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, types);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerType.setAdapter(adapter);
     }
 }

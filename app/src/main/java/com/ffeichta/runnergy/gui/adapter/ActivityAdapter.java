@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
@@ -31,6 +32,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
                     .getLayoutInflater();
             ret = inflater.inflate(R.layout.activity_item, parent, false);
             activityHolder = new ActivityHolder();
+            activityHolder.image = (ImageView) ret.findViewById(R.id.image_item);
             activityHolder.distance = (TextView) ret.findViewById(R.id.distance_item);
             activityHolder.avg = (TextView) ret.findViewById(R.id.avg_item);
             activityHolder.duration = (TextView) ret.findViewById(R.id.duration_item);
@@ -52,6 +54,25 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
         String date = a.getFormattedDate(dateFormat);
         String duration = a.getFormattedDuration();
 
+        switch (a.getType()) {
+            case RUNNING:
+                activityHolder.image.setImageResource(R.drawable.running);
+                break;
+            case WALKING:
+                activityHolder.image.setImageResource(R.drawable.walking);
+                break;
+            case TREKKING:
+                activityHolder.image.setImageResource(R.drawable.trekking);
+                break;
+            case CYCLING:
+                activityHolder.image.setImageResource(R.drawable.cycling);
+                break;
+            case SKIING:
+                activityHolder.image.setImageResource(R.drawable.skiing);
+                break;
+            default:
+                break;
+        }
         activityHolder.distance.setText(distance);
         activityHolder.avg.setText(avg);
         activityHolder.duration.setText(duration);
@@ -61,6 +82,7 @@ public class ActivityAdapter extends ArrayAdapter<Activity> {
 
     // UI Widgets
     private class ActivityHolder {
+        ImageView image = null;
         TextView distance = null;
         TextView avg = null;
         TextView duration = null;

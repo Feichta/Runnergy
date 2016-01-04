@@ -1,14 +1,28 @@
 package com.ffeichta.runnergy.model.enums;
 
+import android.content.Context;
+
+import com.ffeichta.runnergy.R;
+
 /**
  * Created by Fabian on 29.12.2015.
  */
 public class ActivityTypes {
     public enum Type {
-        RUNNING,
-        WALKING,
-        TREKKING,
-        CYCLING,
-        SKIING
+        RUNNING(R.string.running),
+        WALKING(R.string.walking),
+        TREKKING(R.string.trekking),
+        CYCLING(R.string.cycling),
+        SKIING(R.string.skiing);
+
+        private int id = -1;
+
+        Type(int id) {
+            this.id = id;
+        }
+
+        public String toString(Context context) {
+            return context.getResources().getString(id);
+        }
     }
 }

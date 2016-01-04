@@ -478,10 +478,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * @return 0 if it was successful, otherwise -1
      */
     public int insertActivity(Activity a) {
+        Log.d("adsöklfg", "#####" + a.toString());
         int ret = 0;
         if (a == null || a.getTrack() == null) {
             ret = -1;
-            Log.d("asdfad", "####1");
         } else {
             SQLiteDatabase db = null;
             try {
@@ -501,13 +501,11 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                         for (int i = 0; i < a.getCoordinates().size(); i++) {
                             if (insertCoordinate(a.getCoordinates().get(i), db) == -1) {
                                 ret = -1;
-                                Log.d("asdfad", "####2");
                             }
                         }
                     }
                 } else {
                     ret = -1;
-                    Log.d("asdfad", "####3");
                 }
                 if (ret >= 0) {
                     db.setTransactionSuccessful();
@@ -515,7 +513,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in insertTrack(): " + e.getMessage());
                 ret = -1;
-                Log.d("asdfad", "####4");
             } finally {
                 try {
                     db.endTransaction();

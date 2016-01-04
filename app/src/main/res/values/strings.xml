@@ -27,6 +27,13 @@
     <!-- SaveActivityActivity -->
     <string name="save_activity">Save activity</string>
 
+    <!-- ActivityTypes.java -->
+    <string name="running">Running</string>
+    <string name="walking">Walking</string>
+    <string name="trekking">Trekking</string>
+    <string name="cycling">Cycling</string>
+    <string name="skiing">Skiing</string>
+
     <!-- AddTrackDialogFactory.java -->
     <string name="dialog_add_track_title">Add track</string>
     <string name="dialog_error_no_name">Name is not set</string>
