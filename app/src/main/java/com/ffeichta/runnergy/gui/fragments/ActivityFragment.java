@@ -320,6 +320,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     public void onResume() {
         super.onResume();
         if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
+            stopLocationUpdates();
             locationRequest.setInterval(1000);
             locationRequest.setFastestInterval(1000);
             // apply the changes on the interval
@@ -334,6 +335,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     public void onPause() {
         super.onPause();
         if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
+            stopLocationUpdates();
             locationRequest.setInterval(updateIntervalInMilliseconds);
             locationRequest.setFastestInterval(fastestUpdateIntervalInMilliseconds);
             // apply the changes on the interval
