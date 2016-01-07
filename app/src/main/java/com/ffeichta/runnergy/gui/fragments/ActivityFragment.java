@@ -216,11 +216,11 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         // inexact. You may not receive updates at all if no location sources are available, or
         // you may receive them slower than requested. You may also receive updates faster than
         // requested if other applications are requesting location at a faster interval.
-        locationRequest.setInterval(updateIntervalInMilliseconds);
+        locationRequest.setInterval(1000);
 
         // Sets the fastest rate for active location updates. This interval is exact, and your
         // application will never receive updates faster than this value.
-        locationRequest.setFastestInterval(fastestUpdateIntervalInMilliseconds);
+        locationRequest.setFastestInterval(1000);
 
         // Sets the minimum displacement between location updates in meters.
         // If the displacement is too small the updates will be suppressed
@@ -291,5 +291,33 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     public void onStart() {
         super.onStart();
         googleApiClient.connect();
+    }
+
+    /**
+     * Called when user resumes to display the map on display
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
+            locationRequest.setInterval(1000);
+            locationRequest.setFastestInterval(1000);
+            // apply the changes on the interval
+            startLocationUpdates();
+        }
+    }
+
+    /**
+     * Called when user doesn't see the map on display
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
+            locationRequest.setInterval(updateIntervalInMilliseconds);
+            locationRequest.setFastestInterval(fastestUpdateIntervalInMilliseconds);
+            // apply the changes on the interval
+            startLocationUpdates();
+        }
     }
 }

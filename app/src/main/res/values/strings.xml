@@ -72,6 +72,7 @@
     <string name="category_map_type_default_value">1</string>
 
     <!-- main_menu.xml + AndroidManifest.xml -->
+    <string name="save">Save activity</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>
 
