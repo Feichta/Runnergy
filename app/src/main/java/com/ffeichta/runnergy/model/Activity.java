@@ -1,17 +1,16 @@
 package com.ffeichta.runnergy.model;
 
 import com.ffeichta.runnergy.model.enums.ActivityTypes;
-import com.ffeichta.runnergy.model.utils.TimeUtils;
+import com.ffeichta.runnergy.model.utils.StringFormatter;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
  * Created by Fabian on 19.11.2015.
  */
 public class Activity implements Serializable {
-    private static final double FACTOR_MILE = 0.621371;
+
 
     private int id = -1;
     private ActivityTypes.Type type = null;
@@ -87,86 +86,21 @@ public class Activity implements Serializable {
     }
 
     public String getFormattedDistance(String unit) {
-        String ret = "";
-        double distanceInMeter = 0.0;
-        for (Coordinate c : getCoordinates()) {
-            distanceInMeter += c.getDistanceFromPrevious();
-        }
-        switch (unit) {
-            case "km":
-                if (distanceInMeter >= 1000) {
-                    double result = Math.round(distanceInMeter / 1000 * 100.0) / 100.0;
-                    ret = getFormattedValue(result) +  " km";
-                } else {
-                    double result = Math.round(distanceInMeter * 100.0) / 100.0;
-                    ret = getFormattedValue(result) +  " m";
-                }
-                break;
-            case "mi":
-                double result = Math.round(distanceInMeter / 1000 * FACTOR_MILE * 100.0) / 100.0;
-                ret = getFormattedValue(result) + " mi";
-                break;
-            default:
-                break;
-        }
-        return ret;
+        return StringFormatter.getFormattedDistance(getCoordinates(), unit);
     }
 
     public String getFormattedAvg(String unit) {
-        String ret = "";
-        double distanceInMeter = 0.0;
-        for (Coordinate c : this.getCoordinates()) {
-            distanceInMeter += c.getDistanceFromPrevious();
-        }
-        double result;
-        switch (unit) {
-            case "km":
-                result = Math.round(distanceInMeter / this.duration * 3.6 * 100.0) / 100.0;
-                ret = getFormattedValue(result) + " km/h";
-                break;
-            case "mi":
-                result = Math.round(distanceInMeter / this.duration * 3.6 * FACTOR_MILE * 100.0) / 100.0;
-                ret = getFormattedValue(result) + " mph";
-                break;
-            default:
-                break;
-        }
-        return ret;
+        return StringFormatter.getFormattedAvg(this, unit);
     }
 
     public String getFormattedDuration() {
-        return TimeUtils.convertDurationToString(this.duration);
+        return StringFormatter.getFormattedDuration(this.duration);
     }
 
-    /**
-     * Returns the date in a certain format
-     *
-     * @return
-     */
     public String getFormattedDate(String format) {
-        String ret;
-        SimpleDateFormat sdf = new SimpleDateFormat(format);
-        ret = sdf.format(new java.util.Date(this.date));
-        return ret;
+        return StringFormatter.getFormattedDate(this.date, format);
     }
 
-    private boolean needToCast(double d) {
-        boolean ret = false;
-        if(d % 1 == 0) {
-           ret = true;
-        }
-        return ret;
-    }
-
-    private String getFormattedValue(double value) {
-        String ret = null;
-        if(needToCast(value)) {
-            ret = String.valueOf((int)value);
-        } else  {
-            ret = String.valueOf(value);
-        }
-        return ret;
-    }
 
     public String toString() {
         return this.id + ";" + this.type + ";" + getFormattedDate("dd.MM.yyyy") + ";" + this.duration + ";" + this.track.getId();

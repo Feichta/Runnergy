@@ -107,7 +107,7 @@ public class FormatStrings extends TestCase {
 
     @Test
     public void testDateWithPoints() throws Exception {
-        assertEquals("10.11.2015", a.getFormattedDate("dd.MM.yyy"));
+        assertEquals("10.11.2015", a.getFormattedDate("dd.MM.yyyy"));
     }
 
     @Test
