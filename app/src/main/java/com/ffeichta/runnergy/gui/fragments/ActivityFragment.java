@@ -80,6 +80,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                 .findFragmentById(R.id.activityGoogleMap);
         mapFragment.getMapAsync(this);
 
+        setMapType();
+
         startStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,31 +165,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
 
-        // Set the map type
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
-        int value = Integer.valueOf(sp.getString("type", "1"));
-        int type;
-        switch (value) {
-            case 0:
-                type = GoogleMap.MAP_TYPE_NORMAL;
-                break;
-            case 1:
-                type = GoogleMap.MAP_TYPE_HYBRID;
-                break;
-            case 2:
-                type = GoogleMap.MAP_TYPE_SATELLITE;
-                break;
-            case 3:
-                type = GoogleMap.MAP_TYPE_TERRAIN;
-                break;
-            case 4:
-                type = GoogleMap.MAP_TYPE_NONE;
-                break;
-            default:
-                type = GoogleMap.MAP_TYPE_NORMAL;
-                break;
-        }
-        map.setMapType(type);
+        setMapType();
 
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -203,6 +181,35 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         // Shows the current position with the famous blue point with the circle in the map.
         // Enables also the 'Current Location Button'
         map.setMyLocationEnabled(true);
+    }
+
+    public void setMapType() {
+        if (map != null) {
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+            int value = Integer.valueOf(sp.getString("type", "1"));
+            int type;
+            switch (value) {
+                case 0:
+                    type = GoogleMap.MAP_TYPE_NORMAL;
+                    break;
+                case 1:
+                    type = GoogleMap.MAP_TYPE_HYBRID;
+                    break;
+                case 2:
+                    type = GoogleMap.MAP_TYPE_SATELLITE;
+                    break;
+                case 3:
+                    type = GoogleMap.MAP_TYPE_TERRAIN;
+                    break;
+                case 4:
+                    type = GoogleMap.MAP_TYPE_NONE;
+                    break;
+                default:
+                    type = GoogleMap.MAP_TYPE_NORMAL;
+                    break;
+            }
+            map.setMapType(type);
+        }
     }
 
 
@@ -313,31 +320,42 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * Called when user resumes to display the map on display
+     * Called when user resumes to display the MainActivity with the two fragments
+     * Example: User comes back from SettingsActivity or comes back from another app
      */
     @Override
     public void onResume() {
         super.onResume();
+        // Set again the type of the map because he could have changed
+        setMapType();
+        // Set the interval of the location requests to one second if the MainActivity
+        // (and thus the map) is visible.
+        // This is because setMyLocationEnabled() is true and the blue point updates every second,
+        // then we should draw every second a Polyline into the map
         if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
+            // Stop the LocationUpdates to modify the interval
             stopLocationUpdates();
             locationRequest.setInterval(1000);
             locationRequest.setFastestInterval(1000);
-            // apply the changes on the interval
+            // Apply the changes on the interval
             startLocationUpdates();
         }
     }
 
     /**
-     * Called when user doesn't see the map on display
+     * Called when user doesn't see the MainActivity with the two fragments
      */
     @Override
     public void onPause() {
         super.onPause();
+        // Set the interval of the location requests to the set value if the MainActivity
+        // (and thus the map) is not visible, for example when the user locks his device
         if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
+            // Stop the LocationUpdates to modify the interval
             stopLocationUpdates();
             locationRequest.setInterval(updateIntervalInMilliseconds);
             locationRequest.setFastestInterval(fastestUpdateIntervalInMilliseconds);
-            // apply the changes on the interval
+            // Apply the changes on the interval
             startLocationUpdates();
         }
     }
