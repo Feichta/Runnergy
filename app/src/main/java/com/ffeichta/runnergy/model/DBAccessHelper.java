@@ -478,7 +478,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * @return 0 if it was successful, otherwise -1
      */
     public int insertActivity(Activity a) {
-        Log.d("adsöklfg", "#####" + a.toString());
         int ret = 0;
         if (a == null || a.getTrack() == null) {
             ret = -1;
@@ -539,7 +538,6 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         int ret = 0;
         if (c == null || c.getActivity() == null) {
             ret = -1;
-            Log.d("asdfad", "####lalalal");
         } else {
             try {
                 ContentValues values = new ContentValues(1);
