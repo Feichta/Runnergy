@@ -33,7 +33,7 @@
             android:background="@drawable/round_button"
             android:fontFamily="sans-serif-light"
             android:gravity="center_vertical|center_horizontal"
-            android:text="@string/add"
+            android:text="+"
             android:textColor="@color/textColorPrimary"
             android:textSize="30dp" />
     </LinearLayout>

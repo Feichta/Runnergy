@@ -29,8 +29,8 @@ public class AddTrackDialogFactory {
 
         // Set visibility of the dialog to final because it's used in an anonymous method
         final AlertDialog d = new AlertDialog.Builder(saveActivityActivity)
-                .setPositiveButton(R.string.ok, null)
-                .setNegativeButton(R.string.cancel, null)
+                .setPositiveButton(android.R.string.yes, null)
+                .setNegativeButton(android.R.string.cancel, null)
                 .setTitle(R.string.dialog_add_track_title)
                 .setView(promptView)
                 .create();

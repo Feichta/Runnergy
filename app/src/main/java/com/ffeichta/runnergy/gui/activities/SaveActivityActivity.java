@@ -1,9 +1,12 @@
 package com.ffeichta.runnergy.gui.activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -132,5 +135,25 @@ public class SaveActivityActivity extends android.app.Activity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getResources().getString(R.string.dialog_back_pressed_title))
+                    .setMessage(getResources().getString(R.string.dialog_back_pressed_subtitle))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // Close the dialog
+                            dialog.dismiss();
+                            // Finish the activity
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.cancel, null)
+                    .create().show();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -3,11 +3,6 @@
     <!-- App -->
     <string name="app_name">Runnergy</string>
 
-    <!-- General -->
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="add">+</string>
-
     <!-- ActivityFragment.java -->
     <string name="activity_fragment_start">Start activity</string>
     <string name="activity_fragment_stop">Stop activity</string>
@@ -26,6 +21,8 @@
 
     <!-- SaveActivityActivity -->
     <string name="save_activity">Save activity</string>
+    <string name="dialog_back_pressed_title">Delete activity</string>
+    <string name="dialog_back_pressed_subtitle">Do you want to go back? The actual activity will be deleted.</string>
 
     <!-- ActivityTypes.java -->
     <string name="running">Running</string>
@@ -53,7 +50,7 @@
     <string name="date_title">Date</string>
 
     <!-- add_change_track_dialog.xml -->
-    <string name="dialog_subtitle">Please enter the name of the track</string>
+    <string name="dialog_track_subtitle">Please enter the name of the track</string>
 
     <!-- preferences.xml -->
     // General
