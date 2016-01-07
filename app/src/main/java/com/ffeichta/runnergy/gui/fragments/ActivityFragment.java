@@ -62,6 +62,10 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     private Button pauseResumeButton = null;
     // Google Map
     private GoogleMap map = null;
+    // Date as long when the user presses the Pause Activity Button
+    private long dateOnPaused = -1;
+    // Total duration of pause in milliseconds
+    private long durationPausedInMilliseconds = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -89,13 +93,18 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     startLocationUpdates();
                 } else {
                     startButtonEnabled = false;
-                    startStopButton.setText(getResources().getString(R.string.activity_fragment_stop));
+                    startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
                     // Stop location updates
                     stopLocationUpdates();
+                    // User pressed the Stop Button after he pressed the Pause Button. He never
+                    // pressed the Resume Button
+                    if (pauseButtonEnabled) {
+                        durationPausedInMilliseconds += System.currentTimeMillis() - dateOnPaused;
+                    }
                     // Get the Activity object from the listener...
                     Activity activity = locationListener.getActivity();
-                    // ... and set the duration
-                    activity.setDuration((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+                    // ... and set the duration minus the time where the Activity was paused
+                    activity.setDuration((int) ((System.currentTimeMillis() - activity.getDate() - durationPausedInMilliseconds) / 1000));
                     // Set the last coordinate as end point
                     activity.getCoordinates().get(activity.getCoordinates().size() - 1).setEnd(true);
                     // Start Activity where the user can save the Activity
@@ -112,14 +121,25 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                 if (!pauseButtonEnabled) {
                     pauseButtonEnabled = true;
                     pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_resume));
+
+                    // Save the actual date to calculate the duration of the pause
+                    dateOnPaused = System.currentTimeMillis();
+
                     stopLocationUpdates();
                 } else {
                     pauseButtonEnabled = false;
                     pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_pause));
+
+                    // Increase the duration where the user paused the Activity
+                    durationPausedInMilliseconds += System.currentTimeMillis() - dateOnPaused;
+
                     startLocationUpdates();
                 }
             }
         });
+
+        // Initialize
+        durationPausedInMilliseconds = 0;
 
         // Set up the Listener for the FusedLocationApi
         connectionCallbacks = new ConnectionServices(this);
