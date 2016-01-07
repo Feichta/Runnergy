@@ -149,7 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
         }
         // padding is 12% of the width of screen
-        int padding = (int) (width * 0.12);
+        int padding = (int) (width * 0.18);
         // subtract the height of the ActinBar
         height = height - actionBarHeight;
 
