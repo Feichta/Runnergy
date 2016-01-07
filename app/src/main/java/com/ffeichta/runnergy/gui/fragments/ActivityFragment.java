@@ -93,7 +93,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     startLocationUpdates();
                 } else {
                     startButtonEnabled = false;
-                    startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
                     // Stop location updates
                     stopLocationUpdates();
                     // User pressed the Stop Button after he pressed the Pause Button. He never
@@ -341,5 +340,12 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             // apply the changes on the interval
             startLocationUpdates();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        map.clear();
+        startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
+        pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_pause));
     }
 }

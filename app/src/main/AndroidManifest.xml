@@ -51,7 +51,6 @@
         <activity
             android:name=".gui.activities.SaveActivityActivity"
             android:label="@string/save"
-            android:parentActivityName=".gui.activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
 
