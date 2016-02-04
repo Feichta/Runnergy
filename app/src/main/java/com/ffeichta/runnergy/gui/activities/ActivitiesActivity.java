@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.adapter.ActivityAdapter;
@@ -86,24 +84,30 @@ public class ActivitiesActivity extends Activity {
         }
         ActivityAdapter activityAdapter = new ActivityAdapter(this, titles, laptopCollection);
         expListView.setAdapter(activityAdapter);
-        expListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ActivitiesActivity.this, MapsActivity.class);
-                intent.putExtra("coordinates", activities.get(position).getCoordinates());
-                startActivity(intent);
-            }
-        });
+
         expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
 
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
-                final String selected = (String) expListAdapter.getChild(
-                        groupPosition, childPosition);
-                Toast.makeText(getBaseContext(), selected, Toast.LENGTH_LONG)
-                        .show();
+                Log.d("#####", "vaganal");
+                Intent intent = new Intent(ActivitiesActivity.this, MapsActivity.class);
+
+                intent.putExtra("coordinates", laptopCollection.get(titles.get(groupPosition)).get(childPosition).getCoordinates());
+                startActivity(intent);
 
                 return true;
+            }
+        });
+
+        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            int previousGroup = -1;
+
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (groupPosition != previousGroup) {
+                    expListView.collapseGroup(previousGroup);
+                }
+                previousGroup = groupPosition;
             }
         });
     }

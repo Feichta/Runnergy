@@ -20,4 +20,6 @@
     <color name="textColor">#1F1F1F</color>
     <!-- Background of the NavigationBar -->
     <color name="navigationBarColor">#000000</color>
+    <!-- Border of Items in ListView -->
+    <color name="itemBorder">#EBEBEB</color>
 </resources>
