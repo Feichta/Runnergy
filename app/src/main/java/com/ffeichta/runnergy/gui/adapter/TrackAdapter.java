@@ -23,7 +23,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View ret = convertView;
-        TrackHolder trackHolder = null;
+        TrackHolder trackHolder;
         if (ret == null) {
             LayoutInflater layoutInflater = ((Activity) getContext())
                     .getLayoutInflater();

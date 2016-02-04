@@ -17,7 +17,7 @@
     <!-- Line under the Tabs-->
     <color name="colorTabUnderline">#FFFFFF</color>
     <!-- Text -->
-    <color name="textColor">#1F1F1F</color>
+    <color name="textColor">#343434</color>
     <!-- Background of the NavigationBar -->
     <color name="navigationBarColor">#000000</color>
     <!-- Border of Items in ListView -->

@@ -2,7 +2,6 @@ package com.ffeichta.runnergy.gui.adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,34 +23,34 @@ import java.util.Map;
 public class ActivityAdapter extends BaseExpandableListAdapter {
 
     private android.app.Activity context;
-    private Map<String, ArrayList<Activity>> activityCollection;
-    private List<String> activities;
+    private Map<String, ArrayList<Activity>> groupCollection;
+    private List<String> parentStrings;
 
-    public ActivityAdapter(android.app.Activity context, List<String> activities,
-                           Map<String, ArrayList<Activity>> activityCollection) {
+    public ActivityAdapter(android.app.Activity context, List<String> parentStrings,
+                           Map<String, ArrayList<Activity>> groupCollection) {
         this.context = context;
-        this.activityCollection = activityCollection;
-        this.activities = activities;
+        this.groupCollection = groupCollection;
+        this.parentStrings = parentStrings;
     }
 
     @Override
     public int getGroupCount() {
-        return activities.size();
+        return parentStrings.size();
     }
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return activityCollection.get(activities.get(groupPosition)).size();
+        return groupCollection.get(parentStrings.get(groupPosition)).size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return activities.get(groupPosition);
+        return parentStrings.get(groupPosition);
     }
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return activityCollection.get(activities.get(groupPosition)).get(childPosition);
+        return groupCollection.get(parentStrings.get(groupPosition)).get(childPosition);
     }
 
     @Override
@@ -71,18 +70,17 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-        String laptopName = (String) getGroup(groupPosition);
+        String typeTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.group_row,
+            convertView = infalInflater.inflate(R.layout.activity_parent,
                     null);
         }
         TextView item = (TextView) convertView.findViewById(R.id.heading);
-        item.setTypeface(null, Typeface.BOLD);
-        item.setText(laptopName);
+        //item.setTypeface(null, Typeface.BOLD);
+        item.setText(typeTitle);
         return convertView;
-
     }
 
     @Override
@@ -90,8 +88,7 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
         LayoutInflater inflater = context.getLayoutInflater();
         View ret = convertView;
         ActivityHolder activityHolder;
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.activity_item, null);
+        if (ret == null) {
             ret = inflater.inflate(R.layout.activity_item, parent, false);
             activityHolder = new ActivityHolder();
             activityHolder.image = (ImageView) ret.findViewById(R.id.image_item);
