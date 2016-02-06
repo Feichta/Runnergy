@@ -78,8 +78,7 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
                     null);
         }
         TextView item = (TextView) convertView.findViewById(R.id.heading);
-        //item.setTypeface(null, Typeface.BOLD);
-        item.setText(typeTitle);
+        item.setText(typeTitle + " (" + groupCollection.get(parentStrings.get(groupPosition)).size() + ")");
         return convertView;
     }
 

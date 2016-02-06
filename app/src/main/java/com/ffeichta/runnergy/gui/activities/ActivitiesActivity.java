@@ -91,20 +91,20 @@ public class ActivitiesActivity extends Activity {
 
         // Iterate all Activities
         for (com.ffeichta.runnergy.model.Activity a1 : childActivities) {
-            int id = getResources().getIdentifier(a1.getType().toString().toLowerCase(), "string", getPackageName());
-            String title = getResources().getString(id);
+            int id1 = getResources().getIdentifier(a1.getType().toString().toLowerCase(), "string", getPackageName());
+            String typeAsString = getResources().getString(id1);
             // Add every Type of Activity once
-            if (!parentStrings.contains(title)) {
-                parentStrings.add(getResources().getString(id));
+            if (!parentStrings.contains(typeAsString)) {
+                parentStrings.add(getResources().getString(id1));
                 ArrayList<com.ffeichta.runnergy.model.Activity> temp = new ArrayList<>();
-                // Iterate Activities again and link every title with the right Activities
+                // Iterate Activities again and link every typeAsString with the right Activities
                 for (com.ffeichta.runnergy.model.Activity a2 : childActivities) {
                     int id2 = getResources().getIdentifier(a2.getType().toString().toLowerCase(), "string", getPackageName());
-                    if (getResources().getString(id2).equals(title)) {
+                    if (getResources().getString(id2).equals(typeAsString)) {
                         temp.add(a2);
                     }
                 }
-                groupCollection.put(title, temp);
+                groupCollection.put(typeAsString, temp);
             }
         }
     }
