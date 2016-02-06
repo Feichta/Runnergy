@@ -3,6 +3,7 @@ package com.ffeichta.runnergy.gui.adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,9 +73,9 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         String typeTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) context
+            LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.activity_parent,
+            convertView = inflater.inflate(R.layout.activity_parent,
                     null);
         }
         TextView item = (TextView) convertView.findViewById(R.id.heading);
@@ -100,6 +101,7 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
             activityHolder = (ActivityHolder) ret.getTag();
         }
         Activity a = (Activity) getChild(groupPosition, childPosition);
+        Log.d("#####", (a == null) + " " + (a.getCoordinates() == null) + " ");
 
         // The outputs in the TextViews are based on the Settings
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);

@@ -50,9 +50,10 @@ public class ActivitiesActivity extends Activity {
         setUpParentsAndChilds();
 
         // Set the Coodinates for each Activity because the ActivityAdapter needs them
-        for (com.ffeichta.runnergy.model.Activity activity : childActivities) {
+       /* for (com.ffeichta.runnergy.model.Activity activity : childActivities) {
             activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates(activity));
-        }
+        }*/
+
         ActivityAdapter activityAdapter = new ActivityAdapter(this, parentStrings, groupCollection);
         expListView.setAdapter(activityAdapter);
 
@@ -101,9 +102,17 @@ public class ActivitiesActivity extends Activity {
                 for (com.ffeichta.runnergy.model.Activity a2 : childActivities) {
                     int id2 = getResources().getIdentifier(a2.getType().toString().toLowerCase(), "string", getPackageName());
                     if (getResources().getString(id2).equals(typeAsString)) {
+
                         temp.add(a2);
                     }
                 }
+                // Set the ranking in the group
+
+                DBAccessHelper.getInstance(this).setRankingForActivitiesInTrack(temp);
+                for (com.ffeichta.runnergy.model.Activity activity : temp) {
+                    activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates(activity));
+                }
+
                 groupCollection.put(typeAsString, temp);
             }
         }
