@@ -233,14 +233,15 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             Cursor c = null;
             try {
                 db = getWritableDatabase();
-                c = db.rawQuery("SELECT * " + "  FROM activities "
-                                + "  WHERE tid = ? " + "ORDER BY adate DESC;",
-                        new String[]{String.valueOf(t.getId())});
+                c = db.rawQuery("SELECT a1.*, (SELECT COUNT(*) FROM activities a2 WHERE a2.atype = a1.atype AND a2.aid <> a1.aid AND a2.tid= ?) AS count" + "  FROM activities a1"
+                                + "  WHERE tid = ? " + "ORDER BY count DESC, adate DESC;",
+                        new String[]{String.valueOf(t.getId()), String.valueOf(t.getId())});
                 while (c.moveToNext()) {
                     if (ret == null) {
                         ret = new ArrayList<Activity>();
                     }
                     ret.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), t));
+                    Log.d("#######", c.getString(4));
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in getActivities(): " + e.getMessage());

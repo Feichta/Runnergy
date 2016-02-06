@@ -134,6 +134,7 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
         activityHolder.distance.setText(distance);
         activityHolder.avg.setText(avg);
         activityHolder.duration.setText(duration);
+        activityHolder.date.setText(date);
 
         switch (a.getRanking()) {
             case Activity.min:
