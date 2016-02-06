@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Activity implements Serializable {
 
     public static final int min = 0;
-    public static final int average = 1;
+    public static final int avg = 1;
     public static final int max = 2;
 
     private int id = -1;

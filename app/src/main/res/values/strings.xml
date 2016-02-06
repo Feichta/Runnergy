@@ -25,11 +25,11 @@
     <string name="dialog_back_pressed_subtitle">Do you want to go back? The actual activity will be deleted.</string>
 
     <!-- ActivityTypes.java -->
-    <string name="running">Running</string>
-    <string name="walking">Walking</string>
-    <string name="trekking">Trekking</string>
-    <string name="cycling">Cycling</string>
-    <string name="skiing">Skiing</string>
+    <string name="running">RUNNING</string>
+    <string name="walking">WALKING</string>
+    <string name="trekking">TREKKING</string>
+    <string name="cycling">CYCLING</string>
+    <string name="skiing">SKIING</string>
 
     <!-- AddTrackDialogFactory.java -->
     <string name="dialog_add_track_title">Add track</string>

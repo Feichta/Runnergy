@@ -135,8 +135,20 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
         activityHolder.distance.setText(distance);
         activityHolder.avg.setText(avg);
         activityHolder.duration.setText(duration);
-        ret.setBackgroundResource(R.drawable.item_border_average);
 
+        switch (a.getRanking()) {
+            case Activity.min:
+                ret.setBackgroundResource(R.drawable.item_border_min);
+                break;
+            case Activity.max:
+                ret.setBackgroundResource(R.drawable.item_border_max);
+                break;
+            case Activity.avg:
+                ret.setBackgroundResource(R.drawable.item_border_avg);
+                break;
+            default:
+                break;
+        }
         return ret;
     }
 

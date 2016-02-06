@@ -89,20 +89,23 @@ public class ActivitiesActivity extends Activity {
         parentStrings = new ArrayList<>();
         groupCollection = new LinkedHashMap<>();
 
-        for (com.ffeichta.runnergy.model.Activity a : childActivities) {
-            if (!parentStrings.contains(a.getType().toString())) {
-                parentStrings.add(a.getType().toString());
-            }
-        }
-
-        for (String title : parentStrings) {
-            ArrayList<com.ffeichta.runnergy.model.Activity> temp = new ArrayList<>();
-            for (com.ffeichta.runnergy.model.Activity a : childActivities) {
-                if (a.getType().toString().equals(title)) {
-                    temp.add(a);
+        // Iterate all Activities
+        for (com.ffeichta.runnergy.model.Activity a1 : childActivities) {
+            int id = getResources().getIdentifier(a1.getType().toString().toLowerCase(), "string", getPackageName());
+            String title = getResources().getString(id);
+            // Add every Type of Activity once
+            if (!parentStrings.contains(title)) {
+                parentStrings.add(getResources().getString(id));
+                ArrayList<com.ffeichta.runnergy.model.Activity> temp = new ArrayList<>();
+                // Iterate Activities again and link every title with the right Activities
+                for (com.ffeichta.runnergy.model.Activity a2 : childActivities) {
+                    int id2 = getResources().getIdentifier(a2.getType().toString().toLowerCase(), "string", getPackageName());
+                    if (getResources().getString(id2).equals(title)) {
+                        temp.add(a2);
+                    }
                 }
+                groupCollection.put(title, temp);
             }
-            groupCollection.put(title, temp);
         }
     }
 }

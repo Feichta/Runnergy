@@ -22,10 +22,11 @@
     <color name="navigationBarColor">#000000</color>
     <!-- Border of Items in ListView -->
     <color name="itemBorder">#EBEBEB</color>
+    <!-- Background of worst Activity -->
+    <color name="min">#F5A9A9</color>
     <!-- Background of best Activity -->
     <color name="max">#BCF5A9</color>
     <!-- Background of average Activity -->
-    <color name="average">#F3F781</color>
-    <!-- Background of worst Activity -->
-    <color name="min">#F5A9A9</color>
+    <color name="avg">#F3F781</color>
+
 </resources>
