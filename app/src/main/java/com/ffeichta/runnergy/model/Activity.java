@@ -11,11 +11,15 @@ import java.util.ArrayList;
  */
 public class Activity implements Serializable {
 
+    public static final int min = 0;
+    public static final int average = 1;
+    public static final int max = 2;
 
     private int id = -1;
     private ActivityTypes.Type type = null;
     private long date = 0;
     private int duration = -1;
+    private int ranking = -1;
     private Track track = null;
     private ArrayList<Coordinate> coordinates = null;
 
@@ -67,6 +71,14 @@ public class Activity implements Serializable {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public int getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(int ranking) {
+        this.ranking = ranking;
     }
 
     public Track getTrack() {

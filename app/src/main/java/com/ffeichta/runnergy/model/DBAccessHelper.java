@@ -682,4 +682,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         }
         return ret;
     }
+
+    public void setAvgInActivity() {
+
+    }
 }
