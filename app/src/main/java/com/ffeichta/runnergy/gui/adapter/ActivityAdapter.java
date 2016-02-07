@@ -148,6 +148,9 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
             case Activity.avg:
                 ret.setBackgroundResource(R.drawable.item_border_avg);
                 break;
+            case -1:
+                ret.setBackgroundResource(R.drawable.item_border);
+                break;
             default:
                 break;
         }
