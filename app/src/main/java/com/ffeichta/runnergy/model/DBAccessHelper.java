@@ -684,13 +684,11 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         return ret;
     }
 
-    public ArrayList<Activity> setRankingForActivitiesInTrack(ArrayList<Activity> activities) {
-        ArrayList<Activity> ret = activities;
-        //ret = setAvgInActivity(activities);
-        ret = setMaxInActivity(ret);
-        ret = setMinInActivity(ret);
-        //activities.get(0).setRanking(Activity.min);
-        return ret;
+    public void setRankingForActivitiesInTrack(ArrayList<Activity> activities) {
+        setAvgInActivity(activities);
+        setMaxInActivity(activities);
+        setMinInActivity(activities);
+
     }
 
     private ArrayList<Activity> setMinInActivity(ArrayList<Activity> activities) {
@@ -703,9 +701,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 c = db.rawQuery("SELECT * " + "  FROM activities "
                                 + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MIN(aduration) FROM activities WHERE tid = ? AND atype = ?);",
                         new String[]{String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString()});
-                Activity min = null;
 
+                Activity min = null;
                 while (c.moveToNext()) {
+                    Log.d("anzahl", "abc");
                     min = new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), ret.get(0).getTrack());
                 }
                 for (int i = 0; i < ret.size(); i++) {
@@ -743,20 +742,20 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             Cursor c = null;
             try {
                 db = getWritableDatabase();
-                c = db.rawQuery("SELECT * " + "  FROM activities "
+                c = db.rawQuery("SELECT *  FROM activities "
                                 + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MAX(aduration) FROM activities WHERE tid = ? AND atype = ?);",
                         new String[]{String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString()});
-                Activity min = null;
+                Activity avg = null;
 
                 while (c.moveToNext()) {
-                    min = new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), ret.get(0).getTrack());
+                    avg = new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), ret.get(0).getTrack());
                 }
                 for (int i = 0; i < ret.size(); i++) {
-                    if (min.equals(ret.get(i))) {
-                        min.setRanking(Activity.min);
+                    if (avg.equals(ret.get(i))) {
+                        avg.setRanking(Activity.min);
                         ret.remove(ret.get(i));
-                        ret.add(i, min);
-                        Log.d(TAG, "setMinInActivity() was successful" + min.toString());
+                        ret.add(i, avg);
+                        Log.d(TAG, "setMinInActivity() was successful" + avg.toString());
                     }
                 }
                 for (Activity a : ret) {
@@ -781,6 +780,44 @@ public class DBAccessHelper extends SQLiteOpenHelper {
 
     private ArrayList<Activity> setAvgInActivity(ArrayList<Activity> activities) {
         ArrayList<Activity> ret = activities;
+        if (ret != null && ret.get(0).getTrack() != null) {
+            SQLiteDatabase db = null;
+            Cursor c = null;
+            try {
+                //select *, ABS(select avg(aduration) from activities - aduration) AS avg from activities order by avg;
+                db = getWritableDatabase();
+                c = db.rawQuery("SELECT *, ABS((SELECT AVG(aduration) FROM activities WHERE tid = ? AND atype = ?) - aduration) AS avg FROM activities WHERE tid = ? AND atype = ? ORDER BY avg LIMIT 1;",
+                        new String[]{String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString()});
+                Activity min = null;
+
+                while (c.moveToNext()) {
+                    min = new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), ret.get(0).getTrack());
+                }
+                for (int i = 0; i < ret.size(); i++) {
+                    if (min.equals(ret.get(i))) {
+                        min.setRanking(Activity.avg);
+                        ret.remove(ret.get(i));
+                        ret.add(i, min);
+                        Log.d(TAG, "setAvgInActivity() was successful" + min.toString());
+                    }
+                }
+                for (Activity a : ret) {
+                    Log.d("uuuuu", a.toString());
+                }
+
+            } catch (SQLiteException e) {
+                Log.d(TAG, "Error in setAvgInActivity(): " + e.getMessage());
+            } finally {
+                try {
+                    c.close();
+                } catch (Exception e) {
+                }
+                try {
+                    db.close();
+                } catch (Exception e) {
+                }
+            }
+        }
         return ret;
     }
 }
