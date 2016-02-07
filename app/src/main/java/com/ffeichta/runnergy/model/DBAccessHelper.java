@@ -695,38 +695,41 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * @param activities
      */
     public void setRankingForActivitiesInTrack(ArrayList<Activity> activities) {
-        // Don't change the order of the methods otherwise it won't work because the methods setWorstActivitxy() and setBestActivity() sometimes have to overwrite the Ranking of Activities marked by setAvgInActivity() as average activity
+        // Don't change the order of these methods otherwise it won't work,
+        // because the methods setWorstActivitxy() and setBestActivity() sometimes have to
+        // overwrite the Ranking of Activities marked by setAvgInActivity() as average Activity
+        // If there is only one Activity in a group, setBestActivity() overwrites the ranking marked
+        // by setAvgInActivity() and setWorstActivitxy()
         setAvgInActivity(activities);
         setWorstActivitxy(activities);
         setBestActivity(activities);
     }
 
     /**
-     * Sets the best Activity in the group. The best Activity has the lowest duration
+     * Sets the best Activities in the group. The best Activities have the lowest duration
      *
      * @param activities
      * @return
      */
-    private ArrayList<Activity> setBestActivity(ArrayList<Activity> activities) {
-        ArrayList<Activity> ret = activities;
-        if (ret != null && ret.get(0).getTrack() != null) {
+    private void setBestActivity(ArrayList<Activity> activities) {
+        if (activities != null) {
             SQLiteDatabase db = null;
             Cursor c = null;
             try {
                 db = getWritableDatabase();
                 c = db.rawQuery("SELECT * " + "  FROM activities "
                                 + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MIN(aduration) FROM activities WHERE tid = ? AND atype = ?);",
-                        new String[]{String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString()});
+                        new String[]{String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString()});
                 ArrayList<Activity> best = new ArrayList<>();
                 while (c.moveToNext()) {
-                    best.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), ret.get(0).getTrack()));
+                    best.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
                 }
-                for (int i = 0; i < ret.size(); i++) {
+                for (int i = 0; i < activities.size(); i++) {
                     for (int j = 0; j < best.size(); j++)
-                        if (best.get(j).equals(ret.get(i))) {
+                        if (best.get(j).equals(activities.get(i))) {
                             best.get(j).setRanking(Activity.best);
-                            ret.remove(ret.get(i));
-                            ret.add(i, best.get(j));
+                            activities.remove(activities.get(i));
+                            activities.add(i, best.get(j));
                             Log.d(TAG, "setBestActivity() was successful");
                         }
                 }
@@ -743,35 +746,33 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 }
             }
         }
-        return ret;
     }
 
     /**
-     * Sets the worst Activity in the group. The best Activity has the highest duration
+     * Sets the worst Activities in the group. The worst Activities have the highest duration
      *
      * @param activities
-     * @return
+     * @activitiesurn
      */
-    private ArrayList<Activity> setWorstActivitxy(ArrayList<Activity> activities) {
-        ArrayList<Activity> ret = activities;
-        if (ret != null && ret.get(0).getTrack() != null) {
+    private void setWorstActivitxy(ArrayList<Activity> activities) {
+        if (activities != null) {
             SQLiteDatabase db = null;
             Cursor c = null;
             try {
                 db = getWritableDatabase();
                 c = db.rawQuery("SELECT *  FROM activities "
                                 + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MAX(aduration) FROM activities WHERE tid = ? AND atype = ?);",
-                        new String[]{String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString()});
+                        new String[]{String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString()});
                 ArrayList<Activity> worst = new ArrayList<>();
                 while (c.moveToNext()) {
-                    worst.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), ret.get(0).getTrack()));
+                    worst.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
                 }
-                for (int i = 0; i < ret.size(); i++) {
+                for (int i = 0; i < activities.size(); i++) {
                     for (int j = 0; j < worst.size(); j++)
-                        if (worst.get(j).equals(ret.get(i))) {
+                        if (worst.get(j).equals(activities.get(i))) {
                             worst.get(j).setRanking(Activity.worst);
-                            ret.remove(ret.get(i));
-                            ret.add(i, worst.get(j));
+                            activities.remove(activities.get(i));
+                            activities.add(i, worst.get(j));
                             Log.d(TAG, "setWorstActivitxy() was successful");
                         }
                 }
@@ -787,24 +788,17 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 } catch (Exception e) {
                 }
             }
-        }
-        return ret;
-    }
-
-    private void replaceActivityInGroup(int index) {
-
-
+        }       
     }
 
     /**
-     * Sets the most average Activity in the group. The most average Activity is the Activity whose duration is closest to the average of all Activities in the group
+     * Sets the most average Activities in the group. The most average Activities are the Activities whose duration is closest to the average of all Activities in the group
      *
      * @param activities
-     * @return
+     * @activitiesurn
      */
-    private ArrayList<Activity> setAvgInActivity(ArrayList<Activity> activities) {
-        ArrayList<Activity> ret = activities;
-        if (ret != null && ret.get(0).getTrack() != null) {
+    private void setAvgInActivity(ArrayList<Activity> activities) {
+        if (activities != null) {
             SQLiteDatabase db = null;
             Cursor c = null;
             try {
@@ -813,22 +807,20 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                                 "WHERE ABS((SELECT AVG(aduration) FROM activities WHERE tid = ? AND atype = ?) - aduration) = (SELECT ABS((SELECT AVG(aduration) FROM activities WHERE tid = ? AND atype = ?) - aduration) AS avg FROM activities WHERE tid = ? AND atype = ? ORDER BY avg LIMIT 1)\n" +
                                 "AND tid = ? \n" +
                                 "AND atype = ?;",
-                        new String[]{String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString(), String.valueOf(ret.get(0).getTrack().getId()), ret.get(0).getType().toString()});
+                        new String[]{String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString()});
                 ArrayList<Activity> avg = new ArrayList<>();
                 while (c.moveToNext()) {
-                    Log.d("#####", activities.get(0).getType().toString());
-                    avg.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), ret.get(0).getTrack()));
+                    avg.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
                 }
-                for (int i = 0; i < ret.size(); i++) {
+                for (int i = 0; i < activities.size(); i++) {
                     for (int j = 0; j < avg.size(); j++)
-                        if (avg.get(j).equals(ret.get(i))) {
+                        if (avg.get(j).equals(activities.get(i))) {
                             avg.get(j).setRanking(Activity.avg);
-                            ret.remove(ret.get(i));
-                            ret.add(i, avg.get(j));
+                            activities.remove(activities.get(i));
+                            activities.add(i, avg.get(j));
                             Log.d(TAG, "setAvgInActivity() was successful");
                         }
                 }
-                Log.d("#####", "fertig");
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in setAvgInActivity(): " + e.getMessage());
             } finally {
@@ -842,6 +834,5 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 }
             }
         }
-        return ret;
     }
 }
