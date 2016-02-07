@@ -5,7 +5,6 @@ import com.ffeichta.runnergy.model.utils.StringFormatter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * Created by Fabian on 19.11.2015.
@@ -123,12 +122,12 @@ public class Activity implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         Activity activity = (Activity) o;
-        return (Objects.equals(id, activity.id) &&
-                Objects.equals(date, activity.date) &&
-                Objects.equals(duration, activity.duration) &&
-                Objects.equals(type, activity.type));
+
+        if (id != activity.id) return false;
+        if (date != activity.date) return false;
+        if (duration != activity.duration) return false;
+        return type == activity.type;
     }
-
-
 }
