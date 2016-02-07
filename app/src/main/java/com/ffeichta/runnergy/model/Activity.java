@@ -12,9 +12,9 @@ import java.util.Objects;
  */
 public class Activity implements Serializable {
 
-    public static final int min = 0;
+    public static final int worst = 0;
     public static final int avg = 1;
-    public static final int max = 2;
+    public static final int best = 2;
 
     private int id = -1;
     private ActivityTypes.Type type = null;

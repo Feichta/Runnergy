@@ -98,21 +98,19 @@ public class ActivitiesActivity extends Activity {
             if (!parentStrings.contains(typeAsString)) {
                 parentStrings.add(getResources().getString(id1));
                 ArrayList<com.ffeichta.runnergy.model.Activity> temp = new ArrayList<>();
-                // Iterate Activities again and link every typeAsString with the right Activities
+                // Iterate Activities again and link every Type with the right Activities
                 for (com.ffeichta.runnergy.model.Activity a2 : childActivities) {
                     int id2 = getResources().getIdentifier(a2.getType().toString().toLowerCase(), "string", getPackageName());
                     if (getResources().getString(id2).equals(typeAsString)) {
-
                         temp.add(a2);
                     }
                 }
                 // Set the ranking in the group
-
                 DBAccessHelper.getInstance(this).setRankingForActivitiesInTrack(temp);
+                // Set the coordinates for each Activity
                 for (com.ffeichta.runnergy.model.Activity activity : temp) {
                     activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates(activity));
                 }
-
                 groupCollection.put(typeAsString, temp);
             }
         }

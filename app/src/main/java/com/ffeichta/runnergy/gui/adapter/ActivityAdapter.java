@@ -3,7 +3,6 @@ package com.ffeichta.runnergy.gui.adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +100,6 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
             activityHolder = (ActivityHolder) ret.getTag();
         }
         Activity a = (Activity) getChild(groupPosition, childPosition);
-        Log.d("#####", (a == null) + " " + (a.getCoordinates() == null) + " ");
 
         // The outputs in the TextViews are based on the Settings
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -133,25 +131,25 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
             default:
                 break;
         }
+
         activityHolder.distance.setText(distance);
         activityHolder.avg.setText(avg);
         activityHolder.duration.setText(duration);
         activityHolder.date.setText(date);
 
         switch (a.getRanking()) {
-            case Activity.min:
-                ret.setBackgroundResource(R.drawable.item_border_min);
+            case Activity.worst:
+                ret.setBackgroundResource(R.drawable.item_border_worst);
                 break;
-            case Activity.max:
-                ret.setBackgroundResource(R.drawable.item_border_max);
+            case Activity.best:
+                ret.setBackgroundResource(R.drawable.item_border_best);
                 break;
             case Activity.avg:
                 ret.setBackgroundResource(R.drawable.item_border_avg);
                 break;
-            case -1:
-                ret.setBackgroundResource(R.drawable.item_border);
-                break;
+            // Don't delete this otherwise sometimes too much Activities are colored
             default:
+                ret.setBackgroundResource(R.drawable.item_border);
                 break;
         }
         return ret;
