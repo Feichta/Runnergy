@@ -1,5 +1,6 @@
 package com.ffeichta.runnergy.gui.activities;
 
+import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;

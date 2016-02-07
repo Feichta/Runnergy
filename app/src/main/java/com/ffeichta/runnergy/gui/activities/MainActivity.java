@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create the FragmentStatePagerAdapter
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), titles);
+
         // Set the adapter
         viewPager.setAdapter(viewPagerAdapter);
 

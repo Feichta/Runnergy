@@ -40,6 +40,7 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
+    private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 5;
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
     // Interval for location updates. Inexact. Updates may be more or less frequent
@@ -117,12 +118,21 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     Activity activity = locationListener.getActivity();
                     // ... and set the duration minus the time where the Activity was paused
                     activity.setDuration((int) ((System.currentTimeMillis() - activity.getDate() - durationPausedInMilliseconds) / 1000));
-                    // Set the last coordinate as end point
-                    activity.getCoordinates().get(activity.getCoordinates().size() - 1).setEnd(true);
-                    // Start Activity where the user can save the Activity
-                    Intent intent = new Intent(getActivity(), SaveActivityActivity.class);
-                    intent.putExtra("activity", locationListener.getActivity());
-                    startActivityForResult(intent, 1);
+
+                    if (activity.getCoordinates() == null || activity.getCoordinates().size() == 0) {
+                        ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_no_coordinates));
+                    } else {
+                        if (activity.getDuration() < MIN_DURATION_OF_ACTIVITY_IN_SECONDS) {
+                            ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_duration_too_short));
+                        } else {
+                            // Set the last coordinate as end point
+                            activity.getCoordinates().get(activity.getCoordinates().size() - 1).setEnd(true);
+                            // Start Activity where the user can save the Activity
+                            Intent intent = new Intent(getActivity(), SaveActivityActivity.class);
+                            intent.putExtra("activity", locationListener.getActivity());
+                            startActivityForResult(intent, 1);
+                        }
+                    }
                 }
             }
         });
@@ -366,4 +376,12 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
         pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_pause));
     }
+
+   /* @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            Log.d("#####", "vagagai");}
+        else {  }
+    }*/
 }

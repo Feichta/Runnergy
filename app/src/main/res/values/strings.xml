@@ -15,6 +15,8 @@
     <string name="activity_fragment_stop">Stop activity</string>
     <string name="activity_fragment_pause">Pause activity</string>
     <string name="activity_fragment_resume">Resume activity</string>
+    <string name="activity_fragment_no_coordinates">There are no coordinates found in this activity</string>
+    <string name="activity_fragment_duration_too_short">The duration of this activity is too short</string>
 
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020activity</string>
