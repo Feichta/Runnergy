@@ -128,6 +128,9 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
             case SKIING:
                 activityHolder.image.setImageResource(R.drawable.skiing);
                 break;
+            case OTHER:
+                activityHolder.image.setImageResource(R.drawable.other);
+                break;
             default:
                 break;
         }

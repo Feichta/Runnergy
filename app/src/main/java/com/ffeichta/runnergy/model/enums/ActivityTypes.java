@@ -13,7 +13,8 @@ public class ActivityTypes {
         WALKING(R.string.walking),
         TREKKING(R.string.trekking),
         CYCLING(R.string.cycling),
-        SKIING(R.string.skiing);
+        SKIING(R.string.skiing),
+        OTHER(R.string.other);
 
         private int id = -1;
 

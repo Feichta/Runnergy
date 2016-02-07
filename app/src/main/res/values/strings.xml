@@ -30,6 +30,7 @@
     <string name="trekking">TREKKING</string>
     <string name="cycling">CYCLING</string>
     <string name="skiing">SKIING</string>
+    <string name="other">OTHER</string>
 
     <!-- AddTrackDialogFactory.java -->
     <string name="dialog_add_track_title">Add track</string>
