@@ -5,9 +5,11 @@ package com.ffeichta.runnergy.gui.fragments;
  */
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -19,10 +21,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.activities.MainActivity;
 import com.ffeichta.runnergy.gui.activities.SaveActivityActivity;
 import com.ffeichta.runnergy.gui.listener.ConnectionFailed;
 import com.ffeichta.runnergy.gui.listener.ConnectionServices;
 import com.ffeichta.runnergy.gui.listener.LocationListener;
+import com.ffeichta.runnergy.gui.listener.MyLocationButtonListener;
+import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.model.Activity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -35,8 +40,8 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
-    private static final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
-    private static final float FACTOR_DISPLACEMENT = 1 / 4;
+    private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
+    private final float FACTOR_DISPLACEMENT = 1 / 4;
     // Interval for location updates. Inexact. Updates may be more or less frequent
     public long updateIntervalInMilliseconds = -1;
     // Fastest rate for location updates. Exact. Updates will never be more frequent than this value
@@ -86,13 +91,19 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 if (!startButtonEnabled) {
-                    startButtonEnabled = true;
-                    startStopButton.setText(getResources().getString(R.string.activity_fragment_stop));
-                    pauseResumeButton.setVisibility(View.VISIBLE);
-                    // Get a new LocationListener
-                    locationListener = new LocationListener(map, getContext());
-                    // Start location updates
-                    startLocationUpdates();
+                    LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+                    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    if (gpsEnabled) {
+                        startButtonEnabled = true;
+                        startStopButton.setText(getResources().getString(R.string.activity_fragment_stop));
+                        pauseResumeButton.setVisibility(View.VISIBLE);
+                        // Get a new LocationListener
+                        locationListener = new LocationListener(map, getContext());
+                        // Start location updates
+                        startLocationUpdates();
+                    } else {
+                        ToastFactory.makeToast(getContext(), getResources().getString(R.string.enable_gps));
+                    }
                 } else {
                     startButtonEnabled = false;
                     // Stop location updates
@@ -166,21 +177,14 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         map = googleMap;
 
         setMapType();
-
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
             return;
         }
-
-        // Shows the current position with the famous blue point with the circle in the map.
-        // Enables also the 'Current Location Button'
         map.setMyLocationEnabled(true);
+        map.setOnMyLocationButtonClickListener(new MyLocationButtonListener(getContext()));
     }
 
     public void setMapType() {
@@ -260,14 +264,10 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
      * Requests location updates from the FusedLocationApi
      */
     public void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
             return;
         }
         // LocationListener is fired every x seconds

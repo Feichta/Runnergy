@@ -3,6 +3,13 @@
     <!-- App -->
     <string name="app_name">Runnergy</string>
 
+    <!-- General -->
+    <string name="enable_gps">Please enable GPS</string>
+
+    <!-- MainActivity.java -->
+    <string name="dialog_title">Requesting permissions</string>
+    <string name="dialog_message">This app needs the permission for GPS to track your route during an activity</string>
+
     <!-- ActivityFragment.java -->
     <string name="activity_fragment_start">Start activity</string>
     <string name="activity_fragment_stop">Stop activity</string>
@@ -73,6 +80,10 @@
     <string name="save">Save activity</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>
+
+    <!-- request_permission_activity.xml-->
+    <string name="request_permission">Request permission</string>
+    <string name="sorry">This app doesn`t work without the permission to use GPS for requesting locations</string>
 
     <!-- Toasts -->
     <string name="toast_wait">Wait a moment...</string>
