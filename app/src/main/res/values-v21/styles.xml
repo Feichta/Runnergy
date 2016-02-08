@@ -18,4 +18,14 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
     </style>
+
+    <style name="AppThemeMinWidth" parent="android:Theme.Material.Light.Dialog.NoActionBar.MinWidth">
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:editTextColor">@color/textColor</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+    </style>
 </resources>

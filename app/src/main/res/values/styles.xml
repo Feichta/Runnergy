@@ -11,4 +11,10 @@
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:editTextColor">@color/textColor</item>
     </style>
+
+    <style name="AppThemeMinWidth" parent="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:editTextColor">@color/textColor</item>
+    </style>
 </resources>

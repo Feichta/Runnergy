@@ -70,5 +70,23 @@
             android:parentActivityName=".gui.activities.MainActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
+        <activity
+            android:name=".gui.activities.PrivacyPolicy"
+            android:label=""
+            android:parentActivityName=".gui.activities.AboutActivity"
+            android:theme="@style/AppThemeWithActionBar"></activity>
+
+        <activity
+            android:name=".gui.activities.LibrariesActivity"
+            android:label="@string/libraries"
+            android:parentActivityName=".gui.activities.AboutActivity"
+            android:theme="@style/AppThemeMinWidth"></activity>
+
+        <activity
+            android:name=".gui.activities.CreditsActivity"
+            android:label="@string/credits"
+            android:parentActivityName=".gui.activities.AboutActivity"
+            android:theme="@style/AppThemeMinWidth"></activity>
+
     </application>
 </manifest>

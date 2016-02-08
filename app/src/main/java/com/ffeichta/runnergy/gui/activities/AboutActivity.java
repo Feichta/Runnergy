@@ -1,10 +1,92 @@
 package com.ffeichta.runnergy.gui.activities;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.message.ToastFactory;
+
+import java.util.ArrayList;
 
 /**
  * Created by Fabian on 28.12.2015.
  */
 public class AboutActivity extends Activity {
 
+    ListView infos = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.about_activity);
+
+        infos = (ListView) findViewById(R.id.infos);
+
+        ArrayList<String> titles = new ArrayList();
+        titles.add(getResources().getString(R.string.libraries));
+        titles.add(getResources().getString(R.string.privacy_policy));
+        titles.add(getResources().getString(R.string.credits));
+        titles.add(getResources().getString(R.string.report_bug));
+        titles.add(getResources().getString(R.string.rate_this_app));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, titles);
+        infos.setAdapter(adapter);
+
+        infos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        Intent libraries = new Intent(AboutActivity.this, LibrariesActivity.class);
+                        startActivity(libraries);
+                        break;
+                    case 1:
+                        Intent privacy = new Intent(AboutActivity.this, PrivacyPolicy.class);
+                        startActivity(privacy);
+                        break;
+                    case 2:
+                        Intent credits = new Intent(AboutActivity.this, CreditsActivity.class);
+                        startActivity(credits);
+                        break;
+                    case 3:
+                        try {
+                            Intent mail = new Intent(Intent.ACTION_SENDTO);
+                            mail.setType("text/plain");
+                            mail.setData(Uri
+                                    .parse("mailto:fabian.feichter@ffeichta.com"));
+                            mail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            mail.putExtra(Intent.EXTRA_SUBJECT,
+                                    getResources().getString(R.string.app_name) + " " + getResources().getString(R.string.version));
+                            startActivity(mail);
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            ToastFactory.makeToast(AboutActivity.this, getResources().getString(R.string.email));
+                        }
+                        break;
+                    case 4:
+                        try {
+                            Intent googlePlayDirect = new Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("market://details?id=com.ffeichta.runnergy"));
+                            startActivity(googlePlayDirect);
+                        } catch (android.content.ActivityNotFoundException anfe) {
+                            // Play Store is not installed, open the link to the app in the Browser
+                            Intent googlePlayBrowser = new Intent(
+                                    Intent.ACTION_VIEW,
+                                    Uri.parse("https://play.google.com/store/apps/details?id=com.ffeichta.runnergy"));
+                            startActivity(googlePlayBrowser);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+    }
 }
