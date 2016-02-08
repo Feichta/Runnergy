@@ -3,9 +3,6 @@
     <!-- App -->
     <string name="app_name">Runnergy</string>
 
-    <!-- General -->
-    <string name="enable_gps">Please enable GPS</string>
-
     <!-- MainActivity.java -->
     <string name="dialog_title">Requesting permissions</string>
     <string name="dialog_message">This app needs the permission for GPS to track your route during an activity</string>
@@ -101,8 +98,11 @@
     <string name="sorry">This app doesn`t work without the permission to use GPS for requesting locations</string>
 
     <!-- Toasts -->
+    <string name="toast_enable_gps">Please enable GPS</string>
     <string name="toast_wait">Wait a moment...</string>
     <string name="toast_connection_lost">Connection to Play Services was lost with error\u0020</string>
     <string name="toast_connection_failed">Connection to Play Services faild</string>
     <string name="toast_error_save_track">An error has occured when inserting the activity</string>
+    <string name="toast_delete_activity_error">Can\'t delete activity</string>
+    <string name="toast_delete_track_error">Can\'t delete track</string>
 </resources>

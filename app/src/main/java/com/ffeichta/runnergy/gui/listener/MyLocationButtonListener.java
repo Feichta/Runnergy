@@ -22,7 +22,7 @@ public class MyLocationButtonListener implements GoogleMap.OnMyLocationButtonCli
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         if (!gpsEnabled) {
-            ToastFactory.makeToast(context, context.getResources().getString(R.string.enable_gps));
+            ToastFactory.makeToast(context, context.getResources().getString(R.string.toast_enable_gps));
         }
         return false;
     }

@@ -15,6 +15,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +104,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                         // Start location updates
                         startLocationUpdates();
                     } else {
-                        ToastFactory.makeToast(getContext(), getResources().getString(R.string.enable_gps));
+                        ToastFactory.makeToast(getContext(), getResources().getString(R.string.toast_enable_gps));
                     }
                 } else {
                     startButtonEnabled = false;
@@ -121,9 +122,11 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
 
                     if (activity.getCoordinates() == null || activity.getCoordinates().size() == 0) {
                         ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_no_coordinates));
+                        startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
                     } else {
                         if (activity.getDuration() < MIN_DURATION_OF_ACTIVITY_IN_SECONDS) {
                             ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_duration_too_short));
+                            startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
                         } else {
                             // Set the last coordinate as end point
                             activity.getCoordinates().get(activity.getCoordinates().size() - 1).setEnd(true);
@@ -373,6 +376,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         map.clear();
+        Log.d("clear", "clear");
         startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
         pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_pause));
     }
