@@ -14,6 +14,7 @@ public class Coordinate implements Serializable {
     private int timeFromStart = -1;
     private double distanceFromPrevious = -1;
     private Activity activity = null;
+    private boolean pause = false;
 
     public Coordinate() {
     }
@@ -101,6 +102,14 @@ public class Coordinate implements Serializable {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public boolean isPause() {
+        return pause;
+    }
+
+    public void setPause(boolean pause) {
+        this.pause = pause;
     }
 
     public String toString() {
