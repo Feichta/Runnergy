@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -84,6 +85,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         Activity a = (Activity) intent.getSerializableExtra("activity");
         this.coordinates = DBAccessHelper.getInstance(this).getCoordinates(a);
+        for (Coordinate c : coordinates) {
+            Log.d("23456", c.toString());
+        }
 
         startStopComparison.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,16 +173,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Holds all Polylines
         PolylineOptions polylineOptions = new PolylineOptions();
         // Holds all coordinates
-        ArrayList<LatLng> latLngs = new ArrayList<>();
+        ArrayList<ArrayList<LatLng>> all = new ArrayList<>(0);
+        ArrayList<LatLng> latLngGroup = new ArrayList<>();
         // Holds all Markers
         // Used to zoom into the map
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         // Add the start Marker, the end Marker and the Polylines to the map
-        for (Coordinate c : coordinates) {
+        for (int i = 0; i < coordinates.size(); i++) {
+            Coordinate c = coordinates.get(i);
+            Log.d("3333", c.toString());
             LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
             builder.include(latLng);
-            latLngs.add(latLng);
+            Log.d("2222", c.toString() + "");
+            latLngGroup.add(latLng);
+            if (c.isPause()) {
+                all.add(latLngGroup);
+                latLngGroup = new ArrayList<>();
+            }
+            if (i == coordinates.size() - 1) {
+                all.add(latLngGroup);
+            }
             if (c.isStart()) {
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
@@ -195,8 +210,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             }
         }
-        polylineOptions.addAll(latLngs).color(Color.MAGENTA);
-        map.addPolyline(polylineOptions);
+        for (ArrayList<LatLng> group : all) {
+            Log.d("23456", "begin");
+            for (LatLng latLng : group) {
+                Log.d("23456", ":::" + latLng.longitude);
+            }
+            Log.d("23456", "end");
+            polylineOptions = new PolylineOptions();
+            polylineOptions.addAll(group).color(Color.MAGENTA);
+            map.addPolyline(polylineOptions);
+        }
 
         // width and height are uses to generate the area which is shown on the map
         int width = getResources().getDisplayMetrics().widthPixels;
@@ -215,6 +238,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Contains all Coordinates where I want to zoom
         LatLngBounds bounds = builder.build();
+
 
         // Zoom into the map, so every Marker and polyline is visible on the map
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
