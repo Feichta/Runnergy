@@ -16,7 +16,9 @@ import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.listener.LocationListenerCompare;
+import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
+import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -80,7 +82,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         Intent intent = getIntent();
-        this.coordinates = (ArrayList<Coordinate>) intent.getSerializableExtra("coordinates");
+        Activity a = (Activity) intent.getSerializableExtra("activity");
+        this.coordinates = DBAccessHelper.getInstance(this).getCoordinates(a);
 
         startStopComparison.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -138,7 +138,7 @@ public class ActivitiesActivity extends Activity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 Intent intent = new Intent(ActivitiesActivity.this, MapsActivity.class);
-                intent.putExtra("coordinates", groupCollection.get(parentStrings.get(groupPosition)).get(childPosition).getCoordinates());
+                intent.putExtra("activity", groupCollection.get(parentStrings.get(groupPosition)).get(childPosition));
                 startActivity(intent);
                 return true;
             }
