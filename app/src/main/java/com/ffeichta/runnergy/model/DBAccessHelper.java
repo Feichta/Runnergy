@@ -52,6 +52,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             "ctimefromstart INTEGER NOT NULL," +
             "cdistancefromprevious REAL NOT NULL," +
             "aid INTEGER NOT NULL, " +
+            "cispause INTEGER NOT NULL," +
             "FOREIGN KEY (aid) REFERENCES activities(aid) " +
             "ON DELETE CASCADE ON UPDATE CASCADE" +
             "); ";
@@ -69,26 +70,26 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     private static String INSERT_ACTIVITY3 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
             + "  VALUES(3, \"CYCLING\", 1449929469000, 5301, 2);";
 
-    private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(1, 11.354850, 46.498012, 1, 0, 0, 0, 1);";
-    private static String INSERT_COORDINATE2 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(2, 11.354882, 46.497813, 0, 0, 5, 11, 1);";
-    private static String INSERT_COORDINATE3 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(3, 11.355027, 46.497625, 0, 0, 10, 14, 1);";
-    private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 9, 1);";
-    private static String INSERT_COORDINATE5 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(5, -14.589844, 22.715390, 1, 0, 0, 12903, 2);";
-    private static String INSERT_COORDINATE6 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(6, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 2);";
-    private static String INSERT_COORDINATE7 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(7, 31.047363, 30.916364, 0, 1, 211002, 976.8, 2);";
-    private static String INSERT_COORDINATE8 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(8, -14.589844, 22.715390, 1, 0, 0, 12903, 3);";
-    private static String INSERT_COORDINATE9 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(9, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 3);";
-    private static String INSERT_COORDINATE10 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid) "
-            + "  VALUES(10, 31.047363, 30.916364, 0, 1, 211002, 976.8, 3);";
+    private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(1, 11.354850, 46.498012, 1, 0, 0, 0, 1, 0);";
+    private static String INSERT_COORDINATE2 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(2, 11.354882, 46.497813, 0, 0, 5, 11, 1, 0);";
+    private static String INSERT_COORDINATE3 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(3, 11.355027, 46.497625, 0, 0, 10, 14, 1, 0);";
+    private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 9, 1, 0);";
+    private static String INSERT_COORDINATE5 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(5, -14.589844, 22.715390, 1, 0, 0, 12903, 2, 0);";
+    private static String INSERT_COORDINATE6 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(6, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 2, 0);";
+    private static String INSERT_COORDINATE7 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(7, 31.047363, 30.916364, 0, 1, 211002, 976.8, 2, 0);";
+    private static String INSERT_COORDINATE8 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(8, -14.589844, 22.715390, 1, 0, 0, 12903, 3, 0);";
+    private static String INSERT_COORDINATE9 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(9, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 3, 0);";
+    private static String INSERT_COORDINATE10 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+            + "  VALUES(10, 31.047363, 30.916364, 0, 1, 211002, 976.8, 3, 0);";
 
     private static DBAccessHelper instance = null;
 
@@ -315,7 +316,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 while (c.moveToNext()) {
                     if (ret == null)
                         ret = new ArrayList<Coordinate>();
-                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), a));
+                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), a, c.getInt(7) > 0));
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in getCoordinates(): " + e.getMessage());
@@ -352,7 +353,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                             + "  WHERE cid = ?;",
                     new String[]{String.valueOf(id)});
             if (c.moveToFirst()) {
-                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6));
+                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), c.getInt(7) > 0);
             }
         } catch (SQLiteException e) {
             Log.d(TAG, "Error in getCoordinate(): " + e.getMessage());
