@@ -29,4 +29,7 @@
     <!-- Background of average Activity -->
     <color name="avg">#F5F6CE</color>
 
+
+    <color name="textColorError">#FF0000</color>
+
 </resources>

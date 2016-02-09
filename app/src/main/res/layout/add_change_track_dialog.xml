@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
-    android:paddingTop="13dp">
+    android:paddingTop="13dp"
+    android:theme="@style/AppThemeWithActionBar">
 
     <TextView
         android:id="@+id/dialog_subtitle"
@@ -27,6 +28,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#FF0000"
+        android:textColor="@color/textColorError"
         android:visibility="gone" />
 </LinearLayout>

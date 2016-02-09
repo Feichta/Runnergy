@@ -7,6 +7,10 @@
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/textColorPrimary</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="actionModeBackground">@color/colorPrimary</item>
+        (or)
+        <!--     <item name="android:actionModeBackground">@android:color/holo_green_light</item>-->
+        <item name="android:colorAccent">@color/colorPrimary</item>
     </style>
 
     <style name="AppThemeWithActionBar" parent="android:Theme.Material.Light">
@@ -17,6 +21,8 @@
         <item name="android:editTextColor">@color/textColor</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <!--  <item name="actionModeBackground">@android:color/holo_purple</item> (or)-->
+        <item name="android:actionModeBackground">@color/colorPrimary</item>
     </style>
 
     <style name="AppThemeMinWidth" parent="android:Theme.Material.Light.Dialog.NoActionBar.MinWidth">
@@ -27,5 +33,9 @@
         <item name="android:editTextColor">@color/textColor</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
+    </style>
+
+    <style name="dialog" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 </resources>

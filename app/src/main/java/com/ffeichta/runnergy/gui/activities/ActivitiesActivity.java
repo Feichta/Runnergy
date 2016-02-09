@@ -68,19 +68,19 @@ public class ActivitiesActivity extends Activity {
 
         final ActivityAdapter activityAdapter = new ActivityAdapter(this, parentStrings, groupCollection);
         expListView.setAdapter(activityAdapter);
-        expListView.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE_MODAL);
+        expListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
         expListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 if (checked) {
                     Log.d("####", "" + childActivities.size() + "adde" + childActivities.get(position - 1).toString());
                     selection.add(childActivities.get(position - 1));
-                    mode.setTitle(expListView.getCheckedItemCount() + "selected");
                 } else {
                     selection.remove(childActivities.get(position));
 
-                    mode.setTitle(expListView.getCheckedItemCount() + "selected");
+
                 }
+                mode.setTitle(expListView.getCheckedItemCount() + " selected");
 
             }
 

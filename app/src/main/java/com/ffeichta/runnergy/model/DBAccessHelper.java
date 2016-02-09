@@ -588,21 +588,27 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         if (t == null) {
             ret = -1;
         } else {
-            SQLiteDatabase db = null;
-            try {
-                db = getWritableDatabase();
-                ContentValues values = new ContentValues(2);
-                values.put("tname", t.getName());
-                if (db.update("tracks", values, "tid = ?",
-                        new String[]{String.valueOf(t.getId())}) == 0)
-                    ret = -1;
-            } catch (SQLiteException e) {
-                Log.d(TAG, "Error in updateTrack(): " + e.getMessage());
+            t.validate();
+            if (t.getError() != null) {
                 ret = -1;
-            } finally {
+            } else {
+                SQLiteDatabase db = null;
+
                 try {
-                    db.close();
-                } catch (Exception e) {
+                    db = getWritableDatabase();
+                    ContentValues values = new ContentValues(2);
+                    values.put("tname", t.getName());
+                    if (db.update("tracks", values, "tid = ?",
+                            new String[]{String.valueOf(t.getId())}) == 0)
+                        ret = -1;
+                } catch (SQLiteException e) {
+                    Log.d(TAG, "Error in updateTrack(): " + e.getMessage());
+                    ret = -1;
+                } finally {
+                    try {
+                        db.close();
+                    } catch (Exception e) {
+                    }
                 }
             }
         }

@@ -20,6 +20,7 @@ import android.widget.ListView;
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.activities.ActivitiesActivity;
 import com.ffeichta.runnergy.gui.adapter.TrackAdapter;
+import com.ffeichta.runnergy.gui.dialogfactory.ChangeTrackDialogFactory;
 import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
@@ -52,7 +53,7 @@ public class TracksFragment extends Fragment {
                 if (checked) {
                     Log.d("####", "" + tracks.size() + "adde" + tracks.get(position).toString());
                     selection.add(tracks.get(position));
-                    mode.setTitle(listView.getCheckedItemCount() + "selected");
+                    mode.setTitle(listView.getCheckedItemCount() + " selected");
                 } else {
                     selection.remove(tracks.get(position));
 
@@ -94,7 +95,9 @@ public class TracksFragment extends Fragment {
                         mode.finish();
                         break;
                     case R.id.change:
-                        ToastFactory.makeToast(getContext(), "change");
+                        ChangeTrackDialogFactory changeTrackDialogFactory = new ChangeTrackDialogFactory(getActivity(), selection.get(0), mode);
+                        changeTrackDialogFactory.makeCustomInputDialog();
+                        //mode.finish();
                         break;
                 }
                 return false;
