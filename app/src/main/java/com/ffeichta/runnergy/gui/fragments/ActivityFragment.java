@@ -124,10 +124,12 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     if (activity.getCoordinates() == null || activity.getCoordinates().size() == 0) {
                         ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_no_coordinates));
                         startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
+                        pauseResumeButton.setVisibility(View.GONE);
                     } else {
                         if (activity.getDuration() < MIN_DURATION_OF_ACTIVITY_IN_SECONDS) {
                             ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_duration_too_short));
                             startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
+                            pauseResumeButton.setVisibility(View.GONE);
                         } else {
                             // Set the last coordinate as end point
                             activity.getCoordinates().get(activity.getCoordinates().size() - 1).setEnd(true);
@@ -379,7 +381,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         map.clear();
         Log.d("clear", "clear");
         startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
-        pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_pause));
+        pauseResumeButton.setVisibility(View.GONE);
     }
 
    /* @Override
