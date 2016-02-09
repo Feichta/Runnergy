@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -76,13 +77,17 @@ public class SaveActivityActivity extends android.app.Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareActivity();
-                int result = DBAccessHelper.getInstance(SaveActivityActivity.this).insertActivity(activity);
-                if (result == 0) {
-                    Intent intent = new Intent(SaveActivityActivity.this, MainActivity.class);
-                    startActivity(intent);
+
+                if (prepareActivity()) {
+                    int result = DBAccessHelper.getInstance(SaveActivityActivity.this).insertActivity(activity);
+                    if (result == 0) {
+                        Intent intent = new Intent(SaveActivityActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    } else {
+                        ToastFactory.makeToast(SaveActivityActivity.this, getResources().getString(R.string.toast_error_save_track));
+                    }
                 } else {
-                    ToastFactory.makeToast(SaveActivityActivity.this, getResources().getString(R.string.toast_error_save_track));
+                    ToastFactory.makeToast(SaveActivityActivity.this, "INsert a track");
                 }
             }
         });
@@ -115,9 +120,19 @@ public class SaveActivityActivity extends android.app.Activity {
 
     }
 
-    private void prepareActivity() {
+    /**
+     * True if success
+     *
+     * @return
+     */
+    private boolean prepareActivity() {
+        boolean ret = false;
         activity.setType(ActivityTypes.Type.values()[spinnerType.getSelectedItemPosition()]);
-        activity.setTrack(tracks.get(spinnerTrack.getSelectedItemPosition()));
+        if (spinnerTrack.getSelectedItemPosition() != AdapterView.INVALID_POSITION) {
+            activity.setTrack(tracks.get(spinnerTrack.getSelectedItemPosition()));
+            ret = true;
+        }
+        return ret;
     }
 
     private void setUpSpinnerTrack() {
