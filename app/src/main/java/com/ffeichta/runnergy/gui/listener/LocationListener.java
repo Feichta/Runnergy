@@ -3,6 +3,7 @@ package com.ffeichta.runnergy.gui.listener;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
+import android.util.Log;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
@@ -21,17 +22,26 @@ import java.util.ArrayList;
  */
 public class LocationListener implements com.google.android.gms.location.LocationListener {
     // Current location
-    LatLng actualLatLng = null;
+    private LatLng actualLatLng = null;
     // Previous location
-    LatLng previousLatLng = null;
+    private LatLng previousLatLng = null;
     // Coordinates of Activity
-    ArrayList<Coordinate> coordinates = null;
+    private ArrayList<Coordinate> coordinates = null;
     // UI Widgets
     private GoogleMap map = null;
     // Used for getRessources()
     private Context context = null;
     // Current Activity
     private Activity activity = null;
+
+    private Coordinate actualCoordinate = null;
+    private Coordinate previousCoordinate = null;
+    private long startfirstpause = 0;
+
+    private boolean firstisset = false;
+
+
+    private boolean lastCoordinateIsPause = false;
 
     public LocationListener(GoogleMap map, Context context) {
         this.map = map;
@@ -43,6 +53,15 @@ public class LocationListener implements com.google.android.gms.location.Locatio
         activity.setDate(System.currentTimeMillis());
         // Set the coordinates for the activity
         activity.setCoordinates(coordinates);
+
+    }
+
+    public boolean isLastCoordinateIsPause() {
+        return lastCoordinateIsPause;
+    }
+
+    public void setLastCoordinateIsPause(boolean lastCoordinateIsPause) {
+        this.lastCoordinateIsPause = lastCoordinateIsPause;
     }
 
     /**
@@ -50,40 +69,74 @@ public class LocationListener implements com.google.android.gms.location.Locatio
      */
     @Override
     public void onLocationChanged(Location location) {
+        Log.d("0000", "new coordinate + " + lastCoordinateIsPause);
         this.previousLatLng = this.actualLatLng;
+        this.previousCoordinate = this.actualCoordinate;
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        updateMap();
+        Coordinate c = new Coordinate();
+        c.setLongitude(location.getLongitude());
+        c.setLatitude(location.getLatitude());
+        this.actualCoordinate = c;
         addCoordinate();
+        updateMap();
     }
 
     private void addCoordinate() {
-        Coordinate coordinate = new Coordinate();
-        coordinate.setLatitude(actualLatLng.latitude);
-        coordinate.setLongitude(actualLatLng.longitude);
+        Log.d("0000", "add coordinate");
         if (previousLatLng == null) {
-            coordinate.setStart(true);
-            coordinate.setTimeFromStart(0);
-            coordinate.setDistanceFromPrevious(0);
+            actualCoordinate.setStart(true);
+            actualCoordinate.setTimeFromStart(0);
+            actualCoordinate.setDistanceFromPrevious(0);
         } else {
-            float[] result = new float[1];
-            Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude, actualLatLng.latitude, actualLatLng.longitude, result);
-            coordinate.setDistanceFromPrevious(result[0]);
-            coordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+            if (lastCoordinateIsPause) {
+                Log.d("0000", "1stcoordinate");
+                // 1st pause
+                /*previousCoordinate.setPause(true);
+                previousCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+                float[] result = new float[1];
+                Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude, actualLatLng.latitude, actualLatLng.longitude, result);
+                actualCoordinate.setDistanceFromPrevious(result[0]);
+                startfirstpause = System.currentTimeMillis();
+                lastCoordinateIsPause = false;
+                firstisset = true;*/
+                coordinates.get(coordinates.size() - 1).setPause(true);
+                previousLatLng = null;
+
+                actualCoordinate.setDistanceFromPrevious(0);
+                /*actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate() - System.currentTimeMillis() - startfirstpause) / 1000));
+                actualCoordinate.setPause(true);*/
+                actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+
+                lastCoordinateIsPause = false;
+                firstisset = true;
+            } else {
+                float[] result = new float[1];
+                Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude, actualLatLng.latitude, actualLatLng.longitude, result);
+                actualCoordinate.setDistanceFromPrevious(result[0]);
+                actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+
+            }
         }
-        coordinate.setActivity(activity);
-        coordinates.add(coordinate);
+        actualCoordinate.setActivity(activity);
+        coordinates.add(actualCoordinate);
     }
 
     /**
      * Puts a Polyline or a Marker into the map
      */
     private void updateMap() {
-        if (previousLatLng == null) {
+        if (previousLatLng == null && coordinates.size() == 1) {
             addStartMarker();
         } else {
-            addPolyline();
+            if (!coordinates.get(coordinates.size() - 1).isPause()) {
+                if (actualLatLng != null && previousLatLng != null) {
+                    addPolyline();
+                }
+            }
         }
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, 18));
+        if (actualLatLng != null) {
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, 18));
+        }
     }
 
     private void addStartMarker() {

@@ -41,7 +41,7 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
-    private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 5;
+    private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 3;
 
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
@@ -152,6 +152,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
 
                     // Save the actual date to calculate the duration of the pause
                     dateOnPaused = System.currentTimeMillis();
+                    locationListener.setLastCoordinateIsPause(false);
 
                     stopLocationUpdates();
                 } else {
@@ -160,7 +161,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
 
                     // Increase the duration where the user paused the Activity
                     durationPausedInMilliseconds += System.currentTimeMillis() - dateOnPaused;
-
+                    locationListener.setLastCoordinateIsPause(true);
                     startLocationUpdates();
                 }
             }

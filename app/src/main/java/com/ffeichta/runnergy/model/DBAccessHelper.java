@@ -546,11 +546,13 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 values.put("clatitude", c.getLatitude());
                 int isStart = (c.isStart()) ? 1 : 0;
                 int isEnd = (c.isEnd()) ? 1 : 0;
+                int isPause = (c.isPause()) ? 1 : 0;
                 values.put("cisstart", isStart);
                 values.put("cisend", isEnd);
                 values.put("ctimefromstart", c.getTimeFromStart());
                 values.put("cdistancefromprevious", c.getDistanceFromPrevious());
                 values.put("aid", c.getActivity().getId());
+                values.put("cispause", isPause);
                 ret = (int) db.insert("coordinates", null, values);
                 if (ret >= 0) {
                     c.setId(ret);
