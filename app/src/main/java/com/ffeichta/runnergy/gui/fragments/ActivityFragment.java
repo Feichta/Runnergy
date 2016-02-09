@@ -42,6 +42,7 @@ import com.google.android.gms.maps.SupportMapFragment;
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 5;
+
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
     // Interval for location updates. Inexact. Updates may be more or less frequent
