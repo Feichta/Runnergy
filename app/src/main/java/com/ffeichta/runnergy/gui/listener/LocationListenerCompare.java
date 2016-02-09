@@ -3,7 +3,9 @@ package com.ffeichta.runnergy.gui.listener;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
@@ -17,11 +19,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by Fabian on 09.02.2016.
  */
-public class LocationListenerCompare implements com.google.android.gms.location.LocationListener {
+public class LocationListenerCompare implements com.google.android.gms.location.LocationListener, TextToSpeech.OnInitListener {
+    TextToSpeech textToSpeech = null;
     Activity activity = null;
     // Current location
     LatLng actualLatLng = null;
@@ -29,16 +33,18 @@ public class LocationListenerCompare implements com.google.android.gms.location.
     LatLng previousLatLng = null;
     // Coordinates of Activity
     ArrayList<Coordinate> coordinates = null;
+    TextView text = null;
     // UI Widgets
     private GoogleMap map = null;
     // Used for getRessources()
     private Context context = null;
     private long time = 0;
 
-    public LocationListenerCompare(GoogleMap map, Context context, Activity activity) {
+    public LocationListenerCompare(GoogleMap map, Context context, Activity activity, TextView text) {
         this.map = map;
         this.context = context;
         this.activity = activity;
+        this.text = text;
     }
 
     @Override
@@ -55,6 +61,30 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         Location.distanceBetween(c.getLongitude(), c.getLatitude(), location.getLongitude(), location.getLatitude(), result);
         Log.d("++++", result[0] + " ");*/
         Log.d("++++", c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time) + " ");
+        long difference = c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time);
+        if (difference < 0) {
+            if (difference == -1) {
+                text.setText(-difference + "Sekunde langsamer");
+            } else {
+                text.setText(-difference + " Sekunden langsamer");
+            }
+        } else {
+            if (difference > 0) {
+                if (difference == 1) {
+                    text.setText(difference + " Sekunde schneller");
+                } else {
+                    text.setText(difference + " Sekunden schneller");
+                }
+            } else {
+                text.setText("gleich schnell");
+            }
+        }
+       /* textToSpeech = new TextToSpeech(context,this);
+        if(previousLatLng == null) {
+            Log.d("++++", "adsfklja");
+           speech();
+        }*/
+
     }
 
     /**
@@ -85,4 +115,18 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         polylineOptions.color(Color.RED);
         map.addPolyline(polylineOptions);
     }
+
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            Log.d("++++", "adsfklja988");
+            textToSpeech.setLanguage(Locale.GERMAN);
+        }
+    }
+
+    /*private void speech() {
+        Log.d("++++", "adsfklja4");
+        textToSpeech.speak("Hannes is gay", TextToSpeech.QUEUE_FLUSH, null, null);
+        Log.d("++++", "adsfklja5");
+    }*/
 }

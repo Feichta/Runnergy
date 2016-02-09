@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.listener.LocationListenerCompare;
@@ -61,6 +62,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button startStopComparison = null;
     // Coordinates of the route
     private ArrayList<Coordinate> coordinates = null;
+    private TextView text = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.maps_fragment);
 
         getActionBar().setDisplayShowTitleEnabled(false);
+
+        text = (TextView) findViewById(R.id.time);
 
         startStopComparison = (Button) findViewById(R.id.mapsStartStop);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -84,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 if (!startButtonEnabled) {
                     startButtonEnabled = true;
                     startStopComparison.setText(getResources().getString(R.string.maps_activity_stop));
-                    locationListener = new LocationListenerCompare(map, MapsActivity.this, coordinates.get(0).getActivity());
+                    locationListener = new LocationListenerCompare(map, MapsActivity.this, coordinates.get(0).getActivity(), text);
                     // Start location updates
                     startLocationUpdates();
                     if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
