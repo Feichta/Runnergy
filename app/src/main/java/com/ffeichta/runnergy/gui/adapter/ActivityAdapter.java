@@ -69,7 +69,8 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup
+            parent) {
         String typeTitle = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -78,12 +79,14 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
                     null);
         }
         TextView item = (TextView) convertView.findViewById(R.id.heading);
-        item.setText(typeTitle + " (" + groupCollection.get(parentStrings.get(groupPosition)).size() + ")");
+        item.setText(typeTitle + " (" + groupCollection.get(parentStrings.get(groupPosition))
+                .size() + ")");
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View
+            convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View ret = convertView;
         ActivityHolder activityHolder;

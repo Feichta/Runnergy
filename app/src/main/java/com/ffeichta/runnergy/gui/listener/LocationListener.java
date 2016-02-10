@@ -92,9 +92,11 @@ public class LocationListener implements com.google.android.gms.location.Locatio
                 Log.d("0000", "1stcoordinate");
                 // 1st pause
                 /*previousCoordinate.setPause(true);
-                previousCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+                previousCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
+                .getDate()) / 1000));
                 float[] result = new float[1];
-                Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude, actualLatLng.latitude, actualLatLng.longitude, result);
+                Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude,
+                actualLatLng.latitude, actualLatLng.longitude, result);
                 actualCoordinate.setDistanceFromPrevious(result[0]);
                 startfirstpause = System.currentTimeMillis();
                 lastCoordinateIsPause = false;
@@ -103,17 +105,21 @@ public class LocationListener implements com.google.android.gms.location.Locatio
                 previousLatLng = null;
 
                 actualCoordinate.setDistanceFromPrevious(0);
-                /*actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate() - System.currentTimeMillis() - startfirstpause) / 1000));
+                /*actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
+                .getDate() - System.currentTimeMillis() - startfirstpause) / 1000));
                 actualCoordinate.setPause(true);*/
-                actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+                actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
+                        .getDate()) / 1000));
 
                 lastCoordinateIsPause = false;
                 firstisset = true;
             } else {
                 float[] result = new float[1];
-                Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude, actualLatLng.latitude, actualLatLng.longitude, result);
+                Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude,
+                        actualLatLng.latitude, actualLatLng.longitude, result);
                 actualCoordinate.setDistanceFromPrevious(result[0]);
-                actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity.getDate()) / 1000));
+                actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
+                        .getDate()) / 1000));
 
             }
         }

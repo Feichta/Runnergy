@@ -69,7 +69,8 @@ public class SaveActivityActivity extends android.app.Activity {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddTrackDialogFactory addTrackDialogFactory = new AddTrackDialogFactory(SaveActivityActivity.this);
+                AddTrackDialogFactory addTrackDialogFactory = new AddTrackDialogFactory
+                        (SaveActivityActivity.this);
                 addTrackDialogFactory.makeCustomInputDialog();
             }
         });
@@ -79,12 +80,14 @@ public class SaveActivityActivity extends android.app.Activity {
             public void onClick(View v) {
 
                 if (prepareActivity()) {
-                    int result = DBAccessHelper.getInstance(SaveActivityActivity.this).insertActivity(activity);
+                    int result = DBAccessHelper.getInstance(SaveActivityActivity.this)
+                            .insertActivity(activity);
                     if (result == 0) {
                         Intent intent = new Intent(SaveActivityActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
-                        ToastFactory.makeToast(SaveActivityActivity.this, getResources().getString(R.string.toast_error_save_track));
+                        ToastFactory.makeToast(SaveActivityActivity.this, getResources()
+                                .getString(R.string.toast_error_save_track));
                     }
                 } else {
                     ToastFactory.makeToast(SaveActivityActivity.this, "INsert a track");
@@ -141,7 +144,8 @@ public class SaveActivityActivity extends android.app.Activity {
             for (Track t : tracks) {
                 names.add(t.getName());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, names);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout
+                    .simple_spinner_item, names);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             spinnerTrack.setAdapter(adapter);
         }
@@ -152,7 +156,8 @@ public class SaveActivityActivity extends android.app.Activity {
         for (ActivityTypes.Type type : ActivityTypes.Type.values()) {
             types.add(type.toString(this));
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, types);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout
+                .simple_spinner_item, types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(adapter);
     }

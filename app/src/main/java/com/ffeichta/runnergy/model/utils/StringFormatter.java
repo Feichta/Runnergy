@@ -72,7 +72,8 @@ public class StringFormatter {
                 ret = getFormattedValue(result) + " km/h";
                 break;
             case "mi":
-                result = Math.round(distanceInMeter / activity.getDuration() * 3.6 * FACTOR_MILE * 100.0) / 100.0;
+                result = Math.round(distanceInMeter / activity.getDuration() * 3.6 * FACTOR_MILE
+                        * 100.0) / 100.0;
                 ret = getFormattedValue(result) + " mph";
                 break;
             default:

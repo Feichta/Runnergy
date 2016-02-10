@@ -37,7 +37,8 @@ public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
     @Override
     public void onConnectionSuspended(int cause) {
         // Call connect() to attempt to re-establish the connection
-        ToastFactory.makeToast(activityFragment.getContext(), activityFragment.getResources().getString(R.string.toast_connection_lost) + cause);
+        ToastFactory.makeToast(activityFragment.getContext(), activityFragment.getResources()
+                .getString(R.string.toast_connection_lost) + cause);
         activityFragment.googleApiClient.connect();
     }
 }

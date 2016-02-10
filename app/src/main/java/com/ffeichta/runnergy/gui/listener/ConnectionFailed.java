@@ -23,6 +23,7 @@ public class ConnectionFailed implements GoogleApiClient.OnConnectionFailedListe
      */
     @Override
     public void onConnectionFailed(ConnectionResult result) {
-        ToastFactory.makeToast(activityFragment.getContext(), activityFragment.getResources().getString(R.string.toast_connection_lost) + result.getErrorCode());
+        ToastFactory.makeToast(activityFragment.getContext(), activityFragment.getResources()
+                .getString(R.string.toast_connection_lost) + result.getErrorCode());
     }
 }

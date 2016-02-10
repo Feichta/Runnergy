@@ -76,7 +76,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     private long durationPausedInMilliseconds = -1;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+    Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_fragment, container, false);
 
         // Locate UI Widgets
@@ -94,18 +95,22 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 if (!startButtonEnabled) {
-                    LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-                    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                    LocationManager locationManager = (LocationManager) getContext()
+                            .getSystemService(Context.LOCATION_SERVICE);
+                    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager
+                            .GPS_PROVIDER);
                     if (gpsEnabled) {
                         startButtonEnabled = true;
-                        startStopButton.setText(getResources().getString(R.string.activity_fragment_stop));
+                        startStopButton.setText(getResources().getString(R.string
+                                .activity_fragment_stop));
                         pauseResumeButton.setVisibility(View.VISIBLE);
                         // Get a new LocationListener
                         locationListener = new LocationListener(map, getContext());
                         // Start location updates
                         startLocationUpdates();
                     } else {
-                        ToastFactory.makeToast(getContext(), getResources().getString(R.string.toast_enable_gps));
+                        ToastFactory.makeToast(getContext(), getResources().getString(R.string
+                                .toast_enable_gps));
                     }
                 } else {
                     startButtonEnabled = false;
@@ -119,20 +124,27 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     // Get the Activity object from the listener...
                     Activity activity = locationListener.getActivity();
                     // ... and set the duration minus the time where the Activity was paused
-                    activity.setDuration((int) ((System.currentTimeMillis() - activity.getDate() - durationPausedInMilliseconds) / 1000));
+                    activity.setDuration((int) ((System.currentTimeMillis() - activity.getDate()
+                            - durationPausedInMilliseconds) / 1000));
 
-                    if (activity.getCoordinates() == null || activity.getCoordinates().size() == 0) {
-                        ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_no_coordinates));
-                        startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
+                    if (activity.getCoordinates() == null || activity.getCoordinates().size() ==
+                            0) {
+                        ToastFactory.makeToast(getContext(), getResources().getString(R.string
+                                .activity_fragment_no_coordinates));
+                        startStopButton.setText(getResources().getString(R.string
+                                .activity_fragment_start));
                         pauseResumeButton.setVisibility(View.GONE);
                     } else {
                         if (activity.getDuration() < MIN_DURATION_OF_ACTIVITY_IN_SECONDS) {
-                            ToastFactory.makeToast(getContext(), getResources().getString(R.string.activity_fragment_duration_too_short));
-                            startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
+                            ToastFactory.makeToast(getContext(), getResources().getString(R
+                                    .string.activity_fragment_duration_too_short));
+                            startStopButton.setText(getResources().getString(R.string
+                                    .activity_fragment_start));
                             pauseResumeButton.setVisibility(View.GONE);
                         } else {
                             // Set the last coordinate as end point
-                            activity.getCoordinates().get(activity.getCoordinates().size() - 1).setEnd(true);
+                            activity.getCoordinates().get(activity.getCoordinates().size() - 1)
+                                    .setEnd(true);
                             // Start Activity where the user can save the Activity
                             Intent intent = new Intent(getActivity(), SaveActivityActivity.class);
                             intent.putExtra("activity", locationListener.getActivity());
@@ -148,7 +160,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 if (!pauseButtonEnabled) {
                     pauseButtonEnabled = true;
-                    pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_resume));
+                    pauseResumeButton.setText(getResources().getString(R.string
+                            .activity_fragment_resume));
 
                     // Save the actual date to calculate the duration of the pause
                     dateOnPaused = System.currentTimeMillis();
@@ -157,7 +170,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     stopLocationUpdates();
                 } else {
                     pauseButtonEnabled = false;
-                    pauseResumeButton.setText(getResources().getString(R.string.activity_fragment_pause));
+                    pauseResumeButton.setText(getResources().getString(R.string
+                            .activity_fragment_pause));
 
                     // Increase the duration where the user paused the Activity
                     durationPausedInMilliseconds += System.currentTimeMillis() - dateOnPaused;
@@ -194,7 +208,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         map = googleMap;
 
         setMapType();
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
+                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
@@ -281,7 +296,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
      * Requests location updates from the FusedLocationApi
      */
     public void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
+                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
@@ -310,10 +326,12 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         // Never get more updates than this interval?
         fastestUpdateIntervalInMilliseconds = getIntervalFromSettingsInMilliseconds();
         // ???
-        updateIntervalInMilliseconds = fastestUpdateIntervalInMilliseconds * FACTOR_BETWEEN_INTERVALS;
+        updateIntervalInMilliseconds = fastestUpdateIntervalInMilliseconds *
+                FACTOR_BETWEEN_INTERVALS;
         // Example: If the user wants location updates every 10 seconds, he gets them only if
         // he moves at least 2,5 meters in 10 seconds
-        smallestDisplacementInMeter = fastestUpdateIntervalInMilliseconds / 1000 * FACTOR_DISPLACEMENT;
+        smallestDisplacementInMeter = fastestUpdateIntervalInMilliseconds / 1000 *
+                FACTOR_DISPLACEMENT;
     }
 
     /**

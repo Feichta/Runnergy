@@ -36,7 +36,8 @@ public class TracksFragment extends Fragment {
     private ListView listView = null;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+    Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tracks_fragment, container, false);
         listView = (ListView) v.findViewById(R.id.listviewTracks);
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
@@ -49,7 +50,8 @@ public class TracksFragment extends Fragment {
         listView.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
+                    checked) {
                 if (checked) {
                     Log.d("####", "" + tracks.size() + "adde" + tracks.get(position).toString());
                     selection.add(tracks.get(position));
@@ -81,10 +83,12 @@ public class TracksFragment extends Fragment {
                             // com.ffeichta.runnergy.model.Activity a =
                             Log.d("#### hier", Item.toString());
                             tracks.remove(Item);
-                       /* com.ffeichta.runnergy.model.Activity a = new com.ffeichta.runnergy.model.Activity();
+                       /* com.ffeichta.runnergy.model.Activity a = new com.ffeichta.runnergy
+                       .model.Activity();
                         a.setId(5);*/
                             if (DBAccessHelper.getInstance(getContext()).deleteTrack(Item) != 0) {
-                                ToastFactory.makeToast(getContext(), getResources().getString(R.string.toast_delete_track_error));
+                                ToastFactory.makeToast(getContext(), getResources().getString(R
+                                        .string.toast_delete_track_error));
                             } else {
                                 item.setVisible(false);
                             }
@@ -95,7 +99,8 @@ public class TracksFragment extends Fragment {
                         mode.finish();
                         break;
                     case R.id.change:
-                        ChangeTrackDialogFactory changeTrackDialogFactory = new ChangeTrackDialogFactory(getActivity(), selection.get(0), mode);
+                        ChangeTrackDialogFactory changeTrackDialogFactory = new
+                                ChangeTrackDialogFactory(getActivity(), selection.get(0), mode);
                         changeTrackDialogFactory.makeCustomInputDialog();
                         //mode.finish();
                         break;

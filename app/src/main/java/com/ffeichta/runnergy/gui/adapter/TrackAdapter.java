@@ -45,9 +45,11 @@ public class TrackAdapter extends ArrayAdapter<Track> {
             // Because it is one Activity set for this Track we don't need the 's' at the end of
             // the word 'activites'
             if (count == 1) {
-                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.track_adapter_singular));
+                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string
+                        .track_adapter_singular));
             } else {
-                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string.track_adapter_plural));
+                trackHolder.count.setText(String.valueOf(count) + getContext().getString(R.string
+                        .track_adapter_plural));
             }
         }
         return ret;

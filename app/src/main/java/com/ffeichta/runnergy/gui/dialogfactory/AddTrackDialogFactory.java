@@ -59,7 +59,8 @@ public class AddTrackDialogFactory {
                     // Inserting track was successful now the Spinner has to update
                     saveActivityActivity.setUpSpinners();
                     // Set the actual value in the spinner to the inserted Track
-                    saveActivityActivity.spinnerTrack.setSelection(saveActivityActivity.spinnerTrack.getAdapter().getCount()-1);
+                    saveActivityActivity.spinnerTrack.setSelection(saveActivityActivity
+                            .spinnerTrack.getAdapter().getCount() - 1);
                     // Finally close the dialog
                     d.dismiss();
 
@@ -69,11 +70,13 @@ public class AddTrackDialogFactory {
                     if (error != null) {
                         if (errors.get("name") == Track.NAME_IS_NOT_SET) {
                             error.setVisibility(View.VISIBLE);
-                            error.setText(saveActivityActivity.getResources().getString(R.string.dialog_error_no_name));
+                            error.setText(saveActivityActivity.getResources().getString(R.string
+                                    .dialog_error_no_name));
                         }
                         if (errors.get("name") == Track.NAME_ALREADY_EXISTS) {
                             error.setVisibility(View.VISIBLE);
-                            error.setText(saveActivityActivity.getResources().getString(R.string.dialog_error_already_exists));
+                            error.setText(saveActivityActivity.getResources().getString(R.string
+                                    .dialog_error_already_exists));
                         }
                     }
                 }

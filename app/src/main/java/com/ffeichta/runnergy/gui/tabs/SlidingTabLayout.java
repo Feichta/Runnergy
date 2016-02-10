@@ -104,7 +104,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     /**
      * Sets the colors to be used for indicating the selected tab. These colors are treated as a
-     * circular array. Providing one color will mean that all tabs are indicated with the same color.
+     * circular array. Providing one color will mean that all tabs are indicated with the same
+     * color.
      */
     public void setSelectedIndicatorColors(int... colors) {
         mTabStrip.setSelectedIndicatorColors(colors);
@@ -194,7 +195,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
             }
 
             if (mDistributeEvenly) {
-                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabView.getLayoutParams();
+                LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) tabView
+                        .getLayoutParams();
                 lp.width = 0;
                 lp.weight = 1;
             }
@@ -210,7 +212,8 @@ public class SlidingTabLayout extends HorizontalScrollView {
             if (i == mViewPager.getCurrentItem()) {
                 tabView.setSelected(true);
             }
-            tabTitleView.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.selector));
+            tabTitleView.setTextColor(ContextCompat.getColorStateList(getContext(), R.color
+                    .selector));
         }
     }
 

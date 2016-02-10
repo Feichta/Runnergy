@@ -20,7 +20,8 @@ public class Coordinate implements Serializable {
     public Coordinate() {
     }
 
-    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, double distanceFromPrevious, boolean pause) {
+    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int
+            timeFromStart, double distanceFromPrevious, boolean pause) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -31,7 +32,8 @@ public class Coordinate implements Serializable {
         this.pause = pause;
     }
 
-    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, double distanceFromPrevious, Activity activity, boolean pause) {
+    public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int
+            timeFromStart, double distanceFromPrevious, Activity activity, boolean pause) {
         this(id, longitude, latitude, start, end, timeFromStart, distanceFromPrevious, pause);
         this.activity = activity;
     }

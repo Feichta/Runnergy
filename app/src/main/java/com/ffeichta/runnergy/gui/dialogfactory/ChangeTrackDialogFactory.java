@@ -73,11 +73,13 @@ public class ChangeTrackDialogFactory {
                     if (error != null) {
                         if (errors.get("name") == Track.NAME_IS_NOT_SET) {
                             error.setVisibility(View.VISIBLE);
-                            error.setText(mainActivity.getResources().getString(R.string.dialog_error_no_name));
+                            error.setText(mainActivity.getResources().getString(R.string
+                                    .dialog_error_no_name));
                         }
                         if (errors.get("name") == Track.NAME_ALREADY_EXISTS) {
                             error.setVisibility(View.VISIBLE);
-                            error.setText(mainActivity.getResources().getString(R.string.dialog_error_already_exists));
+                            error.setText(mainActivity.getResources().getString(R.string
+                                    .dialog_error_already_exists));
                         }
                     }
                 }

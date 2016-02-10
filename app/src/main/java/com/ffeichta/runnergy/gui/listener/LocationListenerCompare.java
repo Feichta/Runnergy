@@ -24,7 +24,8 @@ import java.util.Locale;
 /**
  * Created by Fabian on 09.02.2016.
  */
-public class LocationListenerCompare implements com.google.android.gms.location.LocationListener, TextToSpeech.OnInitListener {
+public class LocationListenerCompare implements com.google.android.gms.location.LocationListener,
+        TextToSpeech.OnInitListener {
     TextToSpeech textToSpeech = null;
     Activity activity = null;
     // Current location
@@ -40,7 +41,8 @@ public class LocationListenerCompare implements com.google.android.gms.location.
     private Context context = null;
     private long time = 0;
 
-    public LocationListenerCompare(GoogleMap map, Context context, Activity activity, TextView text) {
+    public LocationListenerCompare(GoogleMap map, Context context, Activity activity, TextView
+            text) {
         this.map = map;
         this.context = context;
         this.activity = activity;
@@ -55,10 +57,12 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         this.previousLatLng = this.actualLatLng;
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         updateMap();
-        int id = DBAccessHelper.getInstance(context).getIDOfClosestCoordinateInActivity(location.getLongitude(), location.getLatitude(), activity.getId());
+        int id = DBAccessHelper.getInstance(context).getIDOfClosestCoordinateInActivity(location
+                .getLongitude(), location.getLatitude(), activity.getId());
         Coordinate c = DBAccessHelper.getInstance(context).getCoordinate(id);
        /* float[] result = new float[1];
-        Location.distanceBetween(c.getLongitude(), c.getLatitude(), location.getLongitude(), location.getLatitude(), result);
+        Location.distanceBetween(c.getLongitude(), c.getLatitude(), location.getLongitude(),
+        location.getLatitude(), result);
         Log.d("++++", result[0] + " ");*/
         Log.d("++++", c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time) + " ");
         long difference = c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time);

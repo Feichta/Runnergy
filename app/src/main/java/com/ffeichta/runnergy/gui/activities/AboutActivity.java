@@ -63,10 +63,12 @@ public class AboutActivity extends Activity {
                                     .parse("mailto:fabian.feichter@ffeichta.com"));
                             mail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             mail.putExtra(Intent.EXTRA_SUBJECT,
-                                    getResources().getString(R.string.app_name) + " " + getResources().getString(R.string.version));
+                                    getResources().getString(R.string.app_name) + " " +
+                                            getResources().getString(R.string.version));
                             startActivity(mail);
                         } catch (android.content.ActivityNotFoundException anfe) {
-                            ToastFactory.makeToast(AboutActivity.this, getResources().getString(R.string.email));
+                            ToastFactory.makeToast(AboutActivity.this, getResources().getString(R
+                                    .string.email));
                         }
                         break;
                     case 4:
@@ -79,7 +81,8 @@ public class AboutActivity extends Activity {
                             // Play Store is not installed, open the link to the app in the Browser
                             Intent googlePlayBrowser = new Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://play.google.com/store/apps/details?id=com.ffeichta.runnergy"));
+                                    Uri.parse("https://play.google.com/store/apps/details?id=com" +
+                                            ".ffeichta.runnergy"));
                             startActivity(googlePlayBrowser);
                         }
                         break;

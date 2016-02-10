@@ -63,32 +63,45 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     private static String INSERT_TRACK2 = "INSERT INTO tracks(tid, tname) "
             + "  VALUES(2, \"Ahornach-Knutten\");";
 
-    private static String INSERT_ACTIVITY1 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
+    private static String INSERT_ACTIVITY1 = "INSERT INTO activities(aid, atype, adate, " +
+            "aduration, tid) "
             + "  VALUES(1, \"RUNNING\", 1447115888179, 660, 1);";
-    private static String INSERT_ACTIVITY2 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
+    private static String INSERT_ACTIVITY2 = "INSERT INTO activities(aid, atype, adate, " +
+            "aduration, tid) "
             + "  VALUES(2, \"CYCLING\", 1451394599000, 5108, 2);";
-    private static String INSERT_ACTIVITY3 = "INSERT INTO activities(aid, atype, adate, aduration, tid) "
+    private static String INSERT_ACTIVITY3 = "INSERT INTO activities(aid, atype, adate, " +
+            "aduration, tid) "
             + "  VALUES(3, \"CYCLING\", 1449929469000, 5301, 2);";
 
-    private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE1 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(1, 11.354850, 46.498012, 1, 0, 0, 0, 1, 0);";
-    private static String INSERT_COORDINATE2 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE2 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(2, 11.354882, 46.497813, 0, 0, 5, 11, 1, 0);";
-    private static String INSERT_COORDINATE3 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE3 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(3, 11.355027, 46.497625, 0, 0, 10, 14, 1, 0);";
-    private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE4 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(4, 11.355190, 46.497554, 0, 1, 15, 9, 1, 0);";
-    private static String INSERT_COORDINATE5 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE5 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(5, -14.589844, 22.715390, 1, 0, 0, 12903, 2, 0);";
-    private static String INSERT_COORDINATE6 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE6 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(6, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 2, 0);";
-    private static String INSERT_COORDINATE7 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE7 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(7, 31.047363, 30.916364, 0, 1, 211002, 976.8, 2, 0);";
-    private static String INSERT_COORDINATE8 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE8 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(8, -14.589844, 22.715390, 1, 0, 0, 12903, 3, 0);";
-    private static String INSERT_COORDINATE9 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE9 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(9, 21.818848, 22.690052, 0, 0, 166543, 5322.1, 3, 0);";
-    private static String INSERT_COORDINATE10 = "INSERT INTO coordinates(cid, clongitude, clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
+    private static String INSERT_COORDINATE10 = "INSERT INTO coordinates(cid, clongitude, " +
+            "clatitude, cisstart, cisend, ctimefromstart, cdistancefromprevious, aid, cispause) "
             + "  VALUES(10, 31.047363, 30.916364, 0, 1, 211002, 976.8, 3, 0);";
 
     private static DBAccessHelper instance = null;
@@ -180,7 +193,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      */
 
     /**
-     * Selects all tracks from the database and orders it by the number of activities which belongs to a track
+     * Selects all tracks from the database and orders it by the number of activities which
+     * belongs to a track
      *
      * @return null if no tracks have been found
      */
@@ -190,7 +204,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         Cursor c = null;
         try {
             db = getWritableDatabase();
-            c = db.rawQuery("SELECT tid, tname, (SELECT COUNT(*) FROM activities WHERE tracks.tid=activities.tid)" + "  FROM tracks ORDER BY 3 DESC;", null);
+            c = db.rawQuery("SELECT tid, tname, (SELECT COUNT(*) FROM activities WHERE tracks" +
+                    ".tid=activities.tid)" + "  FROM tracks ORDER BY 3 DESC;", null);
             while (c.moveToNext()) {
                 if (ret == null) {
                     ret = new ArrayList<Track>();
@@ -222,7 +237,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Selects all activities from a certain track and orders by date descending. The activity gets a reference to the track
+     * Selects all activities from a certain track and orders by date descending. The activity
+     * gets a reference to the track
      *
      * @param t
      * @return null if no activities have been found
@@ -234,14 +250,17 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             Cursor c = null;
             try {
                 db = getWritableDatabase();
-                c = db.rawQuery("SELECT a1.*, (SELECT COUNT(*) FROM activities a2 WHERE a2.atype = a1.atype AND a2.aid <> a1.aid AND a2.tid= ?) AS count" + "  FROM activities a1"
+                c = db.rawQuery("SELECT a1.*, (SELECT COUNT(*) FROM activities a2 WHERE a2.atype " +
+                                "= a1.atype AND a2.aid <> a1.aid AND a2.tid= ?) AS count" + "  " +
+                                "FROM activities a1"
                                 + "  WHERE tid = ? " + "ORDER BY count DESC, atype, adate DESC;",
                         new String[]{String.valueOf(t.getId()), String.valueOf(t.getId())});
                 while (c.moveToNext()) {
                     if (ret == null) {
                         ret = new ArrayList<Activity>();
                     }
-                    ret.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), t));
+                    ret.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)),
+                            c.getLong(2), c.getInt(3), t));
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in getActivities(): " + e.getMessage());
@@ -278,7 +297,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                             + "  WHERE aid = ?;",
                     new String[]{String.valueOf(id)});
             if (c.moveToFirst()) {
-                ret = new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3));
+                ret = new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c
+                        .getLong(2), c.getInt(3));
             }
         } catch (SQLiteException e) {
             Log.d(TAG, "Error in getActivity(): " + e.getMessage());
@@ -298,7 +318,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Selects all coordinates from a certain activity. The coordinate gets a reference to the activity
+     * Selects all coordinates from a certain activity. The coordinate gets a reference to the
+     * activity
      *
      * @param a
      * @return
@@ -315,9 +336,10 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                         new String[]{String.valueOf(a.getId())});
                 while (c.moveToNext()) {
                     if (ret == null)
-                        ret = new ArrayList<Coordinate>();
-                    Log.d("23456", c.getInt(8) + "");
-                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), a, c.getInt(8) > 0));
+                        ret = new ArrayList<>();
+                    ret.add(new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt
+                            (3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), a, c.getInt(8)
+                            > 0));
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in getCoordinates(): " + e.getMessage());
@@ -354,7 +376,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                             + "  WHERE cid = ?;",
                     new String[]{String.valueOf(id)});
             if (c.moveToFirst()) {
-                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) > 0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), c.getInt(8) > 0);
+                ret = new Coordinate(c.getInt(0), c.getDouble(1), c.getDouble(2), c.getInt(3) >
+                        0, c.getInt(4) > 0, c.getInt(5), c.getDouble(6), c.getInt(8) > 0);
             }
         } catch (SQLiteException e) {
             Log.d(TAG, "Error in getCoordinate(): " + e.getMessage());
@@ -393,7 +416,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             selectionArgs[3] = String.valueOf(latitude);
             selectionArgs[4] = String.valueOf(id);
             // a^2 + b^2 = c^2
-            c = db.rawQuery("SELECT cid, ((?-clongitude)*(?-clongitude)+(?-clatitude)*(?-clatitude))" + "  FROM coordinates "
+            c = db.rawQuery("SELECT cid, ((?-clongitude)*(?-clongitude)+(?-clatitude)*" +
+                            "(?-clatitude))" + "  FROM coordinates "
                             + "  WHERE aid = ? ORDER BY 2;",
                     selectionArgs);
             if (c.moveToFirst()) {
@@ -512,7 +536,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                     db.setTransactionSuccessful();
                 }
             } catch (SQLiteException e) {
-                Log.d(TAG, "Error in insertTrack(): " + e.getMessage());
+                Log.d(TAG, "Error in insertActivity(): " + e.getMessage());
                 ret = -1;
             } finally {
                 try {
@@ -523,7 +547,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             }
         }
         if (ret == 0) {
-            Log.d(TAG, "insertTrack() was successful");
+            Log.d(TAG, "insertActivity() was successful");
         }
         return ret;
     }
@@ -698,7 +722,8 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      */
 
     /**
-     * Sets the ranking (best, avg, worst) in the Activities of a Track. This method is called for every group of Activities of a Type.
+     * Sets the ranking (best, avg, worst) in the Activities of a Track. This method is called
+     * for every group of Activities of a Type.
      * This means that every Activity has the same Type (and Track).
      * If there is only one Activity of a specific Type then its the best Activity
      *
@@ -711,7 +736,7 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         // If there is only one Activity in a group, setBestActivity() overwrites the ranking marked
         // by setAvgInActivity() and setWorstActivitxy()
         setAvgInActivity(activities);
-        setWorstActivitxy(activities);
+        setWorstActivity(activities);
         setBestActivity(activities);
     }
 
@@ -728,20 +753,26 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             try {
                 db = getWritableDatabase();
                 c = db.rawQuery("SELECT * " + "  FROM activities "
-                                + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MIN(aduration) FROM activities WHERE tid = ? AND atype = ?);",
-                        new String[]{String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString()});
+                                + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MIN" +
+                                "(aduration) FROM activities WHERE tid = ? AND atype = ?);",
+                        new String[]{String.valueOf(activities.get(0).getTrack().getId()),
+                                activities.get(0).getType().toString(), String.valueOf(activities
+                                .get(0).getTrack().getId()), activities.get(0).getType().toString
+                                ()});
                 ArrayList<Activity> best = new ArrayList<>();
                 while (c.moveToNext()) {
-                    best.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
+                    best.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1))
+                            , c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
                 }
                 for (int i = 0; i < activities.size(); i++) {
-                    for (int j = 0; j < best.size(); j++)
+                    for (int j = 0; j < best.size(); j++) {
                         if (best.get(j).equals(activities.get(i))) {
                             best.get(j).setRanking(Activity.best);
                             activities.remove(activities.get(i));
                             activities.add(i, best.get(j));
                             Log.d(TAG, "setBestActivity() was successful");
                         }
+                    }
                 }
             } catch (SQLiteException e) {
                 Log.d(TAG, "Error in setBestActivity(): " + e.getMessage());
@@ -764,30 +795,36 @@ public class DBAccessHelper extends SQLiteOpenHelper {
      * @param activities
      * @activitiesurn
      */
-    private void setWorstActivitxy(ArrayList<Activity> activities) {
+    private void setWorstActivity(ArrayList<Activity> activities) {
         if (activities != null) {
             SQLiteDatabase db = null;
             Cursor c = null;
             try {
                 db = getWritableDatabase();
                 c = db.rawQuery("SELECT *  FROM activities "
-                                + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MAX(aduration) FROM activities WHERE tid = ? AND atype = ?);",
-                        new String[]{String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString()});
+                                + "  WHERE tid = ? AND atype = ? AND aduration = (SELECT MAX" +
+                                "(aduration) FROM activities WHERE tid = ? AND atype = ?);",
+                        new String[]{String.valueOf(activities.get(0).getTrack().getId()),
+                                activities.get(0).getType().toString(), String.valueOf(activities
+                                .get(0).getTrack().getId()), activities.get(0).getType().toString
+                                ()});
                 ArrayList<Activity> worst = new ArrayList<>();
                 while (c.moveToNext()) {
-                    worst.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
+                    worst.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)
+                    ), c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
                 }
                 for (int i = 0; i < activities.size(); i++) {
-                    for (int j = 0; j < worst.size(); j++)
+                    for (int j = 0; j < worst.size(); j++) {
                         if (worst.get(j).equals(activities.get(i))) {
                             worst.get(j).setRanking(Activity.worst);
                             activities.remove(activities.get(i));
                             activities.add(i, worst.get(j));
-                            Log.d(TAG, "setWorstActivitxy() was successful");
+                            Log.d(TAG, "setWorstActivity() was successful");
                         }
+                    }
                 }
             } catch (SQLiteException e) {
-                Log.d(TAG, "Error in setWorstActivitxy(): " + e.getMessage());
+                Log.d(TAG, "Error in setWorstActivity(): " + e.getMessage());
             } finally {
                 try {
                     c.close();
@@ -798,11 +835,12 @@ public class DBAccessHelper extends SQLiteOpenHelper {
                 } catch (Exception e) {
                 }
             }
-        }       
+        }
     }
 
     /**
-     * Sets the most average Activities in the group. The most average Activities are the Activities whose duration is closest to the average of all Activities in the group
+     * Sets the most average Activities in the group. The most average Activities are the
+     * Activities whose duration is closest to the average of all Activities in the group
      *
      * @param activities
      * @activitiesurn
@@ -814,13 +852,24 @@ public class DBAccessHelper extends SQLiteOpenHelper {
             try {
                 db = getWritableDatabase();
                 c = db.rawQuery("SELECT * FROM activities\n" +
-                                "WHERE ABS((SELECT AVG(aduration) FROM activities WHERE tid = ? AND atype = ?) - aduration) = (SELECT ABS((SELECT AVG(aduration) FROM activities WHERE tid = ? AND atype = ?) - aduration) AS avg FROM activities WHERE tid = ? AND atype = ? ORDER BY avg LIMIT 1)\n" +
+                                "WHERE ABS((SELECT AVG(aduration) FROM activities WHERE tid = ? " +
+                                "AND atype = ?) - aduration) = (SELECT ABS((SELECT AVG(aduration)" +
+                                " FROM activities WHERE tid = ? AND atype = ?) - aduration) AS " +
+                                "avg FROM activities WHERE tid = ? AND atype = ? ORDER BY avg " +
+                                "LIMIT 1)\n" +
                                 "AND tid = ? \n" +
                                 "AND atype = ?;",
-                        new String[]{String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString(), String.valueOf(activities.get(0).getTrack().getId()), activities.get(0).getType().toString()});
+                        new String[]{String.valueOf(activities.get(0).getTrack().getId()),
+                                activities.get(0).getType().toString(), String.valueOf(activities
+                                .get(0).getTrack().getId()), activities.get(0).getType().toString
+                                (), String.valueOf(activities.get(0).getTrack().getId()),
+                                activities.get(0).getType().toString(), String.valueOf(activities
+                                .get(0).getTrack().getId()), activities.get(0).getType().toString
+                                ()});
                 ArrayList<Activity> avg = new ArrayList<>();
                 while (c.moveToNext()) {
-                    avg.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)), c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
+                    avg.add(new Activity(c.getInt(0), ActivityTypes.Type.valueOf(c.getString(1)),
+                            c.getLong(2), c.getInt(3), activities.get(0).getTrack()));
                 }
                 for (int i = 0; i < activities.size(); i++) {
                     for (int j = 0; j < avg.size(); j++)

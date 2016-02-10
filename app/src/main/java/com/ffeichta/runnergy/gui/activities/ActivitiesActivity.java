@@ -66,14 +66,17 @@ public class ActivitiesActivity extends Activity {
         }*/
 
 
-        final ActivityAdapter activityAdapter = new ActivityAdapter(this, parentStrings, groupCollection);
+        final ActivityAdapter activityAdapter = new ActivityAdapter(this, parentStrings,
+                groupCollection);
         expListView.setAdapter(activityAdapter);
         expListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
         expListView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
+                    checked) {
                 if (checked) {
-                    Log.d("####", "" + childActivities.size() + "adde" + childActivities.get(position - 1).toString());
+                    Log.d("####", "" + childActivities.size() + "adde" + childActivities.get
+                            (position - 1).toString());
                     selection.add(childActivities.get(position - 1));
                 } else {
                     selection.remove(childActivities.get(position));
@@ -104,10 +107,13 @@ public class ActivitiesActivity extends Activity {
                         // com.ffeichta.runnergy.model.Activity a =
                         Log.d("#### hier", Item.toString());
                         childActivities.remove(Item);
-                       /* com.ffeichta.runnergy.model.Activity a = new com.ffeichta.runnergy.model.Activity();
+                       /* com.ffeichta.runnergy.model.Activity a = new com.ffeichta.runnergy
+                       .model.Activity();
                         a.setId(5);*/
-                        if (DBAccessHelper.getInstance(ActivitiesActivity.this).deleteActivity(Item) != 0) {
-                            ToastFactory.makeToast(ActivitiesActivity.this, getResources().getString(R.string.toast_delete_activity_error));
+                        if (DBAccessHelper.getInstance(ActivitiesActivity.this).deleteActivity
+                                (Item) != 0) {
+                            ToastFactory.makeToast(ActivitiesActivity.this, getResources()
+                                    .getString(R.string.toast_delete_activity_error));
                         } else {
                             item.setVisible(false);
                             setUpParentsAndChilds();
@@ -138,7 +144,8 @@ public class ActivitiesActivity extends Activity {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
                 Intent intent = new Intent(ActivitiesActivity.this, MapsActivity.class);
-                intent.putExtra("activity", groupCollection.get(parentStrings.get(groupPosition)).get(childPosition));
+                intent.putExtra("activity", groupCollection.get(parentStrings.get(groupPosition))
+                        .get(childPosition));
                 startActivity(intent);
                 return true;
             }
@@ -163,7 +170,8 @@ public class ActivitiesActivity extends Activity {
 
         // Iterate all Activities
         for (com.ffeichta.runnergy.model.Activity a1 : childActivities) {
-            int id1 = getResources().getIdentifier(a1.getType().toString().toLowerCase(), "string", getPackageName());
+            int id1 = getResources().getIdentifier(a1.getType().toString().toLowerCase(),
+                    "string", getPackageName());
             String typeAsString = getResources().getString(id1);
             // Add every Type of Activity once
             if (!parentStrings.contains(typeAsString)) {
@@ -171,7 +179,8 @@ public class ActivitiesActivity extends Activity {
                 ArrayList<com.ffeichta.runnergy.model.Activity> temp = new ArrayList<>();
                 // Iterate Activities again and link every Type with the right Activities
                 for (com.ffeichta.runnergy.model.Activity a2 : childActivities) {
-                    int id2 = getResources().getIdentifier(a2.getType().toString().toLowerCase(), "string", getPackageName());
+                    int id2 = getResources().getIdentifier(a2.getType().toString().toLowerCase(),
+                            "string", getPackageName());
                     if (getResources().getString(id2).equals(typeAsString)) {
                         temp.add(a2);
                     }
@@ -180,7 +189,8 @@ public class ActivitiesActivity extends Activity {
                 DBAccessHelper.getInstance(this).setRankingForActivitiesInTrack(temp);
                 // Set the coordinates for each Activity
                 for (com.ffeichta.runnergy.model.Activity activity : temp) {
-                    activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates(activity));
+                    activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates
+                            (activity));
                     Log.d("#### hole coordinates", activity.toString());
                 }
                 groupCollection.put(typeAsString, temp);

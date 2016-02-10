@@ -94,11 +94,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 if (!startButtonEnabled) {
                     startButtonEnabled = true;
-                    startStopComparison.setText(getResources().getString(R.string.maps_activity_stop));
-                    locationListener = new LocationListenerCompare(map, MapsActivity.this, coordinates.get(0).getActivity(), text);
+                    startStopComparison.setText(getResources().getString(R.string
+                            .maps_activity_stop));
+                    locationListener = new LocationListenerCompare(map, MapsActivity.this,
+                            coordinates.get(0).getActivity(), text);
                     // Start location updates
                     startLocationUpdates();
-                    if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
+                            .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(MapsActivity.this,
                                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                 MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
@@ -108,9 +111,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 } else {
                     startButtonEnabled = false;
-                    startStopComparison.setText(getResources().getString(R.string.maps_activity_start));
+                    startStopComparison.setText(getResources().getString(R.string
+                            .maps_activity_start));
                     stopLocationUpdates();
-                    if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
+                            .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(MapsActivity.this,
                                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                                 MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
@@ -145,7 +150,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         // Set the map type
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences
+                (getApplicationContext());
         int value = Integer.valueOf(sp.getString("type", "1"));
         int type;
         switch (value) {
@@ -198,7 +204,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Marker marker = map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title(getResources().getString(R.string.marker_start))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
+                                .HUE_GREEN)));
                 // Only this InfoWindow is shown because only one info window can be displayed at
                 // once
                 marker.showInfoWindow();
@@ -207,7 +214,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 map.addMarker(new MarkerOptions()
                         .position(latLng)
                         .title(getResources().getString(R.string.marker_end))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
+                                .HUE_RED)));
             }
         }
         for (ArrayList<LatLng> group : all) {
@@ -229,7 +237,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         TypedValue tv = new TypedValue();
         int actionBarHeight = 0;
         if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources().getDisplayMetrics());
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources()
+                    .getDisplayMetrics());
         }
         // padding is 12% of the width of screen
         int padding = (int) (width * 0.18);
@@ -294,7 +303,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * Requests location updates from the FusedLocationApi
      */
     public void startLocationUpdates() {
-        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
+                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MapsActivity.this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
@@ -323,10 +333,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Never get more updates than this interval?
         fastestUpdateIntervalInMilliseconds = getIntervalFromSettingsInMilliseconds();
         // ???
-        updateIntervalInMilliseconds = fastestUpdateIntervalInMilliseconds * FACTOR_BETWEEN_INTERVALS;
+        updateIntervalInMilliseconds = fastestUpdateIntervalInMilliseconds *
+                FACTOR_BETWEEN_INTERVALS;
         // Example: If the user wants location updates every 10 seconds, he gets them only if
         // he moves at least 2,5 meters in 10 seconds
-        smallestDisplacementInMeter = fastestUpdateIntervalInMilliseconds / 1000 * FACTOR_DISPLACEMENT;
+        smallestDisplacementInMeter = fastestUpdateIntervalInMilliseconds / 1000 *
+                FACTOR_DISPLACEMENT;
     }
 
     /**

@@ -22,9 +22,12 @@ public class LibrariesActivity extends Activity {
 
         textView = (TextView) findViewById(R.id.librariesCredits);
 
-        textView.setText(Html.fromHtml("<div><a href=\"https://developers.google.com/android/guides/overview\">Google Play Services</a></div>\n" +
-                "<div><a href=\"http://developer.android.com/tools/support-library/features.html#v7-appcompat\">v7 appcompat library</a></div>\n" +
-                "<div><a href=\"http://developer.android.com/tools/support-library/features.html#design\">Design Support Library</a></div>"));
+        textView.setText(Html.fromHtml("<div><a href=\"https://developers.google" +
+                ".com/android/guides/overview\">Google Play Services</a></div>\n" +
+                "<div><a href=\"http://developer.android.com/tools/support-library/features" +
+                ".html#v7-appcompat\">v7 appcompat library</a></div>\n" +
+                "<div><a href=\"http://developer.android.com/tools/support-library/features" +
+                ".html#design\">Design Support Library</a></div>"));
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
