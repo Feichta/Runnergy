@@ -36,7 +36,7 @@
     <!-- SaveActivityActivity.java -->
     <string name="save_activity">Save activity</string>
     <string name="dialog_back_pressed_title">Delete activity</string>
-    <string name="dialog_back_pressed_subtitle">Do you want to go back? The actual activity will be deleted.</string>
+    <string name="dialog_back_pressed_subtitle">Do you want to go back? The actual activity will be deleted</string>
 
     <!-- ActivityTypes.java -->
     <string name="running">RUNNING</string>
@@ -112,7 +112,7 @@
     <string name="toast_enable_gps">Please enable GPS</string>
     <string name="toast_wait">Wait a moment...</string>
     <string name="toast_connection_lost">Connection to Play Services was lost with error\u0020</string>
-    <string name="toast_connection_failed">Connection to Play Services faild</string>
+    <string name="toast_connection_failed">Connection to Play Services failed</string>
     <string name="toast_error_save_track">An error has occured when inserting the activity</string>
     <string name="toast_delete_activity_error">Can\'t delete activity</string>
     <string name="toast_delete_track_error">Can\'t delete track</string>
