@@ -13,6 +13,7 @@ import java.util.ArrayList;
  * Created by Fabian on 29.12.2015.
  */
 public class FormatStrings extends TestCase {
+
     private Activity a = null;
 
     public void setUp() throws Exception {

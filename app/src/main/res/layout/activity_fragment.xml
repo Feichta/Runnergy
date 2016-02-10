@@ -30,5 +30,4 @@
             android:text="@string/activity_fragment_pause"
             android:visibility="gone" />
     </LinearLayout>
-
 </fragment>

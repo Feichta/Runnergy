@@ -8,6 +8,7 @@ import junit.framework.TestCase;
  * Created by Fabian on 31.12.2015.
  */
 public class Duration extends TestCase {
+
     private Activity activity = null;
 
     public void setUp() throws Exception {
