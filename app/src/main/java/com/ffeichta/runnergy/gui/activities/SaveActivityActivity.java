@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,7 +18,6 @@ import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.dialogfactory.AddTrackDialogFactory;
 import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.model.Activity;
-import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
 import com.ffeichta.runnergy.model.Track;
 import com.ffeichta.runnergy.model.enums.ActivityTypes;
@@ -30,6 +28,7 @@ import java.util.ArrayList;
  * Created by Fabian on 31.12.2015.
  */
 public class SaveActivityActivity extends android.app.Activity {
+
     // UI Widgets
     public Spinner spinnerTrack = null;
 
@@ -59,9 +58,6 @@ public class SaveActivityActivity extends android.app.Activity {
 
         // Get the Activity created in ActivityFragment
         activity = (Activity) (getIntent().getSerializableExtra("activity"));
-        for (Coordinate c : activity.getCoordinates()) {
-            Log.d("0000", c.toString());
-        }
 
         setUpSpinners();
         setUpTextViews();
@@ -78,7 +74,6 @@ public class SaveActivityActivity extends android.app.Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (prepareActivity()) {
                     int result = DBAccessHelper.getInstance(SaveActivityActivity.this)
                             .insertActivity(activity);
@@ -90,11 +85,11 @@ public class SaveActivityActivity extends android.app.Activity {
                                 .getString(R.string.toast_error_save_track));
                     }
                 } else {
-                    ToastFactory.makeToast(SaveActivityActivity.this, "INsert a track");
+                    ToastFactory.makeToast(SaveActivityActivity.this, getResources().getString(R
+                            .string.toast_save_no_track_error));
                 }
             }
         });
-
     }
 
     /**
@@ -120,7 +115,6 @@ public class SaveActivityActivity extends android.app.Activity {
         tracks = DBAccessHelper.getInstance(this).getTracks();
         setUpSpinnerTrack();
         setUpSpinnerType();
-
     }
 
     /**

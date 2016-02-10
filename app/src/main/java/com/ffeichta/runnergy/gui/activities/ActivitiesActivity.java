@@ -3,7 +3,6 @@ package com.ffeichta.runnergy.gui.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +26,7 @@ import java.util.Map;
  * Created by Fabian on 29.12.2015.
  */
 public class ActivitiesActivity extends Activity {
+
     // UI Widgets
     ExpandableListView expListView = null;
 
@@ -60,12 +60,6 @@ public class ActivitiesActivity extends Activity {
 
         setUpParentsAndChilds();
 
-        // Set the Coodinates for each Activity because the ActivityAdapter needs them
-       /* for (com.ffeichta.runnergy.model.Activity activity : childActivities) {
-            activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates(activity));
-        }*/
-
-
         final ActivityAdapter activityAdapter = new ActivityAdapter(this, parentStrings,
                 groupCollection);
         expListView.setAdapter(activityAdapter);
@@ -75,23 +69,18 @@ public class ActivitiesActivity extends Activity {
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
                     checked) {
                 if (checked) {
-                    Log.d("####", "" + childActivities.size() + "adde" + childActivities.get
-                            (position - 1).toString());
                     selection.add(childActivities.get(position - 1));
                 } else {
                     selection.remove(childActivities.get(position));
-
-
                 }
-                mode.setTitle(expListView.getCheckedItemCount() + " selected");
-
+                mode.setTitle(expListView.getCheckedItemCount() + getResources().getString(R
+                        .string.select));
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 MenuInflater menuInflater = getMenuInflater();
                 menuInflater.inflate(R.menu.contextual_action_bar_menu_delete, menu);
-
                 return true;
             }
 
@@ -104,12 +93,7 @@ public class ActivitiesActivity extends Activity {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 if (item.getItemId() == R.id.delete) {
                     for (com.ffeichta.runnergy.model.Activity Item : selection) {
-                        // com.ffeichta.runnergy.model.Activity a =
-                        Log.d("#### hier", Item.toString());
                         childActivities.remove(Item);
-                       /* com.ffeichta.runnergy.model.Activity a = new com.ffeichta.runnergy
-                       .model.Activity();
-                        a.setId(5);*/
                         if (DBAccessHelper.getInstance(ActivitiesActivity.this).deleteActivity
                                 (Item) != 0) {
                             ToastFactory.makeToast(ActivitiesActivity.this, getResources()
@@ -119,7 +103,6 @@ public class ActivitiesActivity extends Activity {
                             setUpParentsAndChilds();
                         }
                     }
-                    //setUpParentsAndChilds();
                     onCreate(null);
                     activityAdapter.notifyDataSetChanged();
                     mode.finish();
@@ -130,7 +113,6 @@ public class ActivitiesActivity extends Activity {
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
-
                 selection.clear();
             }
         });
@@ -191,16 +173,9 @@ public class ActivitiesActivity extends Activity {
                 for (com.ffeichta.runnergy.model.Activity activity : temp) {
                     activity.setCoordinates(DBAccessHelper.getInstance(this).getCoordinates
                             (activity));
-                    Log.d("#### hole coordinates", activity.toString());
                 }
                 groupCollection.put(typeAsString, temp);
             }
         }
     }
-
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("result", "jökladsjföl");
-    }*/
 }

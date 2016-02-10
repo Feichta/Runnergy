@@ -15,7 +15,7 @@
     <string name="activity_fragment_no_coordinates">There are no coordinates found in this activity</string>
     <string name="activity_fragment_duration_too_short">The duration of this activity is too short</string>
 
-    <!-- TrackFragment.java -->
+    <!-- TrackFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020selected</string>
 
     <!-- TrackAdapter.java -->
@@ -56,6 +56,9 @@
 
     <!-- AboutActivity.java -->
     <string name="email">Please write an email to fabian.feichter@ffeichta.com</string>
+    <string name="mailto">mailto:fabian.feichter@ffeichta.com</string>
+    <string name="market">market://details?id=com.ffeichta.runnergy</string>
+    <string name="play_store">https://play.google.com/store/apps/details?id=com.ffeichta.runnergy</string>
 
     <!-- activity_item.xml -->
     <string name="track_title">Track</string>
@@ -113,4 +116,5 @@
     <string name="toast_error_save_track">An error has occured when inserting the activity</string>
     <string name="toast_delete_activity_error">Can\'t delete activity</string>
     <string name="toast_delete_track_error">Can\'t delete track</string>
+    <string name="toast_save_no_track_error">Please insert a track</string>
 </resources>

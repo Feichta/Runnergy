@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +38,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
     // Value changes when the user presses the Start and Stop Button
@@ -106,7 +106,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         return;
                     }
                     map.setMyLocationEnabled(true);
-
                 } else {
                     startButtonEnabled = false;
                     startStopComparison.setText(getResources().getString(R.string
@@ -123,7 +122,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                     map.setMyLocationEnabled(false);
                     onMapReady(map);
-                    //map.clear();
                 }
             }
         });
@@ -134,7 +132,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         setUpdateIntervalsAndDisplacement();
 
         buildGoogleApiClient();
-
     }
 
     /**
@@ -177,21 +174,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         map.setMapType(type);
 
         // Holds all Polylines
-        PolylineOptions polylineOptions = new PolylineOptions();
-        // Holds all coordinates
+        PolylineOptions polylineOptions;
         ArrayList<ArrayList<LatLng>> all = new ArrayList<>(0);
         ArrayList<LatLng> latLngGroup = new ArrayList<>();
-        // Holds all Markers
-        // Used to zoom into the map
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         // Add the start Marker, the end Marker and the Polylines to the map
         for (int i = 0; i < coordinates.size(); i++) {
             Coordinate c = coordinates.get(i);
-            Log.d("3333", c.toString());
             LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
             builder.include(latLng);
-            Log.d("2222", c.toString() + "");
             latLngGroup.add(latLng);
             if (c.isPause()) {
                 all.add(latLngGroup);
@@ -219,11 +211,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
         for (ArrayList<LatLng> group : all) {
-            Log.d("23456", "begin");
-            for (LatLng latLng : group) {
-                Log.d("23456", ":::" + latLng.longitude);
-            }
-            Log.d("23456", "end");
             polylineOptions = new PolylineOptions();
             polylineOptions.addAll(group).color(Color.MAGENTA);
             map.addPolyline(polylineOptions);

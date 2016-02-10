@@ -28,6 +28,7 @@ public class LibrariesActivity extends Activity {
                 ".html#v7-appcompat\">v7 appcompat library</a></div>\n" +
                 "<div><a href=\"http://developer.android.com/tools/support-library/features" +
                 ".html#design\">Design Support Library</a></div>"));
+        // Activate links
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }

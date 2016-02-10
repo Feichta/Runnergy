@@ -60,7 +60,7 @@ public class AboutActivity extends Activity {
                             Intent mail = new Intent(Intent.ACTION_SENDTO);
                             mail.setType("text/plain");
                             mail.setData(Uri
-                                    .parse("mailto:fabian.feichter@ffeichta.com"));
+                                    .parse(getResources().getString(R.string.mailto)));
                             mail.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             mail.putExtra(Intent.EXTRA_SUBJECT,
                                     getResources().getString(R.string.app_name) + " " +
@@ -75,14 +75,13 @@ public class AboutActivity extends Activity {
                         try {
                             Intent googlePlayDirect = new Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("market://details?id=com.ffeichta.runnergy"));
+                                    Uri.parse(getResources().getString(R.string.market)));
                             startActivity(googlePlayDirect);
                         } catch (android.content.ActivityNotFoundException anfe) {
                             // Play Store is not installed, open the link to the app in the Browser
                             Intent googlePlayBrowser = new Intent(
                                     Intent.ACTION_VIEW,
-                                    Uri.parse("https://play.google.com/store/apps/details?id=com" +
-                                            ".ffeichta.runnergy"));
+                                    Uri.parse(getResources().getString(R.string.play_store)));
                             startActivity(googlePlayBrowser);
                         }
                         break;

@@ -11,6 +11,7 @@ import com.ffeichta.runnergy.R;
  * Created by Fabian on 28.12.2015.
  */
 public class SettingsActivity extends PreferenceActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +22,6 @@ public class SettingsActivity extends PreferenceActivity {
     // This class is used because 'addPreferencesFromResource' in class 'PreferenceActivity' is
     // deprecated
     public static class PrefsFragment extends PreferenceFragment {
-
 
         @Override
         public void onCreate(Bundle savedInstanceState) {

@@ -11,6 +11,7 @@ import com.google.android.gms.maps.GoogleMap;
  * Created by Fabian on 07.02.2016.
  */
 public class MyLocationButtonListener implements GoogleMap.OnMyLocationButtonClickListener {
+
     private Context context = null;
 
     public MyLocationButtonListener(Context context) {

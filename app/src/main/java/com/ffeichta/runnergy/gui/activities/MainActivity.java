@@ -13,7 +13,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -175,28 +174,5 @@ public class MainActivity extends AppCompatActivity {
                 return ContextCompat.getColor(getApplication(), R.color.colorTabUnderline);
             }
         });
-    }
-
-   /* @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("result", resultCode + " " + requestCode);
-        if(resultCode != 0) {
-        super.onActivityResult(requestCode, resultCode, data);
-            Log.d("#####", "ääää");
-            buildNormalLayout();
-        }
-    }*/
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("#####", "ääää1");
-        // viewPager.getAdapter().notifyDataSetChanged();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("#####", "ääää2");
     }
 }
