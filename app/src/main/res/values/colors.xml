@@ -30,4 +30,6 @@
     <color name="avg">#F5F6CE</color>
     <!-- Text of errors -->
     <color name="textColorError">#FF0000</color>
+    <!-- Background of compare field -->
+    <color name="background">#FFFFFF</color>
 </resources>
