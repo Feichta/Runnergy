@@ -17,16 +17,18 @@ public class Activity implements Serializable {
 
     private int id = -1;
     private ActivityTypes.Type type = null;
-    private long date = 0;
+    private long date = -1;
     private int duration = -1;
     private int ranking = -1;
     private Track track = null;
     private ArrayList<Coordinate> coordinates = null;
 
     public Activity() {
+        this.date = 0;
     }
 
     public Activity(int id, ActivityTypes.Type type, long date, int duration) {
+        this();
         this.id = id;
         this.type = type;
         this.date = date;
@@ -34,10 +36,7 @@ public class Activity implements Serializable {
     }
 
     public Activity(int id, ActivityTypes.Type type, long date, int duration, Track track) {
-        this.id = id;
-        this.type = type;
-        this.date = date;
-        this.duration = duration;
+        this(id, type, date, duration);
         this.track = track;
     }
 
@@ -113,11 +112,6 @@ public class Activity implements Serializable {
         return StringFormatter.getFormattedDate(this.date, format);
     }
 
-
-    public String toString() {
-        return this.id + ";" + this.type + ";" + getFormattedDate("dd.MM.yyyy") + ";" + this.duration + ";" + this.ranking + ";" + this.track.getId();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -129,5 +123,17 @@ public class Activity implements Serializable {
         if (date != activity.date) return false;
         if (duration != activity.duration) return false;
         return type == activity.type;
+    }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", type=" + type +
+                ", date=" + date +
+                ", duration=" + duration +
+                ", ranking=" + ranking +
+                ", track=" + track.getId() +
+                '}';
     }
 }

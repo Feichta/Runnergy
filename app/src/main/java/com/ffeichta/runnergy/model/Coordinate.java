@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by Fabian on 19.11.2015.
  */
 public class Coordinate implements Serializable {
+
     private int id = -1;
     private double longitude = -1.0;
     private double latitude = -1.0;
@@ -31,15 +32,8 @@ public class Coordinate implements Serializable {
     }
 
     public Coordinate(int id, double longitude, double latitude, boolean start, boolean end, int timeFromStart, double distanceFromPrevious, Activity activity, boolean pause) {
-        this.id = id;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.start = start;
-        this.end = end;
-        this.timeFromStart = timeFromStart;
+        this(id, longitude, latitude, start, end, timeFromStart, distanceFromPrevious, pause);
         this.activity = activity;
-        this.distanceFromPrevious = distanceFromPrevious;
-        this.pause = pause;
     }
 
     public int getId() {
@@ -114,7 +108,18 @@ public class Coordinate implements Serializable {
         this.pause = pause;
     }
 
+    @Override
     public String toString() {
-        return this.id + ";" + this.longitude + ";" + this.latitude + ";" + this.start + ";" + this.end + ";" + this.timeFromStart + ";" + this.distanceFromPrevious + ";" + this.activity.getId() + ";" + this.pause;
+        return "Coordinate{" +
+                "id=" + id +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", start=" + start +
+                ", end=" + end +
+                ", timeFromStart=" + timeFromStart +
+                ", distanceFromPrevious=" + distanceFromPrevious +
+                ", activity=" + activity.getId() +
+                ", pause=" + pause +
+                '}';
     }
 }

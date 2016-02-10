@@ -8,6 +8,7 @@ import java.util.Hashtable;
  * Created by Fabian on 19.11.2015.
  */
 public class Track implements Serializable {
+
     public static final int NAME_IS_NOT_SET = -1;
     public static final int NAME_ALREADY_EXISTS = -2;
 
@@ -59,7 +60,7 @@ public class Track implements Serializable {
     public void setError(String key, Integer value) {
         if (key != null && key.length() > 0 && value != null) {
             if (this.error == null) {
-                this.error = new Hashtable<String, Integer>();
+                this.error = new Hashtable<>();
             }
             this.error.put(key, value);
         }
@@ -72,7 +73,11 @@ public class Track implements Serializable {
         }
     }
 
+    @Override
     public String toString() {
-        return this.id + ";" + this.getName();
+        return "Track{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
