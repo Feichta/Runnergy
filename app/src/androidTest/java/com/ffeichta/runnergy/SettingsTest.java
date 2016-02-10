@@ -28,7 +28,7 @@ public class SettingsTest extends ApplicationTestCase<Application> {
     }
 
     public void testDateEU() {
-        assertEquals("dd.MM.yyyy", sp.getString("date", "dd.MM.yyyy"));
+        assertEquals("dd.MM.yyyy HH:mm:ss", sp.getString("date", "dd.MM.yyyy HH:mm:ss"));
     }
 
     public void testInterval() {

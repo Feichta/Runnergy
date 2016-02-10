@@ -52,7 +52,7 @@ public class DatabaseTest extends ApplicationTestCase<Application> {
 
     public void testTypeOfActivityOfTrack() {
         Activity a = db.getTracks().get(0).getActivities().get(0);
-        assertEquals(ActivityTypes.Type.RUNNING.toString(), a.getType().toString());
+        assertEquals(ActivityTypes.Type.CYCLING.toString(), a.getType().toString());
     }
 
     public void testCountOfCoordinatesOfActivity() {
