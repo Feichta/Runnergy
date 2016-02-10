@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DatabaseTest extends ApplicationTestCase<Application> {
+
     private DBAccessHelper db = null;
 
     public DatabaseTest() {

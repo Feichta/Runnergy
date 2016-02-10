@@ -17,6 +17,7 @@ import java.util.Hashtable;
  * Created by Fabian on 31.12.2015.
  */
 public class AddTrackDialogFactory {
+
     private SaveActivityActivity saveActivityActivity = null;
 
     public AddTrackDialogFactory(SaveActivityActivity saveActivityActivity) {

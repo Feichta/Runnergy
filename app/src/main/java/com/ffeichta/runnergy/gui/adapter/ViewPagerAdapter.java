@@ -11,6 +11,7 @@ import com.ffeichta.runnergy.gui.fragments.TracksFragment;
  * Created by Fabian on 28.12.2015.
  */
 public class ViewPagerAdapter extends FragmentPagerAdapter {
+
     private static final int NUMBER_TABS = 2;
     private CharSequence titles[];
 

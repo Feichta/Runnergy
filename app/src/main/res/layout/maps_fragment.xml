@@ -37,6 +37,7 @@
             android:background="#FFFFFF"
             android:padding="15dp"
             android:text=""
-            android:textColor="@color/textColor" />
+            android:textColor="@color/textColor"
+            android:visibility="gone" />
     </LinearLayout>
 </fragment>

@@ -15,6 +15,9 @@
     <string name="activity_fragment_no_coordinates">There are no coordinates found in this activity</string>
     <string name="activity_fragment_duration_too_short">The duration of this activity is too short</string>
 
+    <!-- TrackFragment.java -->
+    <string name="select">\u0020selected</string>
+
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020activity</string>
     <string name="track_adapter_plural">\u0020activities</string>
@@ -24,6 +27,11 @@
     <string name="maps_activity_stop">Stop comparison</string>
     <string name="marker_start">Start</string>
     <string name="marker_end">End</string>
+
+    <!-- LocationListenerCompare.java -->
+    <string name="faster">\u0020slower</string>
+    <string name="slower">\u0020faster</string>
+    <string name="equally">You are equally fast</string>
 
     <!-- SaveActivityActivity.java -->
     <string name="save_activity">Save activity</string>
@@ -68,7 +76,7 @@
     <string name="category_general_unit_title">Unit of length</string>
     <string name="category_general_unit_default_value">km</string>
     <string name="category_general_date_title">Format of date</string>
-    <string name="category_general_date_default_value">dd.MM.yyyy</string>
+    <string name="category_general_date_default_value">dd.MM.yyyy HH:mm:ss</string>
     // Activity
     <string name="category_activity_title">Activity</string>
     <string name="category_activity_interval_title">Interval of saving positions</string>

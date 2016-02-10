@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.listener.ConnectionFailed;
 import com.ffeichta.runnergy.gui.listener.LocationListenerCompare;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
@@ -50,8 +51,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public float smallestDisplacementInMeter = -1;
     // Entry point to Google Play services
     public GoogleApiClient googleApiClient = null;
-    // Value changes when the user presses the Pause and Resume Button
-    public Boolean pauseButtonEnabled = false;
     // Request to the FusedLocationProviderApi
     protected LocationRequest locationRequest = null;
     // Listener which is called when the location changes
@@ -85,9 +84,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         Activity a = (Activity) intent.getSerializableExtra("activity");
         this.coordinates = DBAccessHelper.getInstance(this).getCoordinates(a);
-        for (Coordinate c : coordinates) {
-            Log.d("23456", c.toString());
-        }
 
         startStopComparison.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +92,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     startButtonEnabled = true;
                     startStopComparison.setText(getResources().getString(R.string
                             .maps_activity_stop));
+                    text.setVisibility(TextView.VISIBLE);
+                    text.setText("");
                     locationListener = new LocationListenerCompare(map, MapsActivity.this,
                             coordinates.get(0).getActivity(), text);
                     // Start location updates
@@ -113,6 +111,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     startButtonEnabled = false;
                     startStopComparison.setText(getResources().getString(R.string
                             .maps_activity_start));
+                    text.setVisibility(TextView.GONE);
+                    text.setText("");
                     stopLocationUpdates();
                     if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
                             .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -122,15 +122,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         return;
                     }
                     map.setMyLocationEnabled(false);
+                    onMapReady(map);
                     //map.clear();
                 }
             }
         });
 
-
-        // Set up the Listener for the FusedLocationApi
-        /*connectionCallbacks = new ConnectionServices(this);
-        onConnectionFailedListener = new ConnectionFailed(this);*/
+        //Set up the Listener for the FusedLocationApi
+        onConnectionFailedListener = new ConnectionFailed(this);
 
         setUpdateIntervalsAndDisplacement();
 
@@ -149,6 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        map.clear();
         // Set the map type
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences
                 (getApplicationContext());
@@ -261,8 +261,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     protected synchronized void buildGoogleApiClient() {
         googleApiClient = new GoogleApiClient.Builder(getBaseContext())
-//                .addConnectionCallbacks(connectionCallbacks)
-                //    .addOnConnectionFailedListener(onConnectionFailedListener)
+                .addOnConnectionFailedListener(onConnectionFailedListener)
                 .addApi(LocationServices.API)
                 .build();
         createLocationRequest();

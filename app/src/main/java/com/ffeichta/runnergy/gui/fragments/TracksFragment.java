@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +30,7 @@ import java.util.ArrayList;
  * Created by Fabian on 28.12.2015.
  */
 public class TracksFragment extends Fragment {
+
     ArrayList<Track> selection = null;
     private ArrayList<Track> tracks = null;
     private ListView listView = null;
@@ -53,13 +53,13 @@ public class TracksFragment extends Fragment {
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
                     checked) {
                 if (checked) {
-                    Log.d("####", "" + tracks.size() + "adde" + tracks.get(position).toString());
                     selection.add(tracks.get(position));
-                    mode.setTitle(listView.getCheckedItemCount() + " selected");
+                    mode.setTitle(listView.getCheckedItemCount() + getResources().getString(R
+                            .string.select));
                 } else {
                     selection.remove(tracks.get(position));
-
-                    mode.setTitle(listView.getCheckedItemCount() + "selected");
+                    mode.setTitle(listView.getCheckedItemCount() + getResources().getString(R
+                            .string.select));
                 }
             }
 
@@ -80,12 +80,7 @@ public class TracksFragment extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.delete:
                         for (Track Item : selection) {
-                            // com.ffeichta.runnergy.model.Activity a =
-                            Log.d("#### hier", Item.toString());
                             tracks.remove(Item);
-                       /* com.ffeichta.runnergy.model.Activity a = new com.ffeichta.runnergy
-                       .model.Activity();
-                        a.setId(5);*/
                             if (DBAccessHelper.getInstance(getContext()).deleteTrack(Item) != 0) {
                                 ToastFactory.makeToast(getContext(), getResources().getString(R
                                         .string.toast_delete_track_error));
@@ -93,7 +88,6 @@ public class TracksFragment extends Fragment {
                                 item.setVisible(false);
                             }
                         }
-                        //setUpParentsAndChilds();
                         onCreate(null);
                         trackAdapter.notifyDataSetChanged();
                         mode.finish();
@@ -102,7 +96,6 @@ public class TracksFragment extends Fragment {
                         ChangeTrackDialogFactory changeTrackDialogFactory = new
                                 ChangeTrackDialogFactory(getActivity(), selection.get(0), mode);
                         changeTrackDialogFactory.makeCustomInputDialog();
-                        //mode.finish();
                         break;
                 }
                 return false;
@@ -133,12 +126,9 @@ public class TracksFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("#####", "löakjdföal");
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {
             tracks = new ArrayList<>();
         }
-        TrackAdapter trackAdapter = new TrackAdapter(this.getActivity(), tracks);
-        // listView.setAdapter(trackAdapter);
     }
 }

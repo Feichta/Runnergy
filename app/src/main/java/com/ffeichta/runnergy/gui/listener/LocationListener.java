@@ -21,6 +21,8 @@ import java.util.ArrayList;
  * Created by Fabian on 31.12.2015.
  */
 public class LocationListener implements com.google.android.gms.location.LocationListener {
+
+    private static final int ZOOM_LEVEL = 18;
     // Current location
     private LatLng actualLatLng = null;
     // Previous location
@@ -39,7 +41,6 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     private long startfirstpause = 0;
 
     private boolean firstisset = false;
-
 
     private boolean lastCoordinateIsPause = false;
 
@@ -82,32 +83,15 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     }
 
     private void addCoordinate() {
-        Log.d("0000", "add coordinate");
         if (previousLatLng == null) {
             actualCoordinate.setStart(true);
             actualCoordinate.setTimeFromStart(0);
             actualCoordinate.setDistanceFromPrevious(0);
         } else {
             if (lastCoordinateIsPause) {
-                Log.d("0000", "1stcoordinate");
-                // 1st pause
-                /*previousCoordinate.setPause(true);
-                previousCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
-                .getDate()) / 1000));
-                float[] result = new float[1];
-                Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude,
-                actualLatLng.latitude, actualLatLng.longitude, result);
-                actualCoordinate.setDistanceFromPrevious(result[0]);
-                startfirstpause = System.currentTimeMillis();
-                lastCoordinateIsPause = false;
-                firstisset = true;*/
                 coordinates.get(coordinates.size() - 1).setPause(true);
                 previousLatLng = null;
-
                 actualCoordinate.setDistanceFromPrevious(0);
-                /*actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
-                .getDate() - System.currentTimeMillis() - startfirstpause) / 1000));
-                actualCoordinate.setPause(true);*/
                 actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
                         .getDate()) / 1000));
 
@@ -120,7 +104,6 @@ public class LocationListener implements com.google.android.gms.location.Locatio
                 actualCoordinate.setDistanceFromPrevious(result[0]);
                 actualCoordinate.setTimeFromStart((int) ((System.currentTimeMillis() - activity
                         .getDate()) / 1000));
-
             }
         }
         actualCoordinate.setActivity(activity);
@@ -141,7 +124,7 @@ public class LocationListener implements com.google.android.gms.location.Locatio
             }
         }
         if (actualLatLng != null) {
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, 18));
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, ZOOM_LEVEL));
         }
     }
 

@@ -4,13 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
+import com.ffeichta.runnergy.model.utils.StringFormatter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -18,24 +18,20 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.util.ArrayList;
-import java.util.Locale;
-
 /**
  * Created by Fabian on 09.02.2016.
  */
-public class LocationListenerCompare implements com.google.android.gms.location.LocationListener,
-        TextToSpeech.OnInitListener {
-    TextToSpeech textToSpeech = null;
-    Activity activity = null;
+public class LocationListenerCompare implements com.google.android.gms.location.LocationListener {
+
+    private static final int ZOOM_LEVEL = 18;
+    private TextToSpeech textToSpeech = null;
+    private Activity activity = null;
     // Current location
-    LatLng actualLatLng = null;
+    private LatLng actualLatLng = null;
     // Previous location
-    LatLng previousLatLng = null;
-    // Coordinates of Activity
-    ArrayList<Coordinate> coordinates = null;
-    TextView text = null;
+    private LatLng previousLatLng = null;
     // UI Widgets
+    private TextView text = null;
     private GoogleMap map = null;
     // Used for getRessources()
     private Context context = null;
@@ -60,35 +56,20 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         int id = DBAccessHelper.getInstance(context).getIDOfClosestCoordinateInActivity(location
                 .getLongitude(), location.getLatitude(), activity.getId());
         Coordinate c = DBAccessHelper.getInstance(context).getCoordinate(id);
-       /* float[] result = new float[1];
-        Location.distanceBetween(c.getLongitude(), c.getLatitude(), location.getLongitude(),
-        location.getLatitude(), result);
-        Log.d("++++", result[0] + " ");*/
-        Log.d("++++", c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time) + " ");
         long difference = c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time);
         if (difference < 0) {
-            if (difference == -1) {
-                text.setText(-difference + "Sekunde langsamer");
-            } else {
-                text.setText(-difference + " Sekunden langsamer");
-            }
+            text.setText(StringFormatter.getFormattedDuration((int) -difference) + context
+                    .getResources().getString(R.string.slower));
+
         } else {
             if (difference > 0) {
-                if (difference == 1) {
-                    text.setText(difference + " Sekunde schneller");
-                } else {
-                    text.setText(difference + " Sekunden schneller");
-                }
+                text.setText(StringFormatter.getFormattedDuration((int) difference) + context
+                        .getResources().getString(R.string.faster));
             } else {
-                text.setText("gleich schnell");
+                text.setText(context
+                        .getResources().getString(R.string.equally));
             }
         }
-       /* textToSpeech = new TextToSpeech(context,this);
-        if(previousLatLng == null) {
-            Log.d("++++", "adsfklja");
-           speech();
-        }*/
-
     }
 
     /**
@@ -100,7 +81,7 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         } else {
             addPolyline();
         }
-        map.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, 18));
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(actualLatLng, ZOOM_LEVEL));
     }
 
     private void addStartMarker() {
@@ -119,18 +100,4 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         polylineOptions.color(Color.RED);
         map.addPolyline(polylineOptions);
     }
-
-    @Override
-    public void onInit(int status) {
-        if (status == TextToSpeech.SUCCESS) {
-            Log.d("++++", "adsfklja988");
-            textToSpeech.setLanguage(Locale.GERMAN);
-        }
-    }
-
-    /*private void speech() {
-        Log.d("++++", "adsfklja4");
-        textToSpeech.speak("Hannes is gay", TextToSpeech.QUEUE_FLUSH, null, null);
-        Log.d("++++", "adsfklja5");
-    }*/
 }

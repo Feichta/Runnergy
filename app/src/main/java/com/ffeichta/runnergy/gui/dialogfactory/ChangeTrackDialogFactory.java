@@ -19,6 +19,7 @@ import java.util.Hashtable;
  */
 public class ChangeTrackDialogFactory {
 
+    EditText name = null;
     private FragmentActivity mainActivity = null;
     private Track track = null;
     private ActionMode mode = null;
@@ -43,7 +44,8 @@ public class ChangeTrackDialogFactory {
 
         // Important: Show the dialog here an not somewhere else
         d.show();
-        EditText name = (EditText) promptView.findViewById(R.id.dialog_name);
+
+        name = (EditText) promptView.findViewById(R.id.dialog_name);
         name.setText(track.getName());
 
         // Set an OnClickListener to the positive button of the dialog.
@@ -63,10 +65,8 @@ public class ChangeTrackDialogFactory {
                 }
                 int result = DBAccessHelper.getInstance(null).updateTrack(track);
                 if (result == 0) {
-
                     d.dismiss();
                     mode.finish();
-
                 } else {
                     // An error occured and the error is set into the TextView
                     Hashtable<String, Integer> errors = track.getError();

@@ -11,10 +11,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
  * Created by Fabian on 31.12.2015.
  */
 public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
-    ActivityFragment activityFragment = null;
 
-    public ConnectionServices(ActivityFragment activityFragment) {
-        this.activityFragment = activityFragment;
+    ActivityFragment context = null;
+
+    public ConnectionServices(ActivityFragment context) {
+        this.context = context;
     }
 
     /**
@@ -24,8 +25,8 @@ public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
     public void onConnected(Bundle connectionHint) {
         // If user pressed the Start button before GoogleApiClient connects, we start getting
         // location updates
-        if (activityFragment.startButtonEnabled) {
-            activityFragment.startLocationUpdates();
+        if (context.startButtonEnabled) {
+            context.startLocationUpdates();
         }
     }
 
@@ -37,8 +38,8 @@ public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
     @Override
     public void onConnectionSuspended(int cause) {
         // Call connect() to attempt to re-establish the connection
-        ToastFactory.makeToast(activityFragment.getContext(), activityFragment.getResources()
+        ToastFactory.makeToast(context.getContext(), context.getResources()
                 .getString(R.string.toast_connection_lost) + cause);
-        activityFragment.googleApiClient.connect();
+        context.googleApiClient.connect();
     }
 }

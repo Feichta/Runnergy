@@ -108,7 +108,7 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 
         String unit = sp.getString("unit", "km");
-        String dateFormat = sp.getString("date", "dd.MM.yyyy");
+        String dateFormat = sp.getString("date", "dd.MM.yyyy HH:mm:ss");
 
         String distance = a.getFormattedDistance(unit);
         String avg = a.getFormattedAvg(unit);

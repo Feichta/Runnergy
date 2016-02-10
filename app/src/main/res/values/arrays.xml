@@ -22,8 +22,8 @@
         <item>MM-TT-YYYY</item>
     </string-array>
     <string-array name="category_general_date_entry_values">
-        <item>dd.MM.yyyy</item>
-        <item>MM-dd-yyyy</item>
+        <item>dd.MM.yyyy HH:mm:ss</item>
+        <item>MM-dd-yyyy h:mm a</item>
     </string-array>
 
     <string-array name="category_activity_interval_entries">

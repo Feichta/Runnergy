@@ -9,6 +9,7 @@ import android.test.ApplicationTestCase;
  * Created by Fabian on 28.12.2015.
  */
 public class SettingsTest extends ApplicationTestCase<Application> {
+
     private SharedPreferences sp = null;
 
     public SettingsTest() {

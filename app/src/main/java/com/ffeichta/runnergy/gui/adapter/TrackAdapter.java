@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * Created by Fabian on 29.12.2015.
  */
 public class TrackAdapter extends ArrayAdapter<Track> {
+
     public TrackAdapter(Activity context, ArrayList<Track> tracks) {
         super(context, R.layout.track_item, tracks);
     }

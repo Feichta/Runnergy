@@ -41,8 +41,8 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
-    private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 3;
 
+    private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 5;
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
     // Interval for location updates. Inexact. Updates may be more or less frequent
@@ -186,7 +186,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
 
         // Set up the Listener for the FusedLocationApi
         connectionCallbacks = new ConnectionServices(this);
-        onConnectionFailedListener = new ConnectionFailed(this);
+        onConnectionFailedListener = new ConnectionFailed(getContext());
 
         setUpdateIntervalsAndDisplacement();
 
@@ -206,7 +206,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-
         setMapType();
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
                 .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -247,7 +246,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             map.setMapType(type);
         }
     }
-
 
     /**
      * Builds a GoogleApiClient. Uses the addApi method to request the
@@ -402,12 +400,4 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
         pauseResumeButton.setVisibility(View.GONE);
     }
-
-   /* @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            Log.d("#####", "vagagai");}
-        else {  }
-    }*/
 }
