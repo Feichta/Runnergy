@@ -80,12 +80,13 @@ public class TracksFragment extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.delete:
                         for (Track Item : selection) {
-                            tracks.remove(Item);
                             if (DBAccessHelper.getInstance(getContext()).deleteTrack(Item) != 0) {
                                 ToastFactory.makeToast(getContext(), getResources().getString(R
                                         .string.toast_delete_track_error));
                             } else {
                                 item.setVisible(false);
+                                tracks.remove(Item);
+                                selection.remove(Item);
                             }
                         }
                         onCreate(null);
@@ -93,9 +94,11 @@ public class TracksFragment extends Fragment {
                         mode.finish();
                         break;
                     case R.id.change:
+
                         ChangeTrackDialogFactory changeTrackDialogFactory = new
                                 ChangeTrackDialogFactory(getActivity(), selection.get(0), mode);
                         changeTrackDialogFactory.makeCustomInputDialog();
+                        selection.clear();
                         break;
                 }
                 return false;
