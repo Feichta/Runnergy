@@ -59,9 +59,6 @@
 
     <!-- AboutActivity.java -->
     <string name="email">Bitte schreibe eine E-Mail an fabian.feichter@ffeichta.com</string>
-    <string name="mailto">mailto:fabian.feichter@ffeichta.com</string>
-    <string name="market">market://details?id=com.ffeichta.runnergy</string>
-    <string name="play_store">https://play.google.com/store/apps/details?id=com.ffeichta.runnergy</string>
 
     <!-- activity_item.xml -->
     <string name="track_title">Strecke</string>
@@ -80,21 +77,16 @@
     // General
     <string name="category_general_title">Allgemein</string>
     <string name="category_general_unit_title">Längeneinheit</string>
-    <string name="category_general_unit_default_value">km</string>
     <string name="category_general_date_title">Datumsformat</string>
-    <string name="category_general_date_default_value">dd.MM.yyyy HH:mm:ss</string>
     // Activity
     <string name="category_activity_title">Aktivität</string>
     <string name="category_activity_interval_title">Intervall in denen Koordinaten
         gespeichert werden</string>
-    <string name="category_activity_interval_default_value">5</string>
     // Map
     <string name="category_map_title">Karte</string>
     <string name="category_map_type_title">Typ der Karte</string>
-    <string name="category_map_type_default_value">1</string>
 
     <!-- about_activity.xml -->
-    <string name="version">v1.0</string>
     <string name="developer">Fabian Feichter</string>
     <string name="school">TFO \'Max Valier\'</string>
     <string name="libraries">Bibliotheken</string>
@@ -104,14 +96,16 @@
     <string name="rate_this_app">Bewerte diese App</string>
 
     <!-- main_menu.xml + AndroidManifest.xml -->
-    <string name="save">Aktivität speichern</string>
-    <string name="about">Über</string>
     <string name="settings">Einstellungen</string>
 
     <!-- request_permission_activity.xml-->
     <string name="request_permission">Berechtigung anfordern</string>
     <string name="sorry">Diese APP benötigt Zugriff auf GPS um deine Route
         während einer Aktivität zu tracken</string>
+
+    <!-- arrays.xml -->
+    <string name="activity">Aktivität</string>
+    <string name="tracks">Strecken</string>
 
     <!-- Toasts -->
     <string name="toast_enable_gps">Bitte aktiviere GPS</string>
@@ -124,4 +118,5 @@
     <string name="toast_delete_activity_error">Aktivität konnte nicht gelöscht werden</string>
     <string name="toast_delete_track_error">Strecke konnte nicht gelöscht werden</string>
     <string name="toast_save_no_track_error">Bitte gib eine Strecke an</string>
+    <string name="about">Über</string>
 </resources>

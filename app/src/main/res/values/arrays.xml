@@ -3,8 +3,8 @@
 
     <!-- MainActivity.java -->
     <string-array name="tabs_titles">
-        <item>Activity</item>
-        <item>Tracks</item>
+        <item>@string/activity</item>
+        <item>@string/tracks</item>
     </string-array>
 
     <!-- preferences.xml -->

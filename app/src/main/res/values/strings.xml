@@ -56,9 +56,9 @@
 
     <!-- AboutActivity.java -->
     <string name="email">Please write an email to fabian.feichter@ffeichta.com</string>
-    <string name="mailto">mailto:fabian.feichter@ffeichta.com</string>
-    <string name="market">market://details?id=com.ffeichta.runnergy</string>
-    <string name="play_store">https://play.google.com/store/apps/details?id=com.ffeichta.runnergy</string>
+    <string name="mailto" translatable="false">mailto:fabian.feichter@ffeichta.com</string>
+    <string name="market" translatable="false">market://details?id=com.ffeichta.runnergy</string>
+    <string name="play_store" translatable="false">https://play.google.com/store/apps/details?id=com.ffeichta.runnergy</string>
 
     <!-- activity_item.xml -->
     <string name="track_title">Track</string>
@@ -77,20 +77,20 @@
     // General
     <string name="category_general_title">General</string>
     <string name="category_general_unit_title">Unit of length</string>
-    <string name="category_general_unit_default_value">km</string>
+    <string name="category_general_unit_default_value" translatable="false">km</string>
     <string name="category_general_date_title">Format of date</string>
-    <string name="category_general_date_default_value">dd.MM.yyyy HH:mm:ss</string>
+    <string name="category_general_date_default_value" translatable="false">dd.MM.yyyy HH:mm:ss</string>
     // Activity
     <string name="category_activity_title">Activity</string>
     <string name="category_activity_interval_title">Interval of saving positions</string>
-    <string name="category_activity_interval_default_value">5</string>
+    <string name="category_activity_interval_default_value" translatable="false">5</string>
     // Map
     <string name="category_map_title">Map</string>
     <string name="category_map_type_title">Type of map</string>
-    <string name="category_map_type_default_value">1</string>
+    <string name="category_map_type_default_value" translatable="false">1</string>
 
     <!-- about_activity.xml -->
-    <string name="version">v1.0</string>
+    <string name="version" translatable="false">v1.0</string>
     <string name="developer">Fabian Feichter</string>
     <string name="school">TFO \'Max Valier\'</string>
     <string name="libraries">Libraries</string>
@@ -100,13 +100,16 @@
     <string name="rate_this_app">Rate this app</string>
 
     <!-- main_menu.xml + AndroidManifest.xml -->
-    <string name="save">Save activity</string>
     <string name="about">About</string>
     <string name="settings">Settings</string>
 
     <!-- request_permission_activity.xml-->
     <string name="request_permission">Request permission</string>
     <string name="sorry">This app doesn`t work without the permission to use GPS for requesting locations</string>
+
+    <!-- arrays.xml -->
+    <string name="activity">Activity</string>
+    <string name="tracks">Tracks</string>
 
     <!-- Toasts -->
     <string name="toast_enable_gps">Please enable GPS</string>

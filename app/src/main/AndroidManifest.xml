@@ -49,7 +49,7 @@
 
         <activity
             android:name=".gui.activities.SaveActivityActivity"
-            android:label="@string/save"
+            android:label="@string/save_activity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
 
