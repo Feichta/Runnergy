@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
@@ -68,19 +67,33 @@ public class ActivitiesActivity extends Activity {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
                     checked) {
-                if (checked) {
-                    selection.add(childActivities.get(position - 1));
+                if (expListView.getItemAtPosition(position) instanceof com
+                        .ffeichta.runnergy.model.Activity) {
+                    mode.getMenuInflater().inflate(R.menu.contextual_action_bar_menu_delete, mode
+                            .getMenu());
+                    if (checked) {
+                        selection.add(childActivities.get(position - 1));
+                    } else {
+                        selection.remove(childActivities.get(position - 1));
+                    }
+                    mode.setTitle(expListView.getCheckedItemCount() + getResources().getString(R
+                            .string.select));
                 } else {
-                    selection.remove(childActivities.get(position));
+                    if (position == childActivities.size()) {
+                        position--;
+                    }
+                    mode.getMenuInflater().inflate(R.menu.contextual_action_bar_empty, mode
+                            .getMenu());
+                    int idType = getResources().getIdentifier(childActivities.get(position)
+                                    .getType
+                                            ().toString().toLowerCase(),
+                            "string", getPackageName());
+                    mode.setTitle(getResources().getString(idType));
                 }
-                mode.setTitle(expListView.getCheckedItemCount() + getResources().getString(R
-                        .string.select));
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                MenuInflater menuInflater = getMenuInflater();
-                menuInflater.inflate(R.menu.contextual_action_bar_menu_delete, menu);
                 return true;
             }
 
