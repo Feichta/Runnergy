@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +34,7 @@ public class TracksFragment extends Fragment {
     ArrayList<Track> selection = null;
     private ArrayList<Track> tracks = null;
     private ListView listView = null;
+    private TrackAdapter trackAdapter = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
@@ -46,7 +46,7 @@ public class TracksFragment extends Fragment {
         if (tracks == null) {
             tracks = new ArrayList<>();
         }
-        final TrackAdapter trackAdapter = new TrackAdapter(this.getActivity(), tracks);
+        trackAdapter = new TrackAdapter(this.getActivity(), tracks);
         listView.setAdapter(trackAdapter);
         listView.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE_MODAL);
         listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
@@ -81,12 +81,12 @@ public class TracksFragment extends Fragment {
                 switch (item.getItemId()) {
                     case R.id.delete:
                         for (Track Item : selection) {
+                            tracks.remove(Item);
                             if (DBAccessHelper.getInstance(getContext()).deleteTrack(Item) != 0) {
                                 ToastFactory.makeToast(getContext(), getResources().getString(R
                                         .string.toast_delete_track_error));
                             } else {
                                 item.setVisible(false);
-                                tracks.remove(Item);
                                 selection.remove(Item);
                             }
                         }
@@ -131,11 +131,12 @@ public class TracksFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d("####0", "ajha");
         super.onActivityResult(requestCode, resultCode, data);
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {
             tracks = new ArrayList<>();
         }
+        trackAdapter = new TrackAdapter(this.getActivity(), tracks);
+        listView.setAdapter(trackAdapter);
     }
 }

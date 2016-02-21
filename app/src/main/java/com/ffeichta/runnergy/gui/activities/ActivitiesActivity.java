@@ -74,7 +74,7 @@ public class ActivitiesActivity extends Activity {
                     if (checked) {
                         selection.add(childActivities.get(position - 1));
                     } else {
-                        selection.remove(childActivities.get(position - 1));
+                        selection.remove(childActivities.get(position));
                     }
                     mode.setTitle(expListView.getCheckedItemCount() + getResources().getString(R
                             .string.select));
