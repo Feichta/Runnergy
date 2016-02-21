@@ -121,7 +121,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         return;
                     }
                     map.setMyLocationEnabled(false);
-                    onMapReady(map);
+                    drawRoute();
                 }
             }
         });
@@ -145,100 +145,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        map.clear();
-        // Set the map type
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences
-                (getApplicationContext());
-        int value = Integer.valueOf(sp.getString("type", "1"));
-        int type;
-        switch (value) {
-            case 0:
-                type = GoogleMap.MAP_TYPE_NORMAL;
-                break;
-            case 1:
-                type = GoogleMap.MAP_TYPE_HYBRID;
-                break;
-            case 2:
-                type = GoogleMap.MAP_TYPE_SATELLITE;
-                break;
-            case 3:
-                type = GoogleMap.MAP_TYPE_TERRAIN;
-                break;
-            case 4:
-                type = GoogleMap.MAP_TYPE_NONE;
-                break;
-            default:
-                type = GoogleMap.MAP_TYPE_NORMAL;
-                break;
-        }
-        map.setMapType(type);
-
-        // Holds all Polylines
-        PolylineOptions polylineOptions;
-        ArrayList<ArrayList<LatLng>> all = new ArrayList<>(0);
-        ArrayList<LatLng> latLngGroup = new ArrayList<>();
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-
-        // Add the start Marker, the end Marker and the Polylines to the map
-        for (int i = 0; i < coordinates.size(); i++) {
-            Coordinate c = coordinates.get(i);
-            LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
-            builder.include(latLng);
-            latLngGroup.add(latLng);
-            if (c.isPause()) {
-                all.add(latLngGroup);
-                latLngGroup = new ArrayList<>();
-            }
-            if (i == coordinates.size() - 1) {
-                all.add(latLngGroup);
-            }
-            if (c.isStart()) {
-                Marker marker = map.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title(getResources().getString(R.string.marker_start))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
-                                .HUE_GREEN)));
-                // Only this InfoWindow is shown because only one info window can be displayed at
-                // once
-                marker.showInfoWindow();
-            }
-            if (c.isEnd()) {
-                map.addMarker(new MarkerOptions()
-                        .position(latLng)
-                        .title(getResources().getString(R.string.marker_end))
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
-                                .HUE_RED)));
-            }
-        }
-        for (ArrayList<LatLng> group : all) {
-            polylineOptions = new PolylineOptions();
-            polylineOptions.addAll(group).color(Color.MAGENTA);
-            map.addPolyline(polylineOptions);
-        }
-
-        // width and height are uses to generate the area which is shown on the map
-        int width = getResources().getDisplayMetrics().widthPixels;
-        int height = getResources().getDisplayMetrics().heightPixels;
-
-        // Get the height of the ActionBar because the ActionBar covers over the Map
-        int actionBarHeight = (int) (height / (100 / FACTOR_ACTION_BAR));
-//        TypedValue tv = new TypedValue();
-//        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-//            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources()
-//                    .getDisplayMetrics());
-//        }
-        // padding is 18% of the width of screen
-        int padding = (int) (width * 0.18);
-        // subtract the height of the ActinBar
-        height = height - actionBarHeight;
-
-        // Contains all Coordinates where I want to zoom
-        LatLngBounds bounds = builder.build();
-
-
-        // Zoom into the map, so every Marker and polyline is visible on the map
-        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
-        map.moveCamera(cu);
+        drawRoute();
     }
 
 
@@ -384,5 +291,102 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Apply the changes on the interval
             startLocationUpdates();
         }
+    }
+
+    private void drawRoute() {
+        map.clear();
+        // Set the map type
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences
+                (getApplicationContext());
+        int value = Integer.valueOf(sp.getString("type", "1"));
+        int type;
+        switch (value) {
+            case 0:
+                type = GoogleMap.MAP_TYPE_NORMAL;
+                break;
+            case 1:
+                type = GoogleMap.MAP_TYPE_HYBRID;
+                break;
+            case 2:
+                type = GoogleMap.MAP_TYPE_SATELLITE;
+                break;
+            case 3:
+                type = GoogleMap.MAP_TYPE_TERRAIN;
+                break;
+            case 4:
+                type = GoogleMap.MAP_TYPE_NONE;
+                break;
+            default:
+                type = GoogleMap.MAP_TYPE_NORMAL;
+                break;
+        }
+        map.setMapType(type);
+
+        // Holds all Polylines
+        PolylineOptions polylineOptions;
+        ArrayList<ArrayList<LatLng>> all = new ArrayList<>(0);
+        ArrayList<LatLng> latLngGroup = new ArrayList<>();
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+        // Add the start Marker, the end Marker and the Polylines to the map
+        for (int i = 0; i < coordinates.size(); i++) {
+            Coordinate c = coordinates.get(i);
+            LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
+            builder.include(latLng);
+            latLngGroup.add(latLng);
+            if (c.isPause()) {
+                all.add(latLngGroup);
+                latLngGroup = new ArrayList<>();
+            }
+            if (i == coordinates.size() - 1) {
+                all.add(latLngGroup);
+            }
+            if (c.isStart()) {
+                Marker marker = map.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title(getResources().getString(R.string.marker_start))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
+                                .HUE_GREEN)));
+                // Only this InfoWindow is shown because only one info window can be displayed at
+                // once
+                marker.showInfoWindow();
+            }
+            if (c.isEnd()) {
+                map.addMarker(new MarkerOptions()
+                        .position(latLng)
+                        .title(getResources().getString(R.string.marker_end))
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory
+                                .HUE_RED)));
+            }
+        }
+        for (ArrayList<LatLng> group : all) {
+            polylineOptions = new PolylineOptions();
+            polylineOptions.addAll(group).color(Color.MAGENTA);
+            map.addPolyline(polylineOptions);
+        }
+
+        // width and height are uses to generate the area which is shown on the map
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+
+        // Get the height of the ActionBar because the ActionBar covers over the Map
+        int actionBarHeight = (int) (height / (100 / FACTOR_ACTION_BAR));
+//        TypedValue tv = new TypedValue();
+//        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+//            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources()
+//                    .getDisplayMetrics());
+//        }
+        // padding is 18% of the width of screen
+        int padding = (int) (width * 0.18);
+        // subtract the height of the ActinBar
+        height = height - actionBarHeight;
+
+        // Contains all Coordinates where I want to zoom
+        LatLngBounds bounds = builder.build();
+
+
+        // Zoom into the map, so every Marker and polyline is visible on the map
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
+        map.moveCamera(cu);
     }
 }
