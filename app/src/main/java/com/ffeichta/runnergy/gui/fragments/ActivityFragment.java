@@ -208,6 +208,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         setMapType();
+        startStopButton.setVisibility(View.VISIBLE);
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
                 .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),

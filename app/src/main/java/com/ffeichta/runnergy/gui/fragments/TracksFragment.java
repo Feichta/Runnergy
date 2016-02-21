@@ -90,8 +90,8 @@ public class TracksFragment extends Fragment {
                                 selection.remove(Item);
                             }
                         }
-                        onCreate(null);
-                        trackAdapter.notifyDataSetChanged();
+                        trackAdapter = new TrackAdapter(TracksFragment.this.getActivity(), tracks);
+                        listView.setAdapter(trackAdapter);
                         mode.finish();
                         break;
                     case R.id.change:
@@ -136,6 +136,7 @@ public class TracksFragment extends Fragment {
         if (tracks == null) {
             tracks = new ArrayList<>();
         }
+        trackAdapter.notifyDataSetChanged();
         trackAdapter = new TrackAdapter(this.getActivity(), tracks);
         listView.setAdapter(trackAdapter);
     }

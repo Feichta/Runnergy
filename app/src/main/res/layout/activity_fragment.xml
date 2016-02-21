@@ -24,7 +24,8 @@
             android:background="@drawable/button"
             android:text="@string/activity_fragment_start"
             android:textColor="@color/textColorPrimary"
-            android:textSize="13sp"/>
+            android:textSize="13sp"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/activityPauseResume"
