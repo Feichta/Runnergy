@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -41,6 +40,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
+    private final double FACTOR_ACTION_BAR = 8.3;
     // Value changes when the user presses the Start and Stop Button
     public Boolean startButtonEnabled = false;
     // Interval for location updates. Inexact. Updates may be more or less frequent
@@ -221,13 +221,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         int height = getResources().getDisplayMetrics().heightPixels;
 
         // Get the height of the ActionBar because the ActionBar covers over the Map
-        TypedValue tv = new TypedValue();
-        int actionBarHeight = 0;
-        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources()
-                    .getDisplayMetrics());
-        }
-        // padding is 12% of the width of screen
+        int actionBarHeight = (int) (height / (100 / FACTOR_ACTION_BAR));
+//        TypedValue tv = new TypedValue();
+//        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
+//            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources()
+//                    .getDisplayMetrics());
+//        }
+        // padding is 18% of the width of screen
         int padding = (int) (width * 0.18);
         // subtract the height of the ActinBar
         height = height - actionBarHeight;
