@@ -98,7 +98,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     LocationManager locationManager = (LocationManager) getContext()
                             .getSystemService(Context.LOCATION_SERVICE);
                     boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager
-                            .GPS_PROVIDER);
+                            .GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager
+                            .NETWORK_PROVIDER);
                     if (gpsEnabled) {
                         startButtonEnabled = true;
                         startStopButton.setText(getResources().getString(R.string
