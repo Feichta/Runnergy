@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -114,10 +115,12 @@ public class TracksFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getActivity(),
-                        ActivitiesActivity.class);
-                i.putExtra("track", tracks.get(position));
-                startActivity(i);
+                if (tracks.get(position).getActivities() != null) {
+                    Intent i = new Intent(getActivity(),
+                            ActivitiesActivity.class);
+                    i.putExtra("track", tracks.get(position));
+                    startActivityForResult(i, 0);
+                }
             }
         });
         return v;
@@ -128,6 +131,7 @@ public class TracksFragment extends Fragment {
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d("####0", "ajha");
         super.onActivityResult(requestCode, resultCode, data);
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {
