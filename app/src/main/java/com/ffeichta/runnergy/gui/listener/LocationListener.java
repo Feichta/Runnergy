@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class LocationListener implements com.google.android.gms.location.LocationListener {
 
-    private static final int ZOOM_LEVEL = 18;
+    private static final int ZOOM_LEVEL = 16;
     // Current location
     private LatLng actualLatLng = null;
     // Previous location

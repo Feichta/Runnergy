@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
  */
 public class LocationListenerCompare implements com.google.android.gms.location.LocationListener {
 
-    private static final int ZOOM_LEVEL = 18;
+    private static final int ZOOM_LEVEL = 16;
     private TextToSpeech textToSpeech = null;
     private Activity activity = null;
     // Current location
