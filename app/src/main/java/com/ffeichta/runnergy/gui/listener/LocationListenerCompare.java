@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
  */
 public class LocationListenerCompare implements com.google.android.gms.location.LocationListener {
 
-    private static final int ZOOM_LEVEL = 16;
+    private static final int ZOOM_LEVEL = 18;
     private TextToSpeech textToSpeech = null;
     private Activity activity = null;
     // Current location
@@ -59,12 +59,12 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         long difference = c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time);
         if (difference < 0) {
             text.setText(StringFormatter.getFormattedDuration((int) -difference) + context
-                    .getResources().getString(R.string.slower));
+                    .getResources().getString(R.string.faster));
 
         } else {
             if (difference > 0) {
                 text.setText(StringFormatter.getFormattedDuration((int) difference) + context
-                        .getResources().getString(R.string.faster));
+                        .getResources().getString(R.string.slower));
             } else {
                 text.setText(context
                         .getResources().getString(R.string.equally));
