@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -388,5 +389,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Zoom into the map, so every Marker and polyline is visible on the map
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
         map.moveCamera(cu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean ret = false;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                ret = true;
+        }
+        return ret;
     }
 }
