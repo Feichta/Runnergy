@@ -140,6 +140,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                         if (activity.getDuration() < MIN_DURATION_OF_ACTIVITY_IN_SECONDS) {
                             ToastFactory.makeToast(getContext(), getResources().getString(R
                                     .string.activity_fragment_duration_too_short));
+                            map.clear();
                             startStopButton.setText(getResources().getString(R.string
                                     .activity_fragment_start));
                             pauseResumeButton.setVisibility(View.GONE);
