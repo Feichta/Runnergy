@@ -38,8 +38,8 @@
     <!-- SaveActivityActivity.java -->
     <string name="save_activity">Aktivität speichern</string>
     <string name="dialog_back_pressed_title">Aktivität löschen</string>
-    <string name="dialog_back_pressed_subtitle">Willst du wiklich zurückkehren? Deine 
-        Aktivität wird gelöscht</string>
+    <string name="dialog_back_pressed_subtitle">Willst du wirklich zurückkehren? Deine
+        Aktivität wird gelöscht.</string>
 
     <!-- ActivityTypes.java -->
     <string name="running">LAUFEN</string>

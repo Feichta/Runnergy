@@ -159,7 +159,7 @@ public class SaveActivityActivity extends android.app.Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(this, R.style.AppThemeDialog)
                     .setTitle(getResources().getString(R.string.dialog_back_pressed_title))
                     .setMessage(getResources().getString(R.string.dialog_back_pressed_subtitle))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

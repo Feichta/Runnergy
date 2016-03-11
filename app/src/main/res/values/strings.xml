@@ -36,7 +36,8 @@
     <!-- SaveActivityActivity.java -->
     <string name="save_activity">Save activity</string>
     <string name="dialog_back_pressed_title">Delete activity</string>
-    <string name="dialog_back_pressed_subtitle">Do you want to go back? The actual activity will be deleted</string>
+    <string name="dialog_back_pressed_subtitle">Do you want to go back? The actual activity will
+        be deleted.</string>
 
     <!-- ActivityTypes.java -->
     <string name="running">RUNNING</string>

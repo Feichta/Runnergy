@@ -31,4 +31,9 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
     </style>
+
+    <style name="AppThemeDialog" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+    </style>
 </resources>
