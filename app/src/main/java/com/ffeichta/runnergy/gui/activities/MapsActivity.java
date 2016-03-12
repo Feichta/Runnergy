@@ -102,8 +102,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         startButtonEnabled = true;
                         startStopComparison.setText(getResources().getString(R.string
                                 .maps_activity_stop));
-                        text.setVisibility(TextView.VISIBLE);
-                        text.setText("");
                         locationListener = new LocationListenerCompare(map, MapsActivity.this,
                                 coordinates.get(0).getActivity(), text);
                         // Start location updates
@@ -414,5 +412,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 ret = true;
         }
         return ret;
+    }
+
+    public TextView getText() {
+        return text;
     }
 }

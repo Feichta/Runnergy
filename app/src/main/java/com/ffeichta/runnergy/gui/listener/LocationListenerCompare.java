@@ -3,7 +3,7 @@ package com.ffeichta.runnergy.gui.listener;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
-import android.speech.tts.TextToSpeech;
+import android.view.View;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
@@ -24,7 +24,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class LocationListenerCompare implements com.google.android.gms.location.LocationListener {
 
     private static final int ZOOM_LEVEL = 18;
-    private TextToSpeech textToSpeech = null;
+
     private Activity activity = null;
     // Current location
     private LatLng actualLatLng = null;
@@ -62,6 +62,9 @@ public class LocationListenerCompare implements com.google.android.gms.location.
                     .getResources().getString(R.string.faster));
 
         } else {
+            if (text.getVisibility() != View.VISIBLE) {
+                text.setVisibility(View.VISIBLE);
+            }
             if (difference > 0) {
                 text.setText(StringFormatter.getFormattedDuration((int) difference) + context
                         .getResources().getString(R.string.slower));
