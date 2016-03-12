@@ -63,6 +63,7 @@
     <string name="dialog_change_track_title">Change track</string>
 
     <!-- AboutActivity.java -->
+    <string name="github">https://github.com/Feichta/Runnergy</string>
     <string name="email">Please write an email to fabian.feichter@ffeichta.com</string>
     <string name="mailto" translatable="false">mailto:fabian.feichter@ffeichta.com</string>
     <string name="market" translatable="false">market://details?id=com.ffeichta.runnergy</string>
@@ -102,6 +103,7 @@
     <string name="developer">Fabian Feichter</string>
     <string name="school">TFO \'Max Valier\'</string>
     <string name="libraries">Libraries</string>
+    <string name="source_code">Source code</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="credits">Credits</string>
     <string name="report_bug">Report bug</string>

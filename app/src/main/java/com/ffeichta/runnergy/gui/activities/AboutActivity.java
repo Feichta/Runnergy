@@ -30,6 +30,7 @@ public class AboutActivity extends Activity {
 
         ArrayList<String> titles = new ArrayList();
         titles.add(getResources().getString(R.string.libraries));
+        titles.add(getResources().getString(R.string.source_code));
         titles.add(getResources().getString(R.string.privacy_policy));
         titles.add(getResources().getString(R.string.credits));
         titles.add(getResources().getString(R.string.report_bug));
@@ -48,14 +49,20 @@ public class AboutActivity extends Activity {
                         startActivity(libraries);
                         break;
                     case 1:
+                        Intent gitHub = new Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(getResources().getString(R.string.github)));
+                        startActivity(gitHub);
+                        break;
+                    case 2:
                         Intent privacy = new Intent(AboutActivity.this, PrivacyPolicy.class);
                         startActivity(privacy);
                         break;
-                    case 2:
+                    case 3:
                         Intent credits = new Intent(AboutActivity.this, CreditsActivity.class);
                         startActivity(credits);
                         break;
-                    case 3:
+                    case 4:
                         try {
                             Intent mail = new Intent(Intent.ACTION_SENDTO);
                             mail.setType("text/plain");
@@ -71,7 +78,7 @@ public class AboutActivity extends Activity {
                                     .string.email));
                         }
                         break;
-                    case 4:
+                    case 5:
                         try {
                             Intent googlePlayDirect = new Intent(
                                     Intent.ACTION_VIEW,
