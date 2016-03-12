@@ -137,7 +137,6 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
             default:
                 break;
         }
-
         activityHolder.distance.setText(distance);
         activityHolder.avg.setText(avg);
         activityHolder.duration.setText(duration);

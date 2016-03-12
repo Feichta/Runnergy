@@ -135,8 +135,8 @@ public class ActivitiesActivity extends Activity {
                                         }
                                     }
 
-                                    //onCreate(null);
-                                    //activityAdapter.notifyDataSetChanged();
+                                    onCreate(null);
+                                    activityAdapter.notifyDataSetChanged();
                                     // Close the dialog
                                     dialog.dismiss();
                                     modeFinal.finish();
@@ -155,7 +155,7 @@ public class ActivitiesActivity extends Activity {
                             .create().show();
                     return true;
                 }
-                return true;
+                return false;
             }
 
             @Override
