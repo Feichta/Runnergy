@@ -1,11 +1,14 @@
 package com.ffeichta.runnergy.gui.activities;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -41,7 +44,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+    private final int MAX_DISTANCE_TO_START = 75;
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
     private final double FACTOR_ACTION_BAR = 8.3;
@@ -99,22 +102,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager
                             .NETWORK_PROVIDER);
                     if (gpsEnabled) {
-                        startButtonEnabled = true;
-                        startStopComparison.setText(getResources().getString(R.string
-                                .maps_activity_stop));
-                        locationListener = new LocationListenerCompare(map, MapsActivity.this,
-                                coordinates.get(0).getActivity(), text);
-                        // Start location updates
-                        startLocationUpdates();
-                        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest
-                                .permission
-                                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions(MapsActivity.this,
-                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
-                            return;
+                        Location actualPosition = LocationServices.FusedLocationApi.getLastLocation
+                                (googleApiClient);
+                        final float[] result = new float[1];
+                        Location.distanceBetween(actualPosition.getLongitude(),
+                                actualPosition.getLatitude(), coordinates.get(0).getLongitude(),
+                                coordinates.get(0).getLatitude(), result);
+                        if (actualPosition.getAccuracy() > MAX_DISTANCE_TO_START) {
+                            new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
+                                    .setTitle(getResources().getString(R.string
+                                            .dialog_bad_accuracy_title))
+                                    .setMessage(getResources().getString(R.string
+                                            .dialog_bad_accuracy_message))
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface
+                                            .OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // Close the dialog
+                                            dialog.dismiss();
+                                            if (result[0] > MAX_DISTANCE_TO_START) {
+                                                ToastFactory.makeToast(MapsActivity.this,
+                                                        getResources().getString(R.string
+                                                                .toast_not_at_start));
+                                            } else {
+                                                start();
+                                            }
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .create().show();
+                        } else {
+                            if (result[0] > MAX_DISTANCE_TO_START) {
+                                ToastFactory.makeToast(MapsActivity.this,
+                                        getResources().getString(R.string.toast_not_at_start));
+                            } else {
+                                start();
+                            }
                         }
-                        map.setMyLocationEnabled(true);
                     } else {
                         ToastFactory.makeToast(MapsActivity.this, getResources().getString(R.string
                                 .toast_enable_gps));
@@ -416,5 +441,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public TextView getText() {
         return text;
+    }
+
+    private void start() {
+        startButtonEnabled = true;
+        startStopComparison.setText(getResources().getString
+                (R.string
+                        .maps_activity_stop));
+        locationListener = new LocationListenerCompare(map,
+                MapsActivity.this,
+                coordinates.get(0).getActivity(), text);
+        // Start location updates
+        startLocationUpdates();
+        if (ActivityCompat.checkSelfPermission(MapsActivity
+                .this, Manifest
+                .permission
+                .ACCESS_FINE_LOCATION) != PackageManager
+                .PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MapsActivity.this,
+                    new String[]{Manifest.permission
+                            .ACCESS_FINE_LOCATION},
+                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
+            return;
+        }
+        map.setMyLocationEnabled(true);
     }
 }

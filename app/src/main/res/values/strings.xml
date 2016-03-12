@@ -34,6 +34,10 @@
     <string name="maps_activity_stop">Stop comparison</string>
     <string name="marker_start">Start</string>
     <string name="marker_end">End</string>
+    <string name="dialog_bad_accuracy_title">Bad accuracy</string>
+    <string name="dialog_bad_accuracy_message">The accuracy of your GPS is low. We suggest you
+        that you find yourself under the open sky. If not your tracked route could be
+        inaccurate. Do you want to proceed anyway?</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020slower</string>
@@ -130,4 +134,5 @@
     <string name="toast_delete_activity_error">Can\'t delete activity</string>
     <string name="toast_delete_track_error">Can\'t delete track</string>
     <string name="toast_save_no_track_error">Please insert a track</string>
+    <string name="toast_not_at_start">Please go to the start point</string>
 </resources>
