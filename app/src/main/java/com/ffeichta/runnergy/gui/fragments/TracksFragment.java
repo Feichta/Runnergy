@@ -161,11 +161,22 @@ public class TracksFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        refresh();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            refresh();
+        }
+    }
+
+    private void refresh() {
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {
             tracks = new ArrayList<>();
         }
-        trackAdapter.notifyDataSetChanged();
         trackAdapter = new TrackAdapter(this.getActivity(), tracks);
         listView.setAdapter(trackAdapter);
     }

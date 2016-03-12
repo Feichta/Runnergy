@@ -18,7 +18,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -420,7 +419,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         map.clear();
-        Log.d("clear", "clear");
         startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
         pauseResumeButton.setVisibility(View.GONE);
     }
