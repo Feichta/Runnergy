@@ -22,7 +22,8 @@ public class MyLocationButtonListener implements GoogleMap.OnMyLocationButtonCli
     public boolean onMyLocationButtonClick() {
         LocationManager locationManager = (LocationManager) context.getSystemService(Context
                 .LOCATION_SERVICE);
-        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (!gpsEnabled) {
             ToastFactory.makeToast(context, context.getResources().getString(R.string
                     .toast_enable_gps));
