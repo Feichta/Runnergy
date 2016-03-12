@@ -78,8 +78,7 @@ public class SaveActivityActivity extends android.app.Activity {
                     int result = DBAccessHelper.getInstance(SaveActivityActivity.this)
                             .insertActivity(activity);
                     if (result == 0) {
-                        Intent intent = new Intent(SaveActivityActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        finish();
                     } else {
                         ToastFactory.makeToast(SaveActivityActivity.this, getResources()
                                 .getString(R.string.toast_error_save_track));
