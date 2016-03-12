@@ -131,7 +131,6 @@ public class ActivitiesActivity extends Activity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int id) {
                                     for (com.ffeichta.runnergy.model.Activity Item : selection) {
-                                        childActivities.remove(Item);
                                         if (DBAccessHelper.getInstance(ActivitiesActivity.this)
                                                 .deleteActivity
                                                         (Item) != 0) {
@@ -140,12 +139,32 @@ public class ActivitiesActivity extends Activity {
                                                             .getString(R.string
                                                                     .toast_delete_activity_error));
                                         } else {
+                                            childActivities.remove(Item);
                                             itemFinal.setVisible(false);
                                             onCreate(null);
                                             activityAdapter.notifyDataSetChanged();
                                             // Close the dialog
                                             dialog.dismiss();
                                             modeFinal.finish();
+                                            boolean expand = false;
+                                            if (childActivities.size() == 0) {
+                                                finish();
+                                            }
+                                            /*for (int i = 0; i < childActivities.size(); i++) {
+                                                Log.d("#####", "adsfafa123" + Item.getId() + "/"
+                                                        + childActivities.get(i).getId());
+                                                if(Item.getId() == childActivities.get(i).getId()) {
+                                                    Log.d("#####", "adsfafaaa" + groupCollection
+                                                    .get(
+                                                            childActivities.get(i).getType())
+                                                            .size());
+                                                    if (groupCollection.get(
+                                                            childActivities.get(i).getType()).size()
+                                                            == 0) {
+                                                        Log.d("#####", "adsfafa");
+                                                    }
+                                                }
+                                            }*/
                                         }
                                     }
 
