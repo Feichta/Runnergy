@@ -145,17 +145,17 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
 
         switch (a.getRanking()) {
             case Activity.worst:
-                ret.setBackgroundResource(R.drawable.item_border_worst);
+                ret.setBackgroundResource(R.drawable.item_background_selector_worst);
                 break;
             case Activity.best:
-                ret.setBackgroundResource(R.drawable.item_border_best);
+                ret.setBackgroundResource(R.drawable.item_background_selector_best);
                 break;
             case Activity.avg:
-                ret.setBackgroundResource(R.drawable.item_border_avg);
+                ret.setBackgroundResource(R.drawable.item_background_selector_avg);
                 break;
             // Don't delete this otherwise sometimes too much Activities are colored
             default:
-                ret.setBackgroundResource(R.drawable.item_background);
+                ret.setBackgroundResource(R.drawable.item_background_selector);
                 break;
         }
         return ret;
