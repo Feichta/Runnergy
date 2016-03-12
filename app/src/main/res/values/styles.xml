@@ -20,7 +20,7 @@
         <item name="android:editTextColor">@color/textColor</item>
     </style>
 
-    <style name="AppThemeDialog" parent="@android:style/Theme.Holo.Light">
+    <style name="AppThemeDialog" parent="@android:style/Theme.Holo.Light.Dialog">
         <item name="android:textColorPrimary">@color/textColor</item>
     </style>
 </resources>
