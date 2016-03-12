@@ -44,7 +44,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    public static final int MAX_DISTANCE_TO_START = 75;
+    public static final int MIN_ACCURACY = 10;
+    private final int MAX_DISTANCE_TO_START = 75;
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
     private final double FACTOR_ACTION_BAR = 8.3;
@@ -108,7 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         Location.distanceBetween(actualPosition.getLongitude(),
                                 actualPosition.getLatitude(), coordinates.get(0).getLongitude(),
                                 coordinates.get(0).getLatitude(), result);
-                        if (actualPosition.getAccuracy() > MAX_DISTANCE_TO_START) {
+                        if (actualPosition.getAccuracy() > MIN_ACCURACY) {
                             new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
                                     .setTitle(getResources().getString(R.string
                                             .dialog_bad_accuracy_title))
