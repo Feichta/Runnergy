@@ -38,6 +38,7 @@
     <string name="dialog_bad_accuracy_message">The accuracy of your GPS is low. We suggest you
         that you find yourself under the open sky. If not your tracked route could be
         inaccurate. Do you want to proceed anyway?</string>
+    <string name="dialog_go_back">Dou you want to stop the comparison?</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020slower</string>

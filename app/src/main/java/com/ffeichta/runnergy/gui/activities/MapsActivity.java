@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -150,7 +151,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     startStopComparison.setText(getResources().getString(R.string
                             .maps_activity_start));
                     text.setVisibility(TextView.GONE);
-                    text.setText("");
                     stopLocationUpdates();
                     if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
                             .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -431,11 +431,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean ret = false;
+        boolean ret;
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                goBack();
                 ret = true;
+                break;
+            default:
+                ret = super.onOptionsItemSelected(item);
         }
         return ret;
     }
@@ -466,5 +469,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         map.setMyLocationEnabled(true);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            goBack();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void goBack() {
+        if (startButtonEnabled) {
+            new AlertDialog.Builder(this, R.style.AppThemeDialog)
+                    .setTitle(getResources().getString(R.string.maps_activity_stop))
+                    .setMessage(getResources().getString(R.string.dialog_go_back))
+                    .setPositiveButton(android.R.string.yes, new DialogInterface
+                            .OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            stopLocationUpdates();
+                            // Close the dialog
+                            dialog.dismiss();
+                            // Finish the activity
+                            finish();
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .create().show();
+        } else {
+            finish();
+        }
     }
 }
