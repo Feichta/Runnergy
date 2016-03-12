@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -139,32 +140,43 @@ public class ActivitiesActivity extends Activity {
                                                             .getString(R.string
                                                                     .toast_delete_activity_error));
                                         } else {
+                                            int indexToExpand = -1;
+                                            childActivities.remove(Item);
+                                            if (childActivities.size() == 0) {
+                                                finish();
+                                            } else {
+                                                childActivities.add(Item);
+                                                int id1 = getResources().getIdentifier(Item.getType
+                                                                ().toString().toLowerCase(),
+                                                        "string", getPackageName());
+                                                String type = getResources().getString(id1);
+                                                Object[] types = groupCollection.keySet().toArray();
+                                                Log.d("####", type);
+                                                Log.d("####", types.length + "");
+
+                                                for (int i = 0; i < types.length;
+                                                     i++) {
+                                                    Log.d("####", types[i] + "/" + type
+                                                            + " ");
+                                                    if (types[i].equals(type) &&
+                                                            groupCollection.get(types[i]).size()
+                                                                    != 1) {
+                                                        indexToExpand = i;
+                                                    }
+                                                }
+                                            }
                                             childActivities.remove(Item);
                                             itemFinal.setVisible(false);
                                             onCreate(null);
                                             activityAdapter.notifyDataSetChanged();
+
+                                            if (indexToExpand != -1) {
+                                                Log.d("####", "expand" + indexToExpand);
+                                                expListView.expandGroup(indexToExpand);
+                                            }
                                             // Close the dialog
                                             dialog.dismiss();
                                             modeFinal.finish();
-                                            boolean expand = false;
-                                            if (childActivities.size() == 0) {
-                                                finish();
-                                            }
-                                            /*for (int i = 0; i < childActivities.size(); i++) {
-                                                Log.d("#####", "adsfafa123" + Item.getId() + "/"
-                                                        + childActivities.get(i).getId());
-                                                if(Item.getId() == childActivities.get(i).getId()) {
-                                                    Log.d("#####", "adsfafaaa" + groupCollection
-                                                    .get(
-                                                            childActivities.get(i).getType())
-                                                            .size());
-                                                    if (groupCollection.get(
-                                                            childActivities.get(i).getType()).size()
-                                                            == 0) {
-                                                        Log.d("#####", "adsfafa");
-                                                    }
-                                                }
-                                            }*/
                                         }
                                     }
 
