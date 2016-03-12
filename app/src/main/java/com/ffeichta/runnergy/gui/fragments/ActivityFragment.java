@@ -5,10 +5,13 @@ package com.ffeichta.runnergy.gui.fragments;
  */
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,6 +26,7 @@ import android.widget.Button;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.activities.MainActivity;
+import com.ffeichta.runnergy.gui.activities.MapsActivity;
 import com.ffeichta.runnergy.gui.activities.SaveActivityActivity;
 import com.ffeichta.runnergy.gui.listener.ConnectionFailed;
 import com.ffeichta.runnergy.gui.listener.ConnectionServices;
@@ -75,6 +79,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     // Total duration of pause in milliseconds
     private long durationPausedInMilliseconds = -1;
 
+    private Location actualLocation = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
     Bundle savedInstanceState) {
@@ -101,14 +107,28 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                             .GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager
                             .NETWORK_PROVIDER);
                     if (gpsEnabled) {
-                        startButtonEnabled = true;
-                        startStopButton.setText(getResources().getString(R.string
-                                .activity_fragment_stop));
-                        pauseResumeButton.setVisibility(View.VISIBLE);
-                        // Get a new LocationListener
-                        locationListener = new LocationListener(map, getContext());
-                        // Start location updates
-                        startLocationUpdates();
+                        Location actualPosition = getActualPosition();
+                        if (actualPosition.getAccuracy() > MapsActivity.MAX_DISTANCE_TO_START) {
+                            new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
+                                    .setTitle(getResources().getString(R.string
+                                            .dialog_bad_accuracy_title))
+                                    .setMessage(getResources().getString(R.string
+                                            .dialog_bad_accuracy_message))
+                                    .setPositiveButton(android.R.string.yes, new DialogInterface
+                                            .OnClickListener() {
+
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            // Close the dialog
+                                            dialog.dismiss();
+                                            start();
+                                        }
+                                    })
+                                    .setNegativeButton(android.R.string.no, null)
+                                    .create().show();
+                        } else {
+                            start();
+                        }
                     } else {
                         ToastFactory.makeToast(getContext(), getResources().getString(R.string
                                 .toast_enable_gps));
@@ -403,5 +423,30 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         Log.d("clear", "clear");
         startStopButton.setText(getResources().getString(R.string.activity_fragment_start));
         pauseResumeButton.setVisibility(View.GONE);
+    }
+
+    private void start() {
+        startButtonEnabled = true;
+        startStopButton.setText(getResources().getString(R.string
+                .activity_fragment_stop));
+        pauseResumeButton.setVisibility(View.VISIBLE);
+        // Get a new LocationListener
+        locationListener = new LocationListener(map, getContext());
+        // Start location updates
+        startLocationUpdates();
+    }
+
+    private Location getActualPosition() {
+        Location ret = null;
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
+                .ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (getContext(),
+                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager
+                .PERMISSION_GRANTED) {
+            ret = LocationServices.FusedLocationApi.getLastLocation
+                    (googleApiClient);
+        }
+        return ret;
     }
 }
