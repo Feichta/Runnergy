@@ -155,7 +155,7 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
                 break;
             // Don't delete this otherwise sometimes too much Activities are colored
             default:
-                ret.setBackgroundResource(R.drawable.item_border);
+                ret.setBackgroundResource(R.drawable.item_background);
                 break;
         }
         return ret;

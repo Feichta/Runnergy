@@ -3,6 +3,7 @@ package com.ffeichta.runnergy.gui.listener;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
+import android.util.Log;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
@@ -69,6 +70,8 @@ public class LocationListener implements com.google.android.gms.location.Locatio
      */
     @Override
     public void onLocationChanged(Location location) {
+        Log.d("####", location.getAccuracy() + " / " + location.getSpeed());
+        // hasAccuracy
         this.previousLatLng = this.actualLatLng;
         this.previousCoordinate = this.actualCoordinate;
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());

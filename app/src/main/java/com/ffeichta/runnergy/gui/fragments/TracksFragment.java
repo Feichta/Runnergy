@@ -55,13 +55,11 @@ public class TracksFragment extends Fragment {
                     checked) {
                 if (checked) {
                     selection.add(tracks.get(position));
-                    mode.setTitle(listView.getCheckedItemCount() + getResources().getString(R
-                            .string.select));
                 } else {
                     selection.remove(tracks.get(position));
-                    mode.setTitle(listView.getCheckedItemCount() + getResources().getString(R
-                            .string.select));
                 }
+                mode.setTitle(listView.getCheckedItemCount() + getResources().getString(R
+                        .string.select));
             }
 
             @Override
