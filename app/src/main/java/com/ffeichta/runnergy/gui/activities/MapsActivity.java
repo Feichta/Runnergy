@@ -1,10 +1,12 @@
 package com.ffeichta.runnergy.gui.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.listener.ConnectionFailed;
 import com.ffeichta.runnergy.gui.listener.LocationListenerCompare;
+import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
@@ -90,23 +93,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 if (!startButtonEnabled) {
-                    startButtonEnabled = true;
-                    startStopComparison.setText(getResources().getString(R.string
-                            .maps_activity_stop));
-                    text.setVisibility(TextView.VISIBLE);
-                    text.setText("");
-                    locationListener = new LocationListenerCompare(map, MapsActivity.this,
-                            coordinates.get(0).getActivity(), text);
-                    // Start location updates
-                    startLocationUpdates();
-                    if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
-                            .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(MapsActivity.this,
-                                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
-                        return;
+                    LocationManager locationManager = (LocationManager) MapsActivity.this
+                            .getSystemService(Context.LOCATION_SERVICE);
+                    boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager
+                            .GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager
+                            .NETWORK_PROVIDER);
+                    if (gpsEnabled) {
+                        startButtonEnabled = true;
+                        startStopComparison.setText(getResources().getString(R.string
+                                .maps_activity_stop));
+                        text.setVisibility(TextView.VISIBLE);
+                        text.setText("");
+                        locationListener = new LocationListenerCompare(map, MapsActivity.this,
+                                coordinates.get(0).getActivity(), text);
+                        // Start location updates
+                        startLocationUpdates();
+                        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest
+                                .permission
+                                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(MapsActivity.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
+                            return;
+                        }
+                        map.setMyLocationEnabled(true);
+                    } else {
+                        ToastFactory.makeToast(MapsActivity.this, getResources().getString(R.string
+                                .toast_enable_gps));
                     }
-                    map.setMyLocationEnabled(true);
                 } else {
                     startButtonEnabled = false;
                     startStopComparison.setText(getResources().getString(R.string
