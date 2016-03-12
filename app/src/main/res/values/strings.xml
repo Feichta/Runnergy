@@ -15,8 +15,11 @@
     <string name="activity_fragment_no_coordinates">There are no coordinates found in this activity</string>
     <string name="activity_fragment_duration_too_short">The duration of this activity is too short</string>
 
-    <!-- TrackFragment.java + ActivitiesActivity.java -->
+    <!-- TracksFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020selected</string>
+    <string name="dialog_delete_track_title">Delete track</string>
+    <string name="dialog_delete_track_message">Dou you really want to delete the selected tracks
+        and their activities?</string>
 
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020activity</string>
