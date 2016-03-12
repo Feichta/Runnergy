@@ -75,10 +75,19 @@ public class ActivitiesActivity extends Activity {
                         .ffeichta.runnergy.model.Activity) {
                     mode.getMenuInflater().inflate(R.menu.contextual_action_bar_menu_delete, mode
                             .getMenu());
+                    int aid = ((com.ffeichta.runnergy.model.Activity) (expListView.getItemAtPosition
+                            (position))).getId();
+                    com.ffeichta.runnergy.model.Activity activity = null;
+                    for (com.ffeichta.runnergy.model.Activity a : childActivities) {
+                        if (a.getId() == aid) {
+                            activity = a;
+                        }
+                    }
                     if (checked) {
-                        selection.add(childActivities.get(position - 1));
+                        selection.add(activity);
+
                     } else {
-                        selection.remove(childActivities.get(position));
+                        selection.remove(activity);
                     }
                     mode.setTitle(expListView.getCheckedItemCount() + getResources().getString(R
                             .string.select));
@@ -132,14 +141,15 @@ public class ActivitiesActivity extends Activity {
                                                                     .toast_delete_activity_error));
                                         } else {
                                             itemFinal.setVisible(false);
+                                            onCreate(null);
+                                            activityAdapter.notifyDataSetChanged();
+                                            // Close the dialog
+                                            dialog.dismiss();
+                                            modeFinal.finish();
                                         }
                                     }
 
-                                    onCreate(null);
-                                    activityAdapter.notifyDataSetChanged();
-                                    // Close the dialog
-                                    dialog.dismiss();
-                                    modeFinal.finish();
+
                                 }
                             })
                             .setNegativeButton(android.R.string.cancel, new DialogInterface
