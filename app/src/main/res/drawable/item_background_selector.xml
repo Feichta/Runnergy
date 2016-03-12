@@ -2,9 +2,8 @@
     <item android:state_activated="true">
         <shape>
             <solid android:color="@color/itemBorder"/>
-            <stroke
-                android:width="1.5dp"
-                android:color="@color/itemBorder"/>
+            <stroke android:width="1.5dp"
+                    android:color="@color/itemBorder"/>
             <padding
                 android:bottom="5dp"
                 android:left="5dp"

@@ -25,6 +25,10 @@
     <string name="track_adapter_singular">\u0020activity</string>
     <string name="track_adapter_plural">\u0020activities</string>
 
+    <!-- ActivitiesActivity.java -->
+    <string name="dialog_delete_activity_message">Dou you really want to delete the selected
+        activities?</string>
+
     <!-- MapsActivity.java -->
     <string name="maps_activity_start">Start comparison</string>
     <string name="maps_activity_stop">Stop comparison</string>
@@ -36,7 +40,7 @@
     <string name="slower">\u0020faster</string>
     <string name="equally">You are equally fast</string>
 
-    <!-- SaveActivityActivity.java -->
+    <!-- SaveActivityActivity.java + ActivitiesActivity.java -->
     <string name="save_activity">Save activity</string>
     <string name="dialog_back_pressed_title">Delete activity</string>
     <string name="dialog_back_pressed_subtitle">Do you want to go back? The actual activity will

@@ -78,10 +78,10 @@ public class TracksFragment extends Fragment {
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                final ActionMode modeFinal = mode;
-                final MenuItem itemFinal = item;
                 switch (item.getItemId()) {
                     case R.id.delete:
+                        final ActionMode modeFinal = mode;
+                        final MenuItem itemFinal = item;
                         new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
                                 .setTitle(getResources().getString(R.string
                                         .dialog_delete_track_title))
@@ -103,7 +103,7 @@ public class TracksFragment extends Fragment {
                                                 itemFinal.setVisible(false);
                                             }
                                         }
-                                        selection.clear();
+
                                         trackAdapter = new TrackAdapter(TracksFragment.this
                                                 .getActivity(), tracks);
                                         listView.setAdapter(trackAdapter);
@@ -117,7 +117,7 @@ public class TracksFragment extends Fragment {
 
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        selection.clear();
+
                                         modeFinal.finish();
                                         // Close the dialog
                                         dialog.dismiss();
@@ -129,15 +129,14 @@ public class TracksFragment extends Fragment {
                         ChangeTrackDialogFactory changeTrackDialogFactory = new
                                 ChangeTrackDialogFactory(getActivity(), selection.get(0), mode);
                         changeTrackDialogFactory.makeCustomInputDialog();
-                        selection.clear();
                         break;
                 }
-                return false;
+                return true;
             }
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
-
+                selection.clear();
             }
         });
 

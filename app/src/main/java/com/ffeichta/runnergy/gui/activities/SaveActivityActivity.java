@@ -163,6 +163,8 @@ public class SaveActivityActivity extends android.app.Activity {
                     .setTitle(getResources().getString(R.string.dialog_back_pressed_title))
                     .setMessage(getResources().getString(R.string.dialog_back_pressed_subtitle))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                        @Override
                         public void onClick(DialogInterface dialog, int id) {
                             // Close the dialog
                             dialog.dismiss();

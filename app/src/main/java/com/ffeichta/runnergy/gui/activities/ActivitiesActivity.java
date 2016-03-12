@@ -1,6 +1,8 @@
 package com.ffeichta.runnergy.gui.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -36,6 +38,8 @@ public class ActivitiesActivity extends Activity {
 
     ArrayList<com.ffeichta.runnergy.model.Activity> selection = null;
 
+    ActivityAdapter activityAdapter = null;
+
     // Actual Track
     private Track track = null;
 
@@ -59,7 +63,7 @@ public class ActivitiesActivity extends Activity {
 
         setUpParentsAndChilds();
 
-        final ActivityAdapter activityAdapter = new ActivityAdapter(this, parentStrings,
+        activityAdapter = new ActivityAdapter(this, parentStrings,
                 groupCollection);
         expListView.setAdapter(activityAdapter);
         expListView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -105,23 +109,53 @@ public class ActivitiesActivity extends Activity {
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 if (item.getItemId() == R.id.delete) {
-                    for (com.ffeichta.runnergy.model.Activity Item : selection) {
-                        childActivities.remove(Item);
-                        if (DBAccessHelper.getInstance(ActivitiesActivity.this).deleteActivity
-                                (Item) != 0) {
-                            ToastFactory.makeToast(ActivitiesActivity.this, getResources()
-                                    .getString(R.string.toast_delete_activity_error));
-                        } else {
-                            item.setVisible(false);
-                            setUpParentsAndChilds();
-                        }
-                    }
-                    onCreate(null);
-                    activityAdapter.notifyDataSetChanged();
-                    mode.finish();
+                    final ActionMode modeFinal = mode;
+                    final MenuItem itemFinal = item;
+
+                    new AlertDialog.Builder(ActivitiesActivity.this, R.style.AppThemeDialog)
+                            .setTitle(getResources().getString(R.string.dialog_back_pressed_title))
+                            .setMessage(getResources().getString(R.string
+                                    .dialog_delete_activity_message))
+                            .setPositiveButton(android.R.string.yes, new DialogInterface
+                                    .OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int id) {
+                                    for (com.ffeichta.runnergy.model.Activity Item : selection) {
+                                        childActivities.remove(Item);
+                                        if (DBAccessHelper.getInstance(ActivitiesActivity.this)
+                                                .deleteActivity
+                                                        (Item) != 0) {
+                                            ToastFactory.makeToast(ActivitiesActivity.this,
+                                                    getResources()
+                                                            .getString(R.string
+                                                                    .toast_delete_activity_error));
+                                        } else {
+                                            itemFinal.setVisible(false);
+                                        }
+                                    }
+
+                                    //onCreate(null);
+                                    //activityAdapter.notifyDataSetChanged();
+                                    // Close the dialog
+                                    dialog.dismiss();
+                                    modeFinal.finish();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.cancel, new DialogInterface
+                                    .OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Close the dialog
+                                    dialog.dismiss();
+                                    modeFinal.finish();
+                                }
+                            })
+                            .create().show();
                     return true;
                 }
-                return false;
+                return true;
             }
 
             @Override

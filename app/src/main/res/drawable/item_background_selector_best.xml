@@ -1,10 +1,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="@android:integer/config_longAnimTime">
     <item android:state_activated="true">
         <shape>
+            <solid android:color="@color/itemBorder"/>
             <stroke
                 android:width="1.5dp"
                 android:color="@color/itemBorder"/>
-            <solid android:color="@color/itemBorder"/>
             <padding
                 android:bottom="5dp"
                 android:left="5dp"
