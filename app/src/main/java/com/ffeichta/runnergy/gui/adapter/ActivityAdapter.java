@@ -165,7 +165,7 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-    // UI Widgets
+    // Class holds all UI Widgets
     private class ActivityHolder {
         ImageView image = null;
         TextView distance = null;

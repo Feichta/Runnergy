@@ -12,7 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
  */
 public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
 
-    ActivityFragment context = null;
+    private ActivityFragment context = null;
 
     public ConnectionServices(ActivityFragment context) {
         this.context = context;

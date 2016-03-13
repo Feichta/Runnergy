@@ -102,9 +102,6 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog alert = builder.create();
                 alert.show();
                 return;
-               /* ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        REQUEST_CODE_ASK_PERMISSIONS);*/
             } else {
                 // No explanation needed, let's request the permission.
                 ActivityCompat.requestPermissions(this,

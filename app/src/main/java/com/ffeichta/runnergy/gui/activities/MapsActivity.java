@@ -45,10 +45,16 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-    public static final int MIN_ACCURACY = 10;
+
+    // Accuracy should be less than or equal 10 meters
+    public static final int MIN_ACCURACY = 15;
+    // User must be maximum 75 meters next to the start
     private final int MAX_DISTANCE_TO_START = 75;
+    // Used for LocationUpdates
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
+    // Used for LocationUpdates
     private final float FACTOR_DISPLACEMENT = 1 / 4;
+    // Generate the height of the ActionBar to calculate padding
     private final double FACTOR_ACTION_BAR = 8.3;
     // Value changes when the user presses the Start and Stop Button
     public Boolean startButtonEnabled = false;
@@ -73,6 +79,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button startStopComparison = null;
     // Coordinates of the route
     private ArrayList<Coordinate> coordinates = null;
+    // TextView holds the difference of the Activities
     private TextView text = null;
 
     @Override
@@ -187,7 +194,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         drawRoute();
     }
 
-
     /**
      * Builds a GoogleApiClient. Uses the addApi method to request the
      * LocationServices API.
@@ -283,7 +289,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * Called when the fragment starts
+     * Called when the Activity starts
      */
     @Override
     public void onStart() {
@@ -292,8 +298,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * Called when user resumes to display the MainActivity with the two fragments
-     * Example: User comes back from SettingsActivity or comes back from another app
+     * Called when user resumes to display the Activity
      */
     @Override
     public void onResume() {
@@ -317,7 +322,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * Called when user doesn't see the MainActivity with the two fragments
+     * Called when user doesn't see the Activity
      */
     @Override
     public void onPause() {
@@ -416,19 +421,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the height of the ActionBar because the ActionBar covers over the Map
         int actionBarHeight = (int) (height / (100 / FACTOR_ACTION_BAR));
-//        TypedValue tv = new TypedValue();
-//        if (getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true)) {
-//            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, getResources()
-//                    .getDisplayMetrics());
-//        }
-        // padding is 18% of the width of screen
+
         int padding = (int) (width * 0.18);
-        // subtract the height of the ActinBar
+        // subtract the height of the ActionBar
         height = height - (3 * actionBarHeight);
 
         // Contains all Coordinates where I want to zoom
         LatLngBounds bounds = builder.build();
-
 
         // Zoom into the map, so every Marker and polyline is visible on the map
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding);
@@ -519,16 +518,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             finish();
         }
-    }
-
-    private void disableMyLocation() {
-        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
-                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(MapsActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
-            return;
-        }
-        map.setMyLocationEnabled(false);
     }
 }

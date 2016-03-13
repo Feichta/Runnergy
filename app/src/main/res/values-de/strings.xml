@@ -16,19 +16,33 @@
     <string name="activity_fragment_no_coordinates">In dieser Aktivität wurden kein Koordinaten
         gefunden</string>
     <string name="activity_fragment_duration_too_short">Die Dauer der Aktivität ist zu kurz</string>
+    <string name="activity_fragment_notification_going_on">Aktivität wird ausgeführt</string>
+    <string name="activity_fragment_notification_pause">Aktivität wird pausiert</string>
 
     <!-- TrackFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020ausgewählt</string>
+    <string name="dialog_delete_track_message">Willst du die ausgewählten Strecken wirklich löschen?
+    </string>
+    <string name="dialog_delete_track_title">Strecke löschen</string>
 
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020Aktivität</string>
     <string name="track_adapter_plural">\u0020Aktivitäten</string>
+
+    <!-- ActivitiesActivity.java -->
+    <string name="dialog_delete_activity_message">Willst du die ausgewählten Aktivitäten wirklich
+        löschen?</string>
 
     <!-- MapsActivity.java -->
     <string name="maps_activity_start">Vergleich starten</string>
     <string name="maps_activity_stop">Vergleich stoppen</string>
     <string name="marker_start">Start</string>
     <string name="marker_end">Ende</string>
+    <string name="dialog_bad_accuracy_title">Schlechtes GPS Signal</string>
+    <string name="dialog_bad_accuracy_message">Die Qualität des GPS Signals ist schwach. Wir
+        empfehlen dir, dich unter freiem Himmel aufzuhalten. Wenn nicht, könnte deine aufgezeichnete
+        Aktivität ungenau sein. Möchtest du trotzdem fortfahren?</string>
+    <string name="dialog_go_back">Willst du den Vergleich wirklich abbrechen?</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020langsamer</string>
@@ -59,6 +73,7 @@
 
     <!-- AboutActivity.java -->
     <string name="email">Bitte schreibe eine E-Mail an fabian.feichter@ffeichta.com</string>
+    <string name="github"></string>
 
     <!-- activity_item.xml -->
     <string name="track_title">Strecke</string>
@@ -90,6 +105,7 @@
     <string name="developer">Fabian Feichter</string>
     <string name="school">TFO \'Max Valier\'</string>
     <string name="libraries">Bibliotheken</string>
+    <string name="source_code">Quellcode</string>
     <string name="privacy_policy">Datenschutzerklärung</string>
     <string name="credits">Credits</string>
     <string name="report_bug">Melde einen Fehler</string>
@@ -97,6 +113,7 @@
 
     <!-- main_menu.xml + AndroidManifest.xml -->
     <string name="settings">Einstellungen</string>
+    <string name="about">Über</string>
 
     <!-- request_permission_activity.xml-->
     <string name="request_permission">Berechtigung anfordern</string>
@@ -118,16 +135,5 @@
     <string name="toast_delete_activity_error">Aktivität konnte nicht gelöscht werden</string>
     <string name="toast_delete_track_error">Strecke konnte nicht gelöscht werden</string>
     <string name="toast_save_no_track_error">Bitte gib eine Strecke an</string>
-    <string name="about">Über</string>
-    <string name="activity_fragment_notification_going_on">Aktivität wird ausgeführt</string>
-    <string name="activity_fragment_notification_pause">Aktivität wird pausiert</string>
-    <string name="dialog_bad_accuracy_title">Schlechtes GPS Signal</string>
-    <string name="dialog_bad_accuracy_message">Die Qualität des GPS Signals ist schwach. Wir empfehlen dir, dich unter freiem Himmel aufzuhalten. Wenn nicht, könnte deine aufgezeichnete Aktivität ungenau sein. Möchtest du trotzdem fortfahren?</string>
-    <string name="dialog_delete_activity_message">Willst du die ausgewählten Aktivitäten wirklich löschen?</string>
-    <string name="dialog_delete_track_message">Willst du die ausgewählten Strecken wirklich löschen?</string>
-    <string name="dialog_delete_track_title">Strecke löschen</string>
-    <string name="dialog_go_back">Willst du den Vergleich wirklich abbrechen?</string>
-    <string name="github"></string>
-    <string name="source_code">Quellcode</string>
     <string name="toast_not_at_start">Geh bitte an den Startpunkt</string>
 </resources>

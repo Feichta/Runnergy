@@ -31,7 +31,6 @@ public class SaveActivityActivity extends android.app.Activity {
 
     // UI Widgets
     public Spinner spinnerTrack = null;
-
     // Activity
     Activity activity = null;
     // All actual Tracks

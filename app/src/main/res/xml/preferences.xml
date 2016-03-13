@@ -2,6 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory android:title="@string/category_general_title">
+
         <ListPreference
             android:defaultValue="@string/category_general_unit_default_value"
             android:entries="@array/category_general_unit_entries"
@@ -9,6 +10,7 @@
             android:key="unit"
             android:summary="%s"
             android:title="@string/category_general_unit_title"/>
+
         <ListPreference
             android:defaultValue="@string/category_general_date_default_value"
             android:entries="@array/category_general_date_entries"
@@ -19,7 +21,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/category_activity_title">
-        <ListPreference
+
+    <ListPreference
             android:defaultValue="@string/category_activity_interval_default_value"
             android:entries="@array/category_activity_interval_entries"
             android:entryValues="@array/category_activity_interval_entry_values"
@@ -29,7 +32,8 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/category_map_title">
-        <ListPreference
+
+    <ListPreference
             android:defaultValue="@string/category_map_type_default_value"
             android:entries="@array/category_map_type_entries"
             android:entryValues="@array/category_map_type_entry_values"

@@ -27,9 +27,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
  * Created by Fabian on 09.02.2016.
  */
 public class LocationListenerCompare implements com.google.android.gms.location.LocationListener {
-
+    // Zoom Level in Map
     private static final int ZOOM_LEVEL = 18;
-
+    // Actual Activity
     private Activity activity = null;
     // Current location
     private LatLng actualLatLng = null;
@@ -40,10 +40,15 @@ public class LocationListenerCompare implements com.google.android.gms.location.
     private GoogleMap map = null;
     // Used for getRessources()
     private Context context = null;
+    // Holds the duration of the Activity
     private long time = 0;
+    // Notification Manager
     private NotificationManager notificationManager = null;
-    private NotificationCompat.Builder mBuilder = null;
+    // Notification Builder
+    private NotificationCompat.Builder notificationBuilder = null;
+    // ID of the Notification
     private int notifyID = 2;
+    // Used for Notification
     private boolean showNotification = false;
 
     public LocationListenerCompare(GoogleMap map, Context context, Activity activity, TextView
@@ -70,7 +75,6 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         if (difference < 0) {
             textToSet = StringFormatter.getFormattedDuration((int) -difference) + context
                     .getResources().getString(R.string.faster);
-
         } else {
             if (text.getVisibility() != View.VISIBLE) {
                 text.setVisibility(View.VISIBLE);
@@ -118,7 +122,7 @@ public class LocationListenerCompare implements com.google.android.gms.location.
     }
 
     public void setUpNotification() {
-        mBuilder = new NotificationCompat.Builder(context)
+        notificationBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(context.getResources().getString(R.string.app_name))
                 .setOngoing(true)
@@ -130,19 +134,14 @@ public class LocationListenerCompare implements com.google.android.gms.location.
     }
 
     private void updateNotification(String text) {
-        mBuilder.setContentText(text);
-        // mId allows you to update the notification later on.
-        notificationManager.notify(notifyID, mBuilder.build());
+        notificationBuilder.setContentText(text);
+        notificationManager.notify(notifyID, notificationBuilder.build());
     }
 
     public void cancelNotification() {
         if (notificationManager != null) {
             notificationManager.cancel(notifyID);
         }
-    }
-
-    public boolean isShowNotification() {
-        return showNotification;
     }
 
     public void setShowNotification(boolean showNotification) {

@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class AboutActivity extends Activity {
 
-    ListView infos = null;
+    private ListView infos = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -47,9 +47,12 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
+    // Minimum duration of an Activity
     private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 1;
+    // Used for LocationUpdates
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
+    // Used for the Notification
     private final int GOING_ON = 0;
     private final int PAUSE = 1;
     // Interval for location updates. Inexact. Updates may be more or less frequent
@@ -81,9 +84,11 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     private long dateOnPaused = -1;
     // Total duration of pause in milliseconds
     private long durationPausedInMilliseconds = -1;
+    // ID of the Notification
     private int notifyID = 1;
+    // NotificationManager
     private NotificationManager notificationManager = null;
-    private NotificationCompat.Builder mBuilder = null;
+    private NotificationCompat.Builder notificationBuilder = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
@@ -372,7 +377,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * Called when the fragment starts
+     * Called when the Activity starts
      */
     @Override
     public void onStart() {
@@ -381,8 +386,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * Called when user resumes to display the MainActivity with the two fragments
-     * Example: User comes back from SettingsActivity or comes back from another app
+     * Called when user resumes to display the Activity
      */
     @Override
     public void onResume() {
@@ -407,7 +411,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     }
 
     /**
-     * Called when user doesn't see the MainActivity with the two fragments
+     * Called when user doesn't see the Activity
      */
     @Override
     public void onPause() {
@@ -462,28 +466,27 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void makeNotification(int type) {
-        mBuilder = new NotificationCompat.Builder(getActivity())
+        notificationBuilder = new NotificationCompat.Builder(getActivity())
                 .setSmallIcon(R.drawable.notification_icon)
                 .setContentTitle(getResources().getString(R.string.app_name))
                 .setOngoing(true)
                 .setContentIntent(PendingIntent.getActivity(getActivity(), 0,
                         new Intent(getActivity(), MainActivity.class), PendingIntent
                                 .FLAG_UPDATE_CURRENT));
+
         switch (type) {
             case GOING_ON:
-                mBuilder.setContentText(getResources().getString(R.string
+                notificationBuilder.setContentText(getResources().getString(R.string
                         .activity_fragment_notification_going_on));
                 break;
             case PAUSE:
-                mBuilder.setContentText(getResources().getString(R.string
+                notificationBuilder.setContentText(getResources().getString(R.string
                         .activity_fragment_notification_pause));
                 break;
         }
 
         notificationManager =
                 (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        // mId allows you to update the notification later on.
-        notificationManager.notify(notifyID, mBuilder.build());
+        notificationManager.notify(notifyID, notificationBuilder.build());
     }
-
 }

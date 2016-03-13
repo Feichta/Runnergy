@@ -56,7 +56,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
         return ret;
     }
 
-    // UI Widgets
+    // Class holds all UI Widgets
     private class TrackHolder {
         TextView name = null;
         TextView count = null;

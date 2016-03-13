@@ -20,8 +20,7 @@
     <!-- TracksFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020selected</string>
     <string name="dialog_delete_track_title">Delete track</string>
-    <string name="dialog_delete_track_message">Dou you really want to delete the selected tracks
-        and their activities?</string>
+    <string name="dialog_delete_track_message">Dou you really want to delete the selected tracks and their activities?</string>
 
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020activity</string>

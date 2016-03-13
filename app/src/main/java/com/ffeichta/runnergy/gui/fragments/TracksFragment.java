@@ -33,7 +33,7 @@ import java.util.ArrayList;
  */
 public class TracksFragment extends Fragment {
 
-    ArrayList<Track> selection = null;
+    private ArrayList<Track> selection = null;
     private ArrayList<Track> tracks = null;
     private ListView listView = null;
     private TrackAdapter trackAdapter = null;
@@ -42,12 +42,16 @@ public class TracksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
     Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tracks_fragment, container, false);
+
         listView = (ListView) v.findViewById(R.id.listviewTracks);
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
+
         selection = new ArrayList<>();
+
         if (tracks == null) {
             tracks = new ArrayList<>();
         }
+
         trackAdapter = new TrackAdapter(this.getActivity(), tracks);
         listView.setAdapter(trackAdapter);
         listView.setChoiceMode(ExpandableListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -107,6 +111,7 @@ public class TracksFragment extends Fragment {
                                         trackAdapter = new TrackAdapter(TracksFragment.this
                                                 .getActivity(), tracks);
                                         listView.setAdapter(trackAdapter);
+                                        // Close CAB
                                         modeFinal.finish();
                                         // Close the dialog
                                         dialog.dismiss();
@@ -117,7 +122,7 @@ public class TracksFragment extends Fragment {
 
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-
+                                        // Close CAB
                                         modeFinal.finish();
                                         // Close the dialog
                                         dialog.dismiss();
@@ -139,7 +144,6 @@ public class TracksFragment extends Fragment {
                 selection.clear();
             }
         });
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

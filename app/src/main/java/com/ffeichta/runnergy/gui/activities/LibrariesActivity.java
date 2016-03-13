@@ -13,7 +13,7 @@ import com.ffeichta.runnergy.R;
  */
 public class LibrariesActivity extends Activity {
 
-    TextView textView = null;
+    private TextView textView = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

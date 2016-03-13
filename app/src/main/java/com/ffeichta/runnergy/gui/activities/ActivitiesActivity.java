@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,16 +29,18 @@ import java.util.Map;
 public class ActivitiesActivity extends Activity {
 
     // UI Widgets
-    ExpandableListView expListView = null;
+    private ExpandableListView expListView = null;
 
     // Used for the ExpandableListView
-    List<String> parentStrings = null;
-    List<com.ffeichta.runnergy.model.Activity> childActivities = null;
-    Map<String, ArrayList<com.ffeichta.runnergy.model.Activity>> groupCollection = null;
+    private List<String> parentStrings = null;
+    private List<com.ffeichta.runnergy.model.Activity> childActivities = null;
+    private Map<String, ArrayList<com.ffeichta.runnergy.model.Activity>> groupCollection = null;
 
-    ArrayList<com.ffeichta.runnergy.model.Activity> selection = null;
+    // CAB
+    private ArrayList<com.ffeichta.runnergy.model.Activity> selection = null;
 
-    ActivityAdapter activityAdapter = null;
+    // Used to refresh data in ExpandableListView
+    private ActivityAdapter activityAdapter = null;
 
     // Actual Track
     private Track track = null;
@@ -142,22 +143,19 @@ public class ActivitiesActivity extends Activity {
                                         } else {
                                             int indexToExpand = -1;
                                             childActivities.remove(Item);
+                                            // Finish Activity if Track has no Activities
                                             if (childActivities.size() == 0) {
                                                 finish();
                                             } else {
+                                                // Check which group must be expanded
                                                 childActivities.add(Item);
                                                 int id1 = getResources().getIdentifier(Item.getType
                                                                 ().toString().toLowerCase(),
                                                         "string", getPackageName());
                                                 String type = getResources().getString(id1);
                                                 Object[] types = groupCollection.keySet().toArray();
-                                                Log.d("####", type);
-                                                Log.d("####", types.length + "");
-
                                                 for (int i = 0; i < types.length;
                                                      i++) {
-                                                    Log.d("####", types[i] + "/" + type
-                                                            + " ");
                                                     if (types[i].equals(type) &&
                                                             groupCollection.get(types[i]).size()
                                                                     != 1) {
@@ -167,20 +165,20 @@ public class ActivitiesActivity extends Activity {
                                             }
                                             childActivities.remove(Item);
                                             itemFinal.setVisible(false);
+                                            // Refresh data
                                             onCreate(null);
                                             activityAdapter.notifyDataSetChanged();
 
+                                            // Expand the actual group in ExpandableListView
                                             if (indexToExpand != -1) {
-                                                Log.d("####", "expand" + indexToExpand);
                                                 expListView.expandGroup(indexToExpand);
                                             }
                                             // Close the dialog
                                             dialog.dismiss();
+                                            // Close CAB
                                             modeFinal.finish();
                                         }
                                     }
-
-
                                 }
                             })
                             .setNegativeButton(android.R.string.cancel, new DialogInterface
@@ -190,6 +188,7 @@ public class ActivitiesActivity extends Activity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Close the dialog
                                     dialog.dismiss();
+                                    // Close CAB
                                     modeFinal.finish();
                                 }
                             })
@@ -204,6 +203,7 @@ public class ActivitiesActivity extends Activity {
                 selection.clear();
             }
         });
+
         // If there is only one group in the ListView, then expand it
         if (parentStrings.size() == 1) {
             expListView.expandGroup(0);

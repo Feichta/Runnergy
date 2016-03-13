@@ -19,7 +19,7 @@ import java.util.Hashtable;
  */
 public class ChangeTrackDialogFactory {
 
-    EditText name = null;
+    private EditText name = null;
     private FragmentActivity mainActivity = null;
     private Track track = null;
     private ActionMode mode = null;

@@ -12,7 +12,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
  */
 public class ConnectionFailed implements GoogleApiClient.OnConnectionFailedListener {
 
-    Context context = null;
+    private Context context = null;
 
     public ConnectionFailed(Context context) {
         this.context = context;

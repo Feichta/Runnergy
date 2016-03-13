@@ -151,8 +151,9 @@ public class DBAccessHelper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CREATE_ACTIVITIES);
         sqLiteDatabase.execSQL(CREATE_COORDINATES);
         Log.d(TAG, "DB created");
-        insertTestData(sqLiteDatabase);
-        Log.d(TAG, "Test data inserted");
+        // Used for Testing
+        /*insertTestData(sqLiteDatabase);
+        Log.d(TAG, "Test data inserted");*/
     }
 
     /**

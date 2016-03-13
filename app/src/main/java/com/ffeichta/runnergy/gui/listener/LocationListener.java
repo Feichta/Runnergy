@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 public class LocationListener implements com.google.android.gms.location.LocationListener {
 
+    // Zoom Level in Map
     private static final int ZOOM_LEVEL = 18;
     // Current location
     private LatLng actualLatLng = null;
@@ -34,10 +35,9 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     private Context context = null;
     // Current Activity
     private Activity activity = null;
-
+    // Current Coordinate
     private Coordinate actualCoordinate = null;
-
-
+    // Used for pausing Activity
     private boolean lastCoordinateIsPause = false;
 
     public LocationListener(GoogleMap map, Context context) {
@@ -67,13 +67,14 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     @Override
     public void onLocationChanged(Location location) {
         this.previousLatLng = this.actualLatLng;
-
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
         Coordinate c = new Coordinate();
         c.setLongitude(location.getLongitude());
         c.setLatitude(location.getLatitude());
         this.actualCoordinate = c;
         addCoordinate();
+
         updateMap();
     }
 
@@ -141,13 +142,5 @@ public class LocationListener implements com.google.android.gms.location.Locatio
 
     public Activity getActivity() {
         return activity;
-    }
-
-    public LatLng getActualLatLng() {
-        return actualLatLng;
-    }
-
-    public void setActualLatLng(LatLng actualLatLng) {
-        this.actualLatLng = actualLatLng;
     }
 }
