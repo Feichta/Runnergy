@@ -424,7 +424,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // padding is 18% of the width of screen
         int padding = (int) (width * 0.18);
         // subtract the height of the ActinBar
-        height = height - actionBarHeight;
+        height = height - (3 * actionBarHeight);
 
         // Contains all Coordinates where I want to zoom
         LatLngBounds bounds = builder.build();
