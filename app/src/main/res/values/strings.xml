@@ -14,6 +14,8 @@
     <string name="activity_fragment_resume">Resume activity</string>
     <string name="activity_fragment_no_coordinates">There are no coordinates found in this activity</string>
     <string name="activity_fragment_duration_too_short">The duration of this activity is too short</string>
+    <string name="activity_fragment_notification_going_on">Activity is going on</string>
+    <string name="activity_fragment_notification_pause">Activity is paused</string>
 
     <!-- TracksFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020selected</string>

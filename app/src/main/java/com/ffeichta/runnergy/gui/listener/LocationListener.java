@@ -3,7 +3,6 @@ package com.ffeichta.runnergy.gui.listener;
 import android.content.Context;
 import android.graphics.Color;
 import android.location.Location;
-import android.util.Log;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.model.Activity;
@@ -37,10 +36,7 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     private Activity activity = null;
 
     private Coordinate actualCoordinate = null;
-    private Coordinate previousCoordinate = null;
-    private long startfirstpause = 0;
 
-    private boolean firstisset = false;
 
     private boolean lastCoordinateIsPause = false;
 
@@ -70,10 +66,8 @@ public class LocationListener implements com.google.android.gms.location.Locatio
      */
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("####", location.getAccuracy() + " / " + location.getSpeed());
-        // hasAccuracy
         this.previousLatLng = this.actualLatLng;
-        this.previousCoordinate = this.actualCoordinate;
+
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());
         Coordinate c = new Coordinate();
         c.setLongitude(location.getLongitude());
@@ -97,7 +91,6 @@ public class LocationListener implements com.google.android.gms.location.Locatio
                         .getDate()) / 1000));
 
                 lastCoordinateIsPause = false;
-                firstisset = true;
             } else {
                 float[] result = new float[1];
                 Location.distanceBetween(previousLatLng.latitude, previousLatLng.longitude,
@@ -148,5 +141,13 @@ public class LocationListener implements com.google.android.gms.location.Locatio
 
     public Activity getActivity() {
         return activity;
+    }
+
+    public LatLng getActualLatLng() {
+        return actualLatLng;
+    }
+
+    public void setActualLatLng(LatLng actualLatLng) {
+        this.actualLatLng = actualLatLng;
     }
 }

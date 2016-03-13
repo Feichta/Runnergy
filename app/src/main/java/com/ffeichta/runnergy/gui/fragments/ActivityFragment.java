@@ -6,6 +6,8 @@ package com.ffeichta.runnergy.gui.fragments;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,10 +47,11 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
-
     private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 1;
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
+    private final int GOING_ON = 0;
+    private final int PAUSE = 1;
     // Interval for location updates. Inexact. Updates may be more or less frequent
     public long updateIntervalInMilliseconds = -1;
     // Fastest rate for location updates. Exact. Updates will never be more frequent than this value
@@ -68,6 +72,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     protected GoogleApiClient.ConnectionCallbacks connectionCallbacks = null;
     // Listener which is called when the connection to the Play Services failed
     protected GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener = null;
+    private int notifyID = 1;
     // UI Widgets
     private Button startStopButton = null;
     private Button pauseResumeButton = null;
@@ -77,8 +82,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     private long dateOnPaused = -1;
     // Total duration of pause in milliseconds
     private long durationPausedInMilliseconds = -1;
-
-    private Location actualLocation = null;
+    private NotificationManager notificationManager = null;
+    private NotificationCompat.Builder mBuilder = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
@@ -396,6 +401,9 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             // Apply the changes on the interval
             startLocationUpdates();
         }
+        if (notificationManager != null) {
+            notificationManager.cancel(notifyID);
+        }
     }
 
     /**
@@ -413,6 +421,11 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             locationRequest.setFastestInterval(fastestUpdateIntervalInMilliseconds);
             // Apply the changes on the interval
             startLocationUpdates();
+        }
+        if (startButtonEnabled && !pauseButtonEnabled) {
+            makeNotification(GOING_ON);
+        } else if (startButtonEnabled && pauseButtonEnabled) {
+            makeNotification(PAUSE);
         }
     }
 
@@ -447,4 +460,30 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         }
         return ret;
     }
+
+    private void makeNotification(int type) {
+        mBuilder = new NotificationCompat.Builder(getActivity())
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle(getResources().getString(R.string.app_name))
+                .setOngoing(true)
+                .setContentIntent(PendingIntent.getActivity(getActivity(), 0,
+                        new Intent(getActivity(), MainActivity.class), PendingIntent
+                                .FLAG_UPDATE_CURRENT));
+        switch (type) {
+            case GOING_ON:
+                mBuilder.setContentText(getResources().getString(R.string
+                        .activity_fragment_notification_going_on));
+                break;
+            case PAUSE:
+                mBuilder.setContentText(getResources().getString(R.string
+                        .activity_fragment_notification_pause));
+                break;
+        }
+
+        notificationManager =
+                (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        notificationManager.notify(notifyID, mBuilder.build());
+    }
+
 }
