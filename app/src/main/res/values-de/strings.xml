@@ -73,7 +73,6 @@
 
     <!-- AboutActivity.java -->
     <string name="email">Bitte schreibe eine E-Mail an fabian.feichter@ffeichta.com</string>
-    <string name="github"></string>
 
     <!-- activity_item.xml -->
     <string name="track_title">Strecke</string>
