@@ -1,12 +1,17 @@
 package com.ffeichta.runnergy.gui.listener;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
+import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
+import com.ffeichta.runnergy.gui.activities.MapsActivity;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
 import com.ffeichta.runnergy.model.DBAccessHelper;
@@ -36,6 +41,10 @@ public class LocationListenerCompare implements com.google.android.gms.location.
     // Used for getRessources()
     private Context context = null;
     private long time = 0;
+    private NotificationManager notificationManager = null;
+    private NotificationCompat.Builder mBuilder = null;
+    private int notifyID = 2;
+    private boolean showNotification = false;
 
     public LocationListenerCompare(GoogleMap map, Context context, Activity activity, TextView
             text) {
@@ -57,21 +66,25 @@ public class LocationListenerCompare implements com.google.android.gms.location.
                 .getLongitude(), location.getLatitude(), activity.getId());
         Coordinate c = DBAccessHelper.getInstance(context).getCoordinate(id);
         long difference = c.getTimeFromStart() - ((System.currentTimeMillis() / 1000) - time);
+        String textToSet;
         if (difference < 0) {
-            text.setText(StringFormatter.getFormattedDuration((int) -difference) + context
-                    .getResources().getString(R.string.faster));
+            textToSet = StringFormatter.getFormattedDuration((int) -difference) + context
+                    .getResources().getString(R.string.faster);
 
         } else {
             if (text.getVisibility() != View.VISIBLE) {
                 text.setVisibility(View.VISIBLE);
             }
             if (difference > 0) {
-                text.setText(StringFormatter.getFormattedDuration((int) difference) + context
-                        .getResources().getString(R.string.slower));
+                textToSet = StringFormatter.getFormattedDuration((int) difference) + context
+                        .getResources().getString(R.string.slower);
             } else {
-                text.setText(context
-                        .getResources().getString(R.string.equally));
+                textToSet = context.getResources().getString(R.string.equally);
             }
+        }
+        text.setText(textToSet);
+        if (showNotification) {
+            updateNotification(textToSet);
         }
     }
 
@@ -102,5 +115,37 @@ public class LocationListenerCompare implements com.google.android.gms.location.
         // Get back the mutable Polyline
         polylineOptions.color(Color.RED);
         map.addPolyline(polylineOptions);
+    }
+
+    public void setUpNotification() {
+        mBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.drawable.notification_icon)
+                .setContentTitle(context.getResources().getString(R.string.app_name))
+                .setOngoing(true)
+                .setContentIntent(PendingIntent.getActivity(context, 0,
+                        new Intent(context, MapsActivity.class), PendingIntent
+                                .FLAG_UPDATE_CURRENT));
+        notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+    }
+
+    private void updateNotification(String text) {
+        mBuilder.setContentText(text);
+        // mId allows you to update the notification later on.
+        notificationManager.notify(notifyID, mBuilder.build());
+    }
+
+    public void cancelNotification() {
+        if (notificationManager != null) {
+            notificationManager.cancel(notifyID);
+        }
+    }
+
+    public boolean isShowNotification() {
+        return showNotification;
+    }
+
+    public void setShowNotification(boolean showNotification) {
+        this.showNotification = showNotification;
     }
 }

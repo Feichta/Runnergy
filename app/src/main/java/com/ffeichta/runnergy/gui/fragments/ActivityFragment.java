@@ -72,7 +72,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     protected GoogleApiClient.ConnectionCallbacks connectionCallbacks = null;
     // Listener which is called when the connection to the Play Services failed
     protected GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener = null;
-    private int notifyID = 1;
     // UI Widgets
     private Button startStopButton = null;
     private Button pauseResumeButton = null;
@@ -82,6 +81,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     private long dateOnPaused = -1;
     // Total duration of pause in milliseconds
     private long durationPausedInMilliseconds = -1;
+    private int notifyID = 1;
     private NotificationManager notificationManager = null;
     private NotificationCompat.Builder mBuilder = null;
 

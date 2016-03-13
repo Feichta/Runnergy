@@ -298,8 +298,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onResume() {
         super.onResume();
-        // Set again the type of the map because he could have changed
-        //setMapType();
         // Set the interval of the location requests to one second if the MainActivity
         // (and thus the map) is visible.
         // This is because setMyLocationEnabled() is true and the blue point updates every second,
@@ -311,6 +309,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             locationRequest.setFastestInterval(1000);
             // Apply the changes on the interval
             startLocationUpdates();
+        }
+        if (locationListener != null) {
+            locationListener.cancelNotification();
+            locationListener.setShowNotification(false);
         }
     }
 
@@ -330,6 +332,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Apply the changes on the interval
             startLocationUpdates();
         }
+        if (locationListener != null) {
+            locationListener.setShowNotification(true);
+        }
+
     }
 
     private void drawRoute() {
@@ -455,6 +461,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         locationListener = new LocationListenerCompare(map,
                 MapsActivity.this,
                 coordinates.get(0).getActivity(), text);
+        locationListener.setUpNotification();
         // Start location updates
         startLocationUpdates();
         if (ActivityCompat.checkSelfPermission(MapsActivity
