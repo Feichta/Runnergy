@@ -40,6 +40,7 @@
         that you find yourself under the open sky. If not your tracked activity could be
         inaccurate. Do you want to proceed anyway?</string>
     <string name="dialog_go_back">Dou you want to stop the comparison?</string>
+    <string name="finished">Comparison finished</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020slower</string>

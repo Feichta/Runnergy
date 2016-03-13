@@ -43,6 +43,7 @@
         empfehlen dir, dich unter freiem Himmel aufzuhalten. Wenn nicht, könnte deine aufgezeichnete
         Aktivität ungenau sein. Möchtest du trotzdem fortfahren?</string>
     <string name="dialog_go_back">Willst du den Vergleich wirklich abbrechen?</string>
+    <string name="finished">Vergleich beendet</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020langsamer</string>

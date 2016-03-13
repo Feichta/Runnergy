@@ -168,6 +168,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                     map.setMyLocationEnabled(false);
                     drawRoute();
+                    showDialog();
                 }
             }
         });
@@ -518,5 +519,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             finish();
         }
+    }
+
+    private void showDialog() {
+        new AlertDialog.Builder(this, R.style.AppThemeDialog)
+                .setTitle(getResources().getString(R.string.finished))
+                .setMessage(text.getText())
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        // Close the dialog
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(android.R.string.cancel, null)
+                .create().show();
     }
 }
