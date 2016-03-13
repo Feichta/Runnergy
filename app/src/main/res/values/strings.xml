@@ -38,7 +38,7 @@
     <string name="marker_end">End</string>
     <string name="dialog_bad_accuracy_title">Bad accuracy</string>
     <string name="dialog_bad_accuracy_message">The accuracy of your GPS is low. We suggest you
-        that you find yourself under the open sky. If not your tracked route could be
+        that you find yourself under the open sky. If not your tracked activity could be
         inaccurate. Do you want to proceed anyway?</string>
     <string name="dialog_go_back">Dou you want to stop the comparison?</string>
 
@@ -70,7 +70,7 @@
     <string name="dialog_change_track_title">Change track</string>
 
     <!-- AboutActivity.java -->
-    <string name="github">https://github.com/Feichta/Runnergy</string>
+    <string name="github" translatable="false">https://github.com/Feichta/Runnergy</string>
     <string name="email">Please write an email to fabian.feichter@ffeichta.com</string>
     <string name="mailto" translatable="false">mailto:fabian.feichter@ffeichta.com</string>
     <string name="market" translatable="false">market://details?id=com.ffeichta.runnergy</string>

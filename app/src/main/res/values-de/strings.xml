@@ -119,4 +119,15 @@
     <string name="toast_delete_track_error">Strecke konnte nicht gelöscht werden</string>
     <string name="toast_save_no_track_error">Bitte gib eine Strecke an</string>
     <string name="about">Über</string>
+    <string name="activity_fragment_notification_going_on">Aktivität wird ausgeführt</string>
+    <string name="activity_fragment_notification_pause">Aktivität wird pausiert</string>
+    <string name="dialog_bad_accuracy_title">Schlechtes GPS Signal</string>
+    <string name="dialog_bad_accuracy_message">Die Qualität des GPS Signals ist schwach. Wir empfehlen dir, dich unter freiem Himmel aufzuhalten. Wenn nicht, könnte deine aufgezeichnete Aktivität ungenau sein. Möchtest du trotzdem fortfahren?</string>
+    <string name="dialog_delete_activity_message">Willst du die ausgewählten Aktivitäten wirklich löschen?</string>
+    <string name="dialog_delete_track_message">Willst du die ausgewählten Strecken wirklich löschen?</string>
+    <string name="dialog_delete_track_title">Strecke löschen</string>
+    <string name="dialog_go_back">Willst du den Vergleich wirklich abbrechen?</string>
+    <string name="github"></string>
+    <string name="source_code">Quellcode</string>
+    <string name="toast_not_at_start">Geh bitte an den Startpunkt</string>
 </resources>
