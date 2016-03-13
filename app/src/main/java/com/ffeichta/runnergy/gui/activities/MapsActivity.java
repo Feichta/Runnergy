@@ -310,7 +310,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Apply the changes on the interval
             startLocationUpdates();
         }
-        if (locationListener != null) {
+        if (locationListener != null && startButtonEnabled) {
             locationListener.cancelNotification();
             locationListener.setShowNotification(false);
         }
@@ -332,7 +332,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             // Apply the changes on the interval
             startLocationUpdates();
         }
-        if (locationListener != null) {
+        if (locationListener != null && startButtonEnabled) {
             locationListener.setShowNotification(true);
         }
 
@@ -488,6 +488,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void goBack() {
         if (startButtonEnabled) {
+            startButtonEnabled = false;
             new AlertDialog.Builder(this, R.style.AppThemeDialog)
                     .setTitle(getResources().getString(R.string.maps_activity_stop))
                     .setMessage(getResources().getString(R.string.dialog_go_back))
@@ -497,6 +498,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             stopLocationUpdates();
+                            if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest
+                                    .permission
+                                    .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                                ActivityCompat.requestPermissions(MapsActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
+                                return;
+                            }
+                            map.setMyLocationEnabled(false);
+                            locationListener.cancelNotification();
                             // Close the dialog
                             dialog.dismiss();
                             // Finish the activity
@@ -508,5 +519,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             finish();
         }
+    }
+
+    private void disableMyLocation() {
+        if (ActivityCompat.checkSelfPermission(MapsActivity.this, Manifest.permission
+                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MapsActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
+            return;
+        }
+        map.setMyLocationEnabled(false);
     }
 }
