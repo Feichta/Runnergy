@@ -57,6 +57,7 @@
         <activity
             android:name=".gui.activities.MapsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
             android:parentActivityName=".gui.activities.ActivitiesActivity"
             android:theme="@style/AppThemeWithActionBar"></activity>
 
