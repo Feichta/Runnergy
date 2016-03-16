@@ -117,7 +117,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                             .NETWORK_PROVIDER);
                     if (gpsEnabled) {
                         Location actualPosition = getActualPosition();
-                        if (actualPosition.getAccuracy() > MapsActivity.MIN_ACCURACY) {
+                        if (actualPosition != null && actualPosition.getAccuracy() > MapsActivity
+                                .MIN_ACCURACY) {
                             new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
                                     .setTitle(getResources().getString(R.string
                                             .dialog_bad_accuracy_title))
