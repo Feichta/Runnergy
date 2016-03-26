@@ -2,6 +2,8 @@ package com.ffeichta.runnergy.gui.activities;
 
 
 import android.Manifest;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +22,7 @@ import android.widget.Button;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.adapter.ViewPagerAdapter;
+import com.ffeichta.runnergy.gui.fragments.ActivityFragment;
 import com.ffeichta.runnergy.gui.tabs.SlidingTabLayout;
 
 
@@ -171,5 +174,14 @@ public class MainActivity extends AppCompatActivity {
                 return ContextCompat.getColor(getApplication(), R.color.colorTabUnderline);
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService
+                (Context
+                        .NOTIFICATION_SERVICE);
+        notificationManager.cancel(ActivityFragment.notifyID);
     }
 }

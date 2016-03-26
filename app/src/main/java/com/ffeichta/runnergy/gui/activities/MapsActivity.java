@@ -2,6 +2,7 @@ package com.ffeichta.runnergy.gui.activities;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -143,13 +144,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                             if (result[0] > MAX_DISTANCE_TO_START) {
                                                                 ToastFactory.makeToast
                                                                         (MapsActivity.this,
-                                                                        getResources().getString
-                                                                                (R.string
-                                                                                .toast_not_at_start));
+                                                                                getResources()
+                                                                                        .getString
+                                                                                                (R.string
+                                                                                                        .toast_not_at_start));
                                                             } else {
                                                                 start();
                                                             }
-                                                }
+                                                        }
                                                     })
                                             .setNegativeButton(android.R.string.no, null)
                                             .create().show();
@@ -563,5 +565,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 })
                 .create().show();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NotificationManager notificationManager = (NotificationManager) this.getSystemService
+                (Context
+                        .NOTIFICATION_SERVICE);
+        notificationManager.cancel(LocationListenerCompare.notifyID);
     }
 }

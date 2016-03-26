@@ -90,5 +90,10 @@
             android:label="@string/credits"
             android:parentActivityName=".gui.activities.AboutActivity"
             android:theme="@style/AppThemeMinWidth"></activity>
+
+        <service
+            android:name=".gui.services.CloseService"
+            android:stopWithTask="false">
+        </service>
     </application>
 </manifest>

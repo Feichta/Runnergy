@@ -29,6 +29,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 public class LocationListenerCompare implements com.google.android.gms.location.LocationListener {
     // Zoom Level in Map
     private static final int ZOOM_LEVEL = 18;
+    // ID of the Notification
+    public static int notifyID = 2;
     // Actual Activity
     private Activity activity = null;
     // Current location
@@ -46,8 +48,6 @@ public class LocationListenerCompare implements com.google.android.gms.location.
     private NotificationManager notificationManager = null;
     // Notification Builder
     private NotificationCompat.Builder notificationBuilder = null;
-    // ID of the Notification
-    private int notifyID = 2;
     // Used for Notification
     private boolean showNotification = false;
 

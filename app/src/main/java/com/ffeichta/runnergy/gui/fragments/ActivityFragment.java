@@ -35,6 +35,7 @@ import com.ffeichta.runnergy.gui.listener.ConnectionServices;
 import com.ffeichta.runnergy.gui.listener.LocationListener;
 import com.ffeichta.runnergy.gui.listener.MyLocationButtonListener;
 import com.ffeichta.runnergy.gui.message.ToastFactory;
+import com.ffeichta.runnergy.gui.services.CloseService;
 import com.ffeichta.runnergy.model.Activity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -47,6 +48,8 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
+    // ID of the Notification
+    public static int notifyID = 1;
     // Minimum duration of an Activity
     private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 5;
     // Minimum distance of an Activity
@@ -86,8 +89,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     private long dateOnPaused = -1;
     // Total duration of pause in milliseconds
     private long durationPausedInMilliseconds = -1;
-    // ID of the Notification
-    private int notifyID = 1;
     // NotificationManager
     private NotificationManager notificationManager = null;
     private NotificationCompat.Builder notificationBuilder = null;
@@ -455,6 +456,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         } else if (startButtonEnabled && pauseButtonEnabled) {
             makeNotification(PAUSE);
         }
+        getActivity().startService(new Intent(getActivity(), CloseService.class));
     }
 
     @Override
