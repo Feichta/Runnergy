@@ -28,6 +28,9 @@
     <string name="dialog_delete_track_message">Dou you really want to delete the selected tracks
         and their activities?</string>
 
+    <!-- TracksFragment.java -->
+    <string name="tracks_empty">There are no tracks</string>
+
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020activity</string>
     <string name="track_adapter_plural">\u0020activities</string>
@@ -35,6 +38,7 @@
     <!-- ActivitiesActivity.java -->
     <string name="dialog_delete_activity_message">Dou you really want to delete the selected
         activities?</string>
+    <string name="activities_empty">There are no activities in this track</string>
 
     <!-- MapsActivity.java -->
     <string name="maps_activity_start">Start comparison</string>

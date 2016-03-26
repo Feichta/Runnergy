@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ExpandableListView;
+import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.adapter.ActivityAdapter;
@@ -30,6 +31,7 @@ public class ActivitiesActivity extends Activity {
 
     // UI Widgets
     private ExpandableListView expListView = null;
+    private TextView empty = null;
 
     // Used for the ExpandableListView
     private List<String> parentStrings = null;
@@ -51,6 +53,7 @@ public class ActivitiesActivity extends Activity {
         setContentView(R.layout.activities_activity);
 
         expListView = (ExpandableListView) findViewById(R.id.listViewActivities);
+        empty = (TextView) findViewById(R.id.activitiesEmpty);
         // registerForContextMenu(expListView);
         selection = new ArrayList();
 
@@ -61,6 +64,10 @@ public class ActivitiesActivity extends Activity {
         childActivities = track.getActivities();
         if (childActivities == null) {
             childActivities = new ArrayList<>();
+            empty.setVisibility(View.VISIBLE);
+            empty.setText(getResources().getString(R.string.activities_empty));
+        } else {
+            empty.setVisibility(View.GONE);
         }
 
         setUpParentsAndChilds();

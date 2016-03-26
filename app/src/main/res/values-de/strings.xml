@@ -24,9 +24,12 @@
 
     <!-- TrackFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020ausgewählt</string>
+    <string name="dialog_delete_track_title">Strecke löschen</string>
     <string name="dialog_delete_track_message">Willst du die ausgewählten Strecken wirklich löschen?
     </string>
-    <string name="dialog_delete_track_title">Strecke löschen</string>
+
+    <!-- TracksFragment.java -->
+    <string name="tracks_empty">Keine Strecken vorhanden</string>
 
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020Aktivität</string>
@@ -35,6 +38,7 @@
     <!-- ActivitiesActivity.java -->
     <string name="dialog_delete_activity_message">Willst du die ausgewählten Aktivitäten wirklich
         löschen?</string>
+    <string name="activities_empty">Keine Aktivitäten in dieser Strecke</string>
 
     <!-- MapsActivity.java -->
     <string name="maps_activity_start">Vergleich starten</string>

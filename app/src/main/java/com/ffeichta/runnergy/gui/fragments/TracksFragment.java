@@ -17,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.activities.ActivitiesActivity;
@@ -36,6 +37,7 @@ public class TracksFragment extends Fragment {
     private ArrayList<Track> selection = null;
     private ArrayList<Track> tracks = null;
     private ListView listView = null;
+    private TextView empty = null;
     private TrackAdapter trackAdapter = null;
 
     @Override
@@ -44,12 +46,17 @@ public class TracksFragment extends Fragment {
         View v = inflater.inflate(R.layout.tracks_fragment, container, false);
 
         listView = (ListView) v.findViewById(R.id.listviewTracks);
+        empty = (TextView) v.findViewById(R.id.tracksEmpty);
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
 
         selection = new ArrayList<>();
 
         if (tracks == null) {
             tracks = new ArrayList<>();
+            empty.setVisibility(View.VISIBLE);
+            empty.setText(getResources().getString(R.string.tracks_empty));
+        } else {
+            empty.setVisibility(View.GONE);
         }
 
         trackAdapter = new TrackAdapter(this.getActivity(), tracks);
@@ -148,12 +155,10 @@ public class TracksFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (tracks.get(position).getActivities() != null) {
-                    Intent i = new Intent(getActivity(),
-                            ActivitiesActivity.class);
-                    i.putExtra("track", tracks.get(position));
-                    startActivityForResult(i, 0);
-                }
+                Intent i = new Intent(getActivity(),
+                        ActivitiesActivity.class);
+                i.putExtra("track", tracks.get(position));
+                startActivityForResult(i, 0);
             }
         });
         return v;
@@ -180,6 +185,8 @@ public class TracksFragment extends Fragment {
         tracks = DBAccessHelper.getInstance(getContext()).getTracks();
         if (tracks == null) {
             tracks = new ArrayList<>();
+            empty.setVisibility(View.VISIBLE);
+            empty.setText(getResources().getString(R.string.tracks_empty));
         }
         trackAdapter.notifyDataSetChanged();
         trackAdapter = new TrackAdapter(this.getActivity(), tracks);
