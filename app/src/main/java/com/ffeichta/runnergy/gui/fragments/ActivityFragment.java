@@ -420,7 +420,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         // (and thus the map) is visible.
         // This is because setMyLocationEnabled() is true and the blue point updates every second,
         // then we should draw every second a Polyline into the map
-        if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
+        if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled &&
+                !pauseButtonEnabled) {
             // Stop the LocationUpdates to modify the interval
             stopLocationUpdates();
             locationRequest.setInterval(1000);
