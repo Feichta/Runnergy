@@ -518,7 +518,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void goBack() {
         if (startButtonEnabled) {
-            startButtonEnabled = false;
             new AlertDialog.Builder(this, R.style.AppThemeDialog)
                     .setTitle(getResources().getString(R.string.maps_activity_stop))
                     .setMessage(getResources().getString(R.string.dialog_go_back))
