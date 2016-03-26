@@ -119,25 +119,28 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                             .NETWORK_PROVIDER);
                     if (gpsEnabled) {
                         Location actualPosition = getActualPosition();
-                        if (actualPosition != null && actualPosition.getAccuracy() > MapsActivity
-                                .MIN_ACCURACY) {
-                            new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
-                                    .setTitle(getResources().getString(R.string
-                                            .dialog_bad_accuracy_title))
-                                    .setMessage(getResources().getString(R.string
-                                            .dialog_bad_accuracy_message))
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface
-                                            .OnClickListener() {
+                        if (actualPosition != null) {
+                            if (actualPosition.getAccuracy() > MapsActivity.MIN_ACCURACY) {
+                                new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
+                                        .setTitle(getResources().getString(R.string
+                                                .dialog_bad_accuracy_title))
+                                        .setMessage(getResources().getString(R.string
+                                                .dialog_bad_accuracy_message))
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface
+                                                .OnClickListener() {
 
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            // Close the dialog
-                                            dialog.dismiss();
-                                            start();
-                                        }
-                                    })
-                                    .setNegativeButton(android.R.string.no, null)
-                                    .create().show();
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // Close the dialog
+                                                dialog.dismiss();
+                                                start();
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, null)
+                                        .create().show();
+                            } else {
+                                start();
+                            }
                         } else {
                             new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
                                     .setTitle(getResources().getString(R.string

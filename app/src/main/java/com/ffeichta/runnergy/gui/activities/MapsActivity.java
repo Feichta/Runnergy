@@ -123,32 +123,39 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                         actualPosition.getLatitude(), coordinates.get(0)
                                                 .getLongitude(),
                                         coordinates.get(0).getLatitude(), result);
-                            }
-                            if (actualPosition != null && actualPosition.getAccuracy() >
-                                    MIN_ACCURACY) {
-                                new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
-                                        .setTitle(getResources().getString(R.string
-                                                .dialog_bad_accuracy_title))
-                                        .setMessage(getResources().getString(R.string
-                                                .dialog_bad_accuracy_message))
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface
-                                                .OnClickListener() {
+                                if (actualPosition.getAccuracy() > MIN_ACCURACY) {
+                                    new AlertDialog.Builder(MapsActivity.this, R.style
+                                            .AppThemeDialog)
+                                            .setTitle(getResources().getString(R.string
+                                                    .dialog_bad_accuracy_title))
+                                            .setMessage(getResources().getString(R.string
+                                                    .dialog_bad_accuracy_message))
+                                            .setPositiveButton(android.R.string.yes, new
+                                                    DialogInterface
+                                                            .OnClickListener() {
 
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                // Close the dialog
-                                                dialog.dismiss();
-                                                if (result[0] > MAX_DISTANCE_TO_START) {
-                                                    ToastFactory.makeToast(MapsActivity.this,
-                                                            getResources().getString(R.string
-                                                                    .toast_not_at_start));
-                                                } else {
-                                                    start();
+                                                        @Override
+                                                        public void onClick(DialogInterface
+                                                                                    dialog, int
+                                                                id) {
+                                                            // Close the dialog
+                                                            dialog.dismiss();
+                                                            if (result[0] > MAX_DISTANCE_TO_START) {
+                                                                ToastFactory.makeToast
+                                                                        (MapsActivity.this,
+                                                                        getResources().getString
+                                                                                (R.string
+                                                                                .toast_not_at_start));
+                                                            } else {
+                                                                start();
+                                                            }
                                                 }
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, null)
-                                        .create().show();
+                                                    })
+                                            .setNegativeButton(android.R.string.no, null)
+                                            .create().show();
+                                } else {
+                                    start();
+                                }
                             } else {
                                 new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
                                         .setTitle(getResources().getString(R.string
