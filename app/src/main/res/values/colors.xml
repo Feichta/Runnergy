@@ -15,7 +15,7 @@
     <!-- Text when Tab is not selected -->
     <color name="color">#E6E6E6</color>
     <!-- Line under the Tabs-->
-    <color name="colorTabUnderline">#FFFFFF</color>
+    <color name="colorTabUnderline">#9ECBF0</color>
     <!-- Text -->
     <color name="textColor">#343434</color>
     <!-- Background of the NavigationBar -->
