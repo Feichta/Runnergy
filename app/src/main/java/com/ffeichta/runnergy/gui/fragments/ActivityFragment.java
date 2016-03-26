@@ -476,14 +476,16 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
 
     private Location getActualPosition() {
         Location ret = null;
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission
-                .ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
-                (getContext(),
-                        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager
-                .PERMISSION_GRANTED) {
-            ret = LocationServices.FusedLocationApi.getLastLocation
-                    (googleApiClient);
+        if (googleApiClient != null && googleApiClient.isConnected()) {
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission
+                    .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat
+                    .checkSelfPermission(getActivity(), Manifest.permission
+                            .ACCESS_COARSE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                return null;
+            }
+            ret = LocationServices.FusedLocationApi
+                    .getLastLocation(googleApiClient);
         }
         return ret;
     }
