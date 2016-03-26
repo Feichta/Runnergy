@@ -137,7 +137,13 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                                     .setNegativeButton(android.R.string.no, null)
                                     .create().show();
                         } else {
-                            start();
+                            new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
+                                    .setTitle(getResources().getString(R.string
+                                            .dialog_no_location_title))
+                                    .setMessage(getResources().getString(R.string
+                                            .dialog_no_location_message))
+                                    .setPositiveButton(android.R.string.ok, null)
+                                    .create().show();
                         }
                     } else {
                         ToastFactory.makeToast(getContext(), getResources().getString(R.string

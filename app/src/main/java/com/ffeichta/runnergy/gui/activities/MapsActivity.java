@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.listener.ConnectionFailed;
 import com.ffeichta.runnergy.gui.listener.LocationListenerCompare;
+import com.ffeichta.runnergy.gui.listener.MyLocationButtonListener;
 import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.model.Activity;
 import com.ffeichta.runnergy.model.Coordinate;
@@ -111,43 +112,55 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager
                             .NETWORK_PROVIDER);
                     if (gpsEnabled) {
-                        Location actualPosition = LocationServices.FusedLocationApi.getLastLocation
-                                (googleApiClient);
                         final float[] result = new float[1];
-                        Location.distanceBetween(actualPosition.getLongitude(),
-                                actualPosition.getLatitude(), coordinates.get(0).getLongitude(),
-                                coordinates.get(0).getLatitude(), result);
-                        if (actualPosition.getAccuracy() > MIN_ACCURACY) {
-                            new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
-                                    .setTitle(getResources().getString(R.string
-                                            .dialog_bad_accuracy_title))
-                                    .setMessage(getResources().getString(R.string
-                                            .dialog_bad_accuracy_message))
-                                    .setPositiveButton(android.R.string.yes, new DialogInterface
-                                            .OnClickListener() {
-
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            // Close the dialog
-                                            dialog.dismiss();
-                                            if (result[0] > MAX_DISTANCE_TO_START) {
-                                                ToastFactory.makeToast(MapsActivity.this,
-                                                        getResources().getString(R.string
-                                                                .toast_not_at_start));
-                                            } else {
-                                                start();
-                                            }
-                                        }
-                                    })
-                                    .setNegativeButton(android.R.string.no, null)
-                                    .create().show();
-                        } else {
-                            if (result[0] > MAX_DISTANCE_TO_START) {
-                                ToastFactory.makeToast(MapsActivity.this,
-                                        getResources().getString(R.string.toast_not_at_start));
-                            } else {
-                                start();
+                        result[0] = 0;
+                        if (googleApiClient != null && googleApiClient.isConnected()) {
+                            Location actualPosition = LocationServices.FusedLocationApi
+                                    .getLastLocation
+                                            (googleApiClient);
+                            if (actualPosition != null) {
+                                Location.distanceBetween(actualPosition.getLongitude(),
+                                        actualPosition.getLatitude(), coordinates.get(0)
+                                                .getLongitude(),
+                                        coordinates.get(0).getLatitude(), result);
                             }
+                            if (actualPosition != null && actualPosition.getAccuracy() >
+                                    MIN_ACCURACY) {
+                                new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
+                                        .setTitle(getResources().getString(R.string
+                                                .dialog_bad_accuracy_title))
+                                        .setMessage(getResources().getString(R.string
+                                                .dialog_bad_accuracy_message))
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface
+                                                .OnClickListener() {
+
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // Close the dialog
+                                                dialog.dismiss();
+                                                if (result[0] > MAX_DISTANCE_TO_START) {
+                                                    ToastFactory.makeToast(MapsActivity.this,
+                                                            getResources().getString(R.string
+                                                                    .toast_not_at_start));
+                                                } else {
+                                                    start();
+                                                }
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, null)
+                                        .create().show();
+                            } else {
+                                new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
+                                        .setTitle(getResources().getString(R.string
+                                                .dialog_no_location_title))
+                                        .setMessage(getResources().getString(R.string
+                                                .dialog_no_location_message))
+                                        .setPositiveButton(android.R.string.ok, null)
+                                        .create().show();
+                            }
+                        } else {
+                            ToastFactory.makeToast(MapsActivity.this, getResources().getString(R
+                                    .string.not_connected));
                         }
                     } else {
                         ToastFactory.makeToast(MapsActivity.this, getResources().getString(R.string
@@ -193,6 +206,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         drawRoute();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission
+                .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
+            return;
+        }
+        map.setMyLocationEnabled(true);
+        map.setOnMyLocationButtonClickListener(new MyLocationButtonListener(this));
     }
 
     /**
@@ -525,7 +547,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         new AlertDialog.Builder(this, R.style.AppThemeDialog)
                 .setTitle(getResources().getString(R.string.finished))
                 .setMessage(text.getText())
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
@@ -533,7 +555,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         dialog.dismiss();
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, null)
                 .create().show();
     }
 }

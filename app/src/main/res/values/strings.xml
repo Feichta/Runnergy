@@ -37,10 +37,15 @@
     <string name="marker_end">End</string>
     <string name="dialog_bad_accuracy_title">Bad accuracy</string>
     <string name="dialog_bad_accuracy_message">The accuracy of your GPS is low. We suggest you
-        that you find yourself under the open sky. If not your tracked activity could be
-        inaccurate. Do you want to proceed anyway?</string>
+        that you find yourself under the open sky. Please make sure that the location mode in the
+        settings is set to \'High accuracy\'. If not your tracked activity could be inaccurate. Do
+        you want to proceed anyway?</string>
     <string name="dialog_go_back">Dou you want to stop the comparison?</string>
     <string name="finished">Comparison finished</string>
+    <string name="not_connected">You are not connected with the Play Services</string>
+    <string name="dialog_no_location_title">Unknown location</string>
+    <string name="dialog_no_location_message">We can\'t find your current location. We suggest you
+        that you find yourself under the open sky. Please retry it later.</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020slower</string>
