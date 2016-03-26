@@ -88,7 +88,8 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View
             convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View ret = convertView;
+        // Generate always a new view otherwise the background is sometimes not visible
+        View ret = null;
         ActivityHolder activityHolder;
         if (ret == null) {
             ret = inflater.inflate(R.layout.activity_item, parent, false);
@@ -152,7 +153,6 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
             case Activity.avg:
                 ret.setBackgroundResource(R.drawable.item_background_selector_avg);
                 break;
-            // Don't delete this otherwise sometimes too much Activities are colored
             default:
                 ret.setBackgroundResource(R.drawable.item_background_selector);
                 break;
