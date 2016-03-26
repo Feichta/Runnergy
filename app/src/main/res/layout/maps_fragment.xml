@@ -23,7 +23,8 @@
             android:background="@drawable/button"
             android:text="@string/maps_activity_start"
             android:textColor="@color/textColorPrimary"
-            android:textSize="13sp"/>
+            android:textSize="13sp"
+            android:visibility="gone"/>
     </LinearLayout>
 
     <LinearLayout

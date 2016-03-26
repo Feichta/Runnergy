@@ -205,6 +205,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+        startStopComparison.setVisibility(View.VISIBLE);
         drawRoute();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission
                 .ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
