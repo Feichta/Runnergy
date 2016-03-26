@@ -112,6 +112,16 @@ public class Activity implements Serializable {
         return StringFormatter.getFormattedDate(this.date, format);
     }
 
+    public int getDistance() {
+        int ret = 0;
+        if (coordinates != null) {
+            for (Coordinate c : coordinates) {
+                ret += c.getDistanceFromPrevious();
+            }
+        }
+        return ret;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

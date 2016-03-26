@@ -48,7 +48,9 @@ import com.google.android.gms.maps.SupportMapFragment;
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     // Minimum duration of an Activity
-    private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 1;
+    private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 5;
+    // Minimum distance of an Activity
+    private final int MIN_DISTANCE_OF_ACTIVITY_IN_METERS = 10;
     // Used for LocationUpdates
     private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
@@ -181,13 +183,24 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                                     .activity_fragment_start));
                             pauseResumeButton.setVisibility(View.GONE);
                         } else {
-                            // Set the last coordinate as end point
-                            activity.getCoordinates().get(activity.getCoordinates().size() - 1)
-                                    .setEnd(true);
-                            // Start Activity where the user can save the Activity
-                            Intent intent = new Intent(getActivity(), SaveActivityActivity.class);
-                            intent.putExtra("activity", locationListener.getActivity());
-                            startActivityForResult(intent, 1);
+                            if (activity.getDistance() > MIN_DISTANCE_OF_ACTIVITY_IN_METERS) {
+                                // Set the last coordinate as end point
+                                activity.getCoordinates().get(activity.getCoordinates().size() - 1)
+                                        .setEnd(true);
+                                // Start Activity where the user can save the Activity
+                                Intent intent = new Intent(getActivity(), SaveActivityActivity
+                                        .class);
+
+                                intent.putExtra("activity", locationListener.getActivity());
+                                startActivityForResult(intent, 1);
+                            } else {
+                                ToastFactory.makeToast(getContext(), getResources().getString(R
+                                        .string.activity_fragment_distance_too_short));
+                                map.clear();
+                                startStopButton.setText(getResources().getString(R.string
+                                        .activity_fragment_start));
+                                pauseResumeButton.setVisibility(View.GONE);
+                            }
                         }
                     }
                 }

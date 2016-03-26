@@ -5,22 +5,28 @@
 
     <!-- MainActivity.java -->
     <string name="dialog_title">Requesting permissions</string>
-    <string name="dialog_message">This app needs the permission for GPS to track your route during an activity</string>
+    <string name="dialog_message">This app needs the permission for GPS to track your route
+        during an activity</string>
 
     <!-- ActivityFragment.java -->
     <string name="activity_fragment_start">Start activity</string>
     <string name="activity_fragment_stop">Stop activity</string>
     <string name="activity_fragment_pause">Pause activity</string>
     <string name="activity_fragment_resume">Resume activity</string>
-    <string name="activity_fragment_no_coordinates">There are no coordinates found in this activity</string>
-    <string name="activity_fragment_duration_too_short">The duration of this activity is too short</string>
+    <string name="activity_fragment_no_coordinates">There are no coordinates found in this
+        activity</string>
+    <string name="activity_fragment_duration_too_short">The duration of this activity is too
+        short</string>
     <string name="activity_fragment_notification_going_on">Activity is going on</string>
     <string name="activity_fragment_notification_pause">Activity is paused</string>
+    <string name="activity_fragment_distance_too_short">The distance of this activity is
+        too short</string>
 
     <!-- TracksFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020selected</string>
     <string name="dialog_delete_track_title">Delete track</string>
-    <string name="dialog_delete_track_message">Dou you really want to delete the selected tracks and their activities?</string>
+    <string name="dialog_delete_track_message">Dou you really want to delete the selected tracks
+        and their activities?</string>
 
     <!-- TrackAdapter.java -->
     <string name="track_adapter_singular">\u0020activity</string>
@@ -100,7 +106,8 @@
     <string name="category_general_unit_title">Unit of length</string>
     <string name="category_general_unit_default_value" translatable="false">km</string>
     <string name="category_general_date_title">Format of date</string>
-    <string name="category_general_date_default_value" translatable="false">dd.MM.yyyy HH:mm:ss</string>
+    <string name="category_general_date_default_value" translatable="false">dd.MM.yyyy
+        HH:mm:ss</string>
     // Activity
     <string name="category_activity_title">Activity</string>
     <string name="category_activity_interval_title">Interval of saving positions</string>
@@ -127,7 +134,8 @@
 
     <!-- request_permission_activity.xml-->
     <string name="request_permission">Request permission</string>
-    <string name="sorry">This app doesn`t work without the permission to use GPS for requesting locations</string>
+    <string name="sorry">This app doesn`t work without the permission to use GPS for requesting
+        locations</string>
 
     <!-- arrays.xml -->
     <string name="activity">Activity</string>
@@ -136,7 +144,8 @@
     <!-- Toasts -->
     <string name="toast_enable_gps">Please enable GPS</string>
     <string name="toast_wait">Wait a moment...</string>
-    <string name="toast_connection_lost">Connection to Play Services was lost with error\u0020</string>
+    <string name="toast_connection_lost">Connection to Play Services was lost with
+        error\u0020</string>
     <string name="toast_connection_failed">Connection to Play Services failed</string>
     <string name="toast_error_save_track">An error has occured when inserting the activity</string>
     <string name="toast_delete_activity_error">Can\'t delete activity</string>

@@ -15,9 +15,12 @@
     <string name="activity_fragment_resume">Aktivität fortsetzen</string>
     <string name="activity_fragment_no_coordinates">In dieser Aktivität wurden kein Koordinaten
         gefunden</string>
-    <string name="activity_fragment_duration_too_short">Die Dauer der Aktivität ist zu kurz</string>
+    <string name="activity_fragment_duration_too_short">Die Dauer dieser Aktivität ist zu
+        kurz</string>
     <string name="activity_fragment_notification_going_on">Aktivität wird ausgeführt</string>
     <string name="activity_fragment_notification_pause">Aktivität wird pausiert</string>
+     <string name="activity_fragment_distance_too_short">Die Distanz der Aktivität ist zu
+         kurz</string>
 
     <!-- TrackFragment.java + ActivitiesActivity.java -->
     <string name="select">\u0020ausgewählt</string>
