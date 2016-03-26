@@ -39,7 +39,7 @@ public class SettingsTest extends ApplicationTestCase<Application> {
 
     public void testType() {
         // Get a string because ListPreference cannot support int values
-        int unit = Integer.valueOf(sp.getString("type", "1"));
-        assertEquals(1, unit);
+        int unit = Integer.valueOf(sp.getString("type", "0"));
+        assertEquals(0, unit);
     }
 }

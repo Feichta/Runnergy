@@ -38,8 +38,8 @@
     <string name="dialog_bad_accuracy_title">Bad accuracy</string>
     <string name="dialog_bad_accuracy_message">The accuracy of your GPS is low. We suggest you
         that you find yourself under the open sky. Please make sure that the location mode in the
-        settings is set to \'High accuracy\'. If not your tracked activity could be inaccurate. Do
-        you want to proceed anyway?</string>
+        settings of your device is set to \'High accuracy\'. If not your tracked activity could be
+        inaccurate. Do you want to proceed anyway?</string>
     <string name="dialog_go_back">Dou you want to stop the comparison?</string>
     <string name="finished">Comparison finished</string>
     <string name="not_connected">You are not connected with the Play Services</string>
@@ -108,7 +108,7 @@
     // Map
     <string name="category_map_title">Map</string>
     <string name="category_map_type_title">Type of map</string>
-    <string name="category_map_type_default_value" translatable="false">1</string>
+    <string name="category_map_type_default_value" translatable="false">0</string>
 
     <!-- about_activity.xml -->
     <string name="version" translatable="false">v1.0</string>

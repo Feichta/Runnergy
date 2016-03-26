@@ -10,7 +10,7 @@
 
     <!-- ActivityFragment.java -->
     <string name="activity_fragment_start">Aktivität starten</string>
-    <string name="activity_fragment_stop">Aktivität stoppen</string>
+    <string name="activity_fragment_stop">Aktivität beenden</string>
     <string name="activity_fragment_pause">Aktivität pausieren</string>
     <string name="activity_fragment_resume">Aktivität fortsetzen</string>
     <string name="activity_fragment_no_coordinates">In dieser Aktivität wurden kein Koordinaten
@@ -40,10 +40,16 @@
     <string name="marker_end">Ende</string>
     <string name="dialog_bad_accuracy_title">Schlechtes GPS Signal</string>
     <string name="dialog_bad_accuracy_message">Die Qualität des GPS Signals ist schwach. Wir
-        empfehlen dir, dich unter freiem Himmel aufzuhalten. Wenn nicht, könnte deine aufgezeichnete
-        Aktivität ungenau sein. Möchtest du trotzdem fortfahren?</string>
+        empfehlen dir, dich unter freiem Himmel aufzuhalten. Setze den Standortmodus in den
+        Einstellungen deines Gerätes auf \'Hohe Genauigkeit\'. Wenn nicht, könnte deine
+        aufgezeichnete Aktivität ungenau sein. Möchtest du trotzdem fortfahren?</string>
     <string name="dialog_go_back">Willst du den Vergleich wirklich abbrechen?</string>
     <string name="finished">Vergleich beendet</string>
+    <string name="not_connected">Du bist nicht mit den Play Services verbunden</string>
+    <string name="dialog_no_location_title">Position ist unbekannt</string>
+    <string name="dialog_no_location_message">Wir können deine aktuelle Position nicht ermitteln.
+        Wir empfehlen dir, dich unter freiem Himmel aufzuhalten. Bitte versuche es später erneut
+        .</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020langsamer</string>
