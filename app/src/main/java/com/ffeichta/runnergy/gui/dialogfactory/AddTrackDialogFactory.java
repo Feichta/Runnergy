@@ -1,6 +1,6 @@
 package com.ffeichta.runnergy.gui.dialogfactory;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
