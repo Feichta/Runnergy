@@ -187,6 +187,8 @@ public class TracksFragment extends Fragment {
             tracks = new ArrayList<>();
             empty.setVisibility(View.VISIBLE);
             empty.setText(getResources().getString(R.string.tracks_empty));
+        } else {
+            empty.setVisibility(View.GONE);
         }
         trackAdapter.notifyDataSetChanged();
         trackAdapter = new TrackAdapter(this.getActivity(), tracks);
