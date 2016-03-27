@@ -21,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -396,6 +397,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
      */
     private int getIntervalFromSettingsInMilliseconds() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        Log.d("####", "" + Integer.valueOf(sp.getString("interval", "1")) * 1000);
         return Integer.valueOf(sp.getString("interval", "1")) * 1000;
 
     }
