@@ -22,14 +22,11 @@ public class IntervalUpdater implements Runnable {
 
     @Override
     public void run() {
-        Log.d("####", "1");
         if (activityFragment.getStartButtonEnabled() && !activityFragment.getPauseButtonEnabled()) {
-            double speed;
-            if (locationListener.getLocation() != null && locationListener.getLocation().getSpeed
-                    () >= 0) {
-                Log.d("####", "2");
+            if (locationListener.getLocation() != null) {
+                double speed = locationListener.getLocation().getSpeed();
                 speed = locationListener.getLocation().getSpeed() * FACTOR_MS_TO_KMH;
-                Log.d("####", "speed = " + speed);
+                Log.d("####", "--- speed is " + speed + " ---");
                 if (speed < 3) {
                     if (activityFragment.getLocationRequest().getFastestInterval() != 15) {
                         updateInterval(15);
@@ -53,15 +50,18 @@ public class IntervalUpdater implements Runnable {
         if (activityFragment.googleApiClient.isConnected() && activityFragment.getLocationRequest
                 () !=
                 null) {
+            Log.d("####", "--- stopped ---");
             activityFragment.stopLocationUpdates();
 
             activityFragment.getLocationRequest().setInterval(4000);
             activityFragment.getLocationRequest().setFastestInterval(4000);
 
+            /*Log.d("####", "--- connect/disconnect ---");
             activityFragment.googleApiClient.disconnect();
-            activityFragment.googleApiClient.connect();
+            activityFragment.googleApiClient.connect();*/
 
             activityFragment.startLocationUpdates();
+            Log.d("####", "--- started ---");
         }
     }
 }

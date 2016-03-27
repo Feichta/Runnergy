@@ -68,7 +68,7 @@ public class LocationListener implements com.google.android.gms.location.Locatio
      */
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("####", "--- new coordinate ---");
+        Log.d("####", "--- new coordinate ----");
         this.previousLatLng = this.actualLatLng;
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());
 

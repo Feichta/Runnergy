@@ -86,6 +86,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     protected GoogleApiClient.ConnectionCallbacks connectionCallbacks = null;
     // Listener which is called when the connection to the Play Services failed
     protected GoogleApiClient.OnConnectionFailedListener onConnectionFailedListener = null;
+    ScheduledExecutorService scheduledExecutorService = null;
     // UI Widgets
     private Button startStopButton = null;
     private Button pauseResumeButton = null;
@@ -165,6 +166,8 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     startButtonEnabled = false;
                     // Stop location updates
                     stopLocationUpdates();
+                    scheduledExecutorService.shutdownNow();
+                    scheduledExecutorService = null;
                     locationListener.setLastCoordinateIsPause(true);
                     // User pressed the Stop Button after he pressed the Pause Button. He never
                     // pressed the Resume Button
@@ -362,16 +365,13 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
-            Log.d("####", "nnnnnn");
             return;
         }
-        Log.d("####", "gggg" + (googleApiClient.isConnected()) + (locationRequest == null) +
-                (locationListener == null) + "/" + locationRequest.getFastestInterval() + ": " +
-                locationRequest.getInterval());
+        Log.d("####", "--- started 1 ---");
         // LocationListener is fired every x seconds
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 googleApiClient, locationRequest, locationListener);
-        Log.d("####", "iii");
+        Log.d("####", "--- started 2 ---");
     }
 
     /**
@@ -457,12 +457,14 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         // (and thus the map) is not visible, for example when the user locks his device
         if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
             if (getIntervalFromSettingsInMilliseconds() == 0) {
-                Log.d("####", "hier");
-                stopLocationUpdates();
-                ScheduledExecutorService scheduledExecutorService = Executors
-                        .newSingleThreadScheduledExecutor();
-                scheduledExecutorService.scheduleAtFixedRate(new IntervalUpdater(locationListener,
-                        this), 5, 10, TimeUnit.SECONDS);
+                if (scheduledExecutorService == null) {
+                    Log.d("####", "--- new scheduler ---");
+                    scheduledExecutorService = Executors
+                            .newSingleThreadScheduledExecutor();
+                    scheduledExecutorService.scheduleAtFixedRate(new IntervalUpdater
+                            (locationListener, this)
+                            , 1, 15, TimeUnit.SECONDS);
+                }
             } else {
                 // Stop the LocationUpdates to modify the interval
                 stopLocationUpdates();
@@ -472,8 +474,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                 startLocationUpdates();
             }
         }
-        Log.d("####", "hier " + locationRequest.getFastestInterval());
-
 
         if (startButtonEnabled && !pauseButtonEnabled) {
             makeNotification(GOING_ON);

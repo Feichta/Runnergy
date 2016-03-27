@@ -25,9 +25,9 @@ public class ConnectionServices implements GoogleApiClient.ConnectionCallbacks {
     public void onConnected(Bundle connectionHint) {
         // If user pressed the Start button before GoogleApiClient connects, we start getting
         // location updates
-        if (context.startButtonEnabled) {
+        /*if (context.startButtonEnabled) {
             context.startLocationUpdates();
-        }
+        }*/
     }
 
     /**
