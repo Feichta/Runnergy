@@ -21,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ import com.ffeichta.runnergy.gui.listener.LocationListener;
 import com.ffeichta.runnergy.gui.listener.MyLocationButtonListener;
 import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.gui.services.CloseService;
+import com.ffeichta.runnergy.gui.threads.IntervalUpdater;
 import com.ffeichta.runnergy.model.Activity;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -43,6 +45,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by hp1 on 21-01-2015.
@@ -356,11 +362,16 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     MainActivity.REQUEST_CODE_ASK_PERMISSIONS);
+            Log.d("####", "nnnnnn");
             return;
         }
+        Log.d("####", "gggg" + (googleApiClient.isConnected()) + (locationRequest == null) +
+                (locationListener == null) + "/" + locationRequest.getFastestInterval() + ": " +
+                locationRequest.getInterval());
         // LocationListener is fired every x seconds
         LocationServices.FusedLocationApi.requestLocationUpdates(
                 googleApiClient, locationRequest, locationListener);
+        Log.d("####", "iii");
     }
 
     /**
@@ -445,13 +456,25 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         // Set the interval of the location requests to the set value if the MainActivity
         // (and thus the map) is not visible, for example when the user locks his device
         if (googleApiClient.isConnected() && locationRequest != null && startButtonEnabled) {
-            // Stop the LocationUpdates to modify the interval
-            stopLocationUpdates();
-            locationRequest.setInterval(updateIntervalInMilliseconds);
-            locationRequest.setFastestInterval(fastestUpdateIntervalInMilliseconds);
-            // Apply the changes on the interval
-            startLocationUpdates();
+            if (getIntervalFromSettingsInMilliseconds() == 0) {
+                Log.d("####", "hier");
+                stopLocationUpdates();
+                ScheduledExecutorService scheduledExecutorService = Executors
+                        .newSingleThreadScheduledExecutor();
+                scheduledExecutorService.scheduleAtFixedRate(new IntervalUpdater(locationListener,
+                        this), 5, 10, TimeUnit.SECONDS);
+            } else {
+                // Stop the LocationUpdates to modify the interval
+                stopLocationUpdates();
+                locationRequest.setInterval(updateIntervalInMilliseconds);
+                locationRequest.setFastestInterval(fastestUpdateIntervalInMilliseconds);
+                // Apply the changes on the interval
+                startLocationUpdates();
+            }
         }
+        Log.d("####", "hier " + locationRequest.getFastestInterval());
+
+
         if (startButtonEnabled && !pauseButtonEnabled) {
             makeNotification(GOING_ON);
         } else if (startButtonEnabled && pauseButtonEnabled) {

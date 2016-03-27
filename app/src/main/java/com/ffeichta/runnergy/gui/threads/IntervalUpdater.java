@@ -1,5 +1,7 @@
 package com.ffeichta.runnergy.gui.threads;
 
+import android.util.Log;
+
 import com.ffeichta.runnergy.gui.fragments.ActivityFragment;
 import com.ffeichta.runnergy.gui.listener.LocationListener;
 
@@ -20,11 +22,14 @@ public class IntervalUpdater implements Runnable {
 
     @Override
     public void run() {
+        Log.d("####", "1");
         if (activityFragment.getStartButtonEnabled() && !activityFragment.getPauseButtonEnabled()) {
             double speed;
             if (locationListener.getLocation() != null && locationListener.getLocation().getSpeed
                     () >= 0) {
+                Log.d("####", "2");
                 speed = locationListener.getLocation().getSpeed() * FACTOR_MS_TO_KMH;
+                Log.d("####", "speed = " + speed);
                 if (speed < 3) {
                     if (activityFragment.getLocationRequest().getFastestInterval() != 15) {
                         updateInterval(15);
@@ -48,13 +53,14 @@ public class IntervalUpdater implements Runnable {
         if (activityFragment.googleApiClient.isConnected() && activityFragment.getLocationRequest
                 () !=
                 null) {
-            // Stop the LocationUpdates to modify the interval
             activityFragment.stopLocationUpdates();
-            activityFragment.getLocationRequest().setInterval(seconds * 1000);
-            activityFragment.getLocationRequest().setFastestInterval(seconds * 1000 *
-                    ActivityFragment
-                            .FACTOR_BETWEEN_INTERVALS);
-            // Apply the changes on the interval
+
+            activityFragment.getLocationRequest().setInterval(4000);
+            activityFragment.getLocationRequest().setFastestInterval(4000);
+
+            activityFragment.googleApiClient.disconnect();
+            activityFragment.googleApiClient.connect();
+
             activityFragment.startLocationUpdates();
         }
     }

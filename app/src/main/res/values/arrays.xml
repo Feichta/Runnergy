@@ -27,6 +27,7 @@
     </string-array>
 
     <string-array name="category_activity_interval_entries">
+        <item>Auto</item>
         <item>1 (very high battery drain)</item>
         <item>5</item>
         <item>10</item>
@@ -34,6 +35,7 @@
         <item>30</item>
     </string-array>
     <string-array name="category_activity_interval_entry_values">
+        <item>0</item>
         <item>1</item>
         <item>5</item>
         <item>10</item>

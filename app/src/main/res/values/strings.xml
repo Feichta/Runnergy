@@ -116,7 +116,7 @@
     // Activity
     <string name="category_activity_title">Activity</string>
     <string name="category_activity_interval_title">Interval of saving positions</string>
-    <string name="category_activity_interval_default_value" translatable="false">5</string>
+    <string name="category_activity_interval_default_value" translatable="false">0</string>
     // Map
     <string name="category_map_title">Map</string>
     <string name="category_map_type_title">Type of map</string>
