@@ -55,7 +55,8 @@
     <string name="not_connected">You are not connected with the Play Services</string>
     <string name="dialog_no_location_title">Unknown location</string>
     <string name="dialog_no_location_message">We can\'t find your current location. We suggest you
-        that you find yourself under the open sky. Please retry it later.</string>
+        that you find yourself under the open sky or activate internet. Please retry it later
+        .</string>
 
     <!-- LocationListenerCompare.java -->
     <string name="faster">\u0020slower</string>

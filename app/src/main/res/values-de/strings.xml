@@ -55,7 +55,8 @@
     <string name="not_connected">Du bist nicht mit den Play Services verbunden</string>
     <string name="dialog_no_location_title">Position ist unbekannt</string>
     <string name="dialog_no_location_message">Wir können deine aktuelle Position nicht ermitteln.
-        Wir empfehlen dir, dich unter freiem Himmel aufzuhalten. Bitte versuche es später erneut
+        Wir empfehlen dir, dich unter freiem Himmel aufzuhalten oder das Internet zu aktivieren.
+        Bitte versuche es später erneut
         .</string>
 
     <!-- LocationListenerCompare.java -->
