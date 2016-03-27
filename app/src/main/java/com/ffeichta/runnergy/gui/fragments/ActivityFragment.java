@@ -465,7 +465,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                             .newSingleThreadScheduledExecutor();
                     scheduledExecutorService.scheduleAtFixedRate(new IntervalUpdater
                             (locationListener, this)
-                            , 1, 15, TimeUnit.SECONDS);
+                            , 1, 60, TimeUnit.SECONDS);
                 }
             } else {
                 // Stop the LocationUpdates to modify the interval

@@ -34,7 +34,7 @@ public class SettingsTest extends ApplicationTestCase<Application> {
     public void testInterval() {
         // Get a string because ListPreference cannot support int values
         int unit = Integer.valueOf(sp.getString("interval", "0"));
-        assertEquals(0, unit);
+        assertEquals(5, unit);
     }
 
     public void testType() {
