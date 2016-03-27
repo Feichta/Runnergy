@@ -149,4 +149,6 @@
     <string name="toast_delete_track_error">Strecke konnte nicht gelöscht werden</string>
     <string name="toast_save_no_track_error">Bitte gib eine Strecke an</string>
     <string name="toast_not_at_start">Geh bitte an den Startpunkt</string>
+    <string name="toast_shutdown">Du kannst die App nicht von hier aus beenden. Benutze
+        stattdessen den "Recents" Button</string>
 </resources>

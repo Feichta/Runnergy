@@ -156,4 +156,6 @@
     <string name="toast_delete_track_error">Can\'t delete track</string>
     <string name="toast_save_no_track_error">Please insert a track</string>
     <string name="toast_not_at_start">Please go to the start point</string>
+    <string name="toast_shutdown">You can\'t shut down the app from here. Use instead the
+        "Recents" Button</string>
 </resources>

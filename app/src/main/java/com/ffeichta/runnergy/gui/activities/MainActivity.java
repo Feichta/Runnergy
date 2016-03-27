@@ -15,6 +15,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import com.ffeichta.runnergy.R;
 import com.ffeichta.runnergy.gui.adapter.ViewPagerAdapter;
 import com.ffeichta.runnergy.gui.fragments.ActivityFragment;
+import com.ffeichta.runnergy.gui.message.ToastFactory;
 import com.ffeichta.runnergy.gui.tabs.SlidingTabLayout;
 
 
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
             // Check if we should show an explanation
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
                 builder.setTitle(getResources().getString(R.string.dialog_title))
                         .setMessage(getResources().getString(R.string.dialog_message))
                         .setCancelable(false)
@@ -183,5 +185,16 @@ public class MainActivity extends AppCompatActivity {
                 (Context
                         .NOTIFICATION_SERVICE);
         notificationManager.cancel(ActivityFragment.notifyID);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        boolean ret = false;
+        if (!viewPagerAdapter.getActivityFragment().getStartButtonEnabled()) {
+            ret = super.onKeyDown(keyCode, event);
+        } else {
+            ToastFactory.makeToast(this, getResources().getString(R.string.toast_shutdown));
+        }
+        return ret;
     }
 }

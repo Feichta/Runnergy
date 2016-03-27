@@ -366,7 +366,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
     /**
      * Removes location updates from the FusedLocationApi.
      */
-    protected void stopLocationUpdates() {
+    public void stopLocationUpdates() {
         // It is a good practice to remove location requests when the activity is in a paused or
         // stopped state. Doing so helps battery performance and is especially
         // recommended in applications that request frequent location updates.
@@ -516,5 +516,13 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         notificationManager =
                 (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(notifyID, notificationBuilder.build());
+    }
+
+    public Boolean getStartButtonEnabled() {
+        return startButtonEnabled;
+    }
+
+    public void setStartButtonEnabled(Boolean startButtonEnabled) {
+        this.startButtonEnabled = startButtonEnabled;
     }
 }

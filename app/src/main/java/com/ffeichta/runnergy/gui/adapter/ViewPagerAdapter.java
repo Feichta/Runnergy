@@ -15,6 +15,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     private static final int NUMBER_TABS = 2;
     private CharSequence titles[];
 
+    private ActivityFragment activityFragment = null;
+
     public ViewPagerAdapter(FragmentManager fm, CharSequence titles[]) {
         super(fm);
         this.titles = titles;
@@ -26,6 +28,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             // First Tab (Activity)
             ActivityFragment activityFragment = new ActivityFragment();
+            this.activityFragment = activityFragment;
             return activityFragment;
         } else {
             // Second Tab (Tracks)
@@ -44,5 +47,13 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return NUMBER_TABS;
+    }
+
+    public ActivityFragment getActivityFragment() {
+        return activityFragment;
+    }
+
+    public void setActivityFragment(ActivityFragment activityFragment) {
+        this.activityFragment = activityFragment;
     }
 }
