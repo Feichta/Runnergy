@@ -166,8 +166,10 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                     startButtonEnabled = false;
                     // Stop location updates
                     stopLocationUpdates();
-                    scheduledExecutorService.shutdownNow();
-                    scheduledExecutorService = null;
+                    if (scheduledExecutorService != null) {
+                        scheduledExecutorService.shutdownNow();
+                        scheduledExecutorService = null;
+                    }
                     locationListener.setLastCoordinateIsPause(true);
                     // User pressed the Stop Button after he pressed the Pause Button. He never
                     // pressed the Resume Button
