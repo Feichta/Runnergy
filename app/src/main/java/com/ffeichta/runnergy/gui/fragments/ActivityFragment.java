@@ -435,6 +435,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         if (notificationManager != null) {
             notificationManager.cancel(notifyID);
         }
+        setUpdateIntervalsAndDisplacement();
     }
 
     /**
