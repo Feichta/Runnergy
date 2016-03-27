@@ -21,7 +21,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,14 +48,14 @@ import com.google.android.gms.maps.SupportMapFragment;
  * Created by hp1 on 21-01-2015.
  */
 public class ActivityFragment extends Fragment implements OnMapReadyCallback {
+    // Used for LocationUpdates
+    public static final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     // ID of the Notification
     public static int notifyID = 1;
     // Minimum duration of an Activity
     private final int MIN_DURATION_OF_ACTIVITY_IN_SECONDS = 5;
     // Minimum distance of an Activity
     private final int MIN_DISTANCE_OF_ACTIVITY_IN_METERS = 10;
-    // Used for LocationUpdates
-    private final int FACTOR_BETWEEN_INTERVALS = 1 / 3;
     private final float FACTOR_DISPLACEMENT = 1 / 4;
     // Used for the Notification
     private final int GOING_ON = 0;
@@ -397,7 +396,6 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
      */
     private int getIntervalFromSettingsInMilliseconds() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
-        Log.d("####", "" + Integer.valueOf(sp.getString("interval", "1")) * 1000);
         return Integer.valueOf(sp.getString("interval", "1")) * 1000;
 
     }
@@ -527,5 +525,13 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
 
     public void setStartButtonEnabled(Boolean startButtonEnabled) {
         this.startButtonEnabled = startButtonEnabled;
+    }
+
+    public Boolean getPauseButtonEnabled() {
+        return pauseButtonEnabled;
+    }
+
+    public LocationRequest getLocationRequest() {
+        return locationRequest;
     }
 }

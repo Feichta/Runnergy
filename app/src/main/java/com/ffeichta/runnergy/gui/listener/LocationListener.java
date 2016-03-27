@@ -39,6 +39,8 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     private Coordinate actualCoordinate = null;
     // Used for pausing Activity
     private boolean lastCoordinateIsPause = false;
+    // Delivered location
+    private Location location = null;
 
     public LocationListener(GoogleMap map, Context context) {
         this.map = map;
@@ -50,7 +52,6 @@ public class LocationListener implements com.google.android.gms.location.Locatio
         activity.setDate(System.currentTimeMillis());
         // Set the coordinates for the activity
         activity.setCoordinates(coordinates);
-
     }
 
     public boolean isLastCoordinateIsPause() {
@@ -68,6 +69,9 @@ public class LocationListener implements com.google.android.gms.location.Locatio
     public void onLocationChanged(Location location) {
         this.previousLatLng = this.actualLatLng;
         this.actualLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+
+        // Set delivered location
+        this.location = location;
 
         Coordinate c = new Coordinate();
         c.setLongitude(location.getLongitude());
@@ -142,5 +146,9 @@ public class LocationListener implements com.google.android.gms.location.Locatio
 
     public Activity getActivity() {
         return activity;
+    }
+
+    public Location getLocation() {
+        return location;
     }
 }
