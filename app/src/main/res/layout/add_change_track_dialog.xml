@@ -5,6 +5,7 @@
               android:orientation="vertical"
               android:paddingLeft="24dp"
               android:paddingRight="24dp"
+              android:paddingTop="17dp"
               android:theme="@style/AppThemeWithActionBar">
 
     <TextView
