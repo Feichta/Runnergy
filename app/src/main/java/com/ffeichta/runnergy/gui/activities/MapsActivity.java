@@ -1,7 +1,6 @@
 package com.ffeichta.runnergy.gui.activities;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -125,8 +125,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                 .getLongitude(),
                                         coordinates.get(0).getLatitude(), result);
                                 if (actualPosition.getAccuracy() > MIN_ACCURACY) {
-                                    new AlertDialog.Builder(MapsActivity.this, R.style
-                                            .AppThemeDialog)
+                                    new AlertDialog.Builder(MapsActivity
+                                            .this)
                                             .setTitle(getResources().getString(R.string
                                                     .dialog_bad_accuracy_title))
                                             .setMessage(getResources().getString(R.string
@@ -159,7 +159,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     start();
                                 }
                             } else {
-                                new AlertDialog.Builder(MapsActivity.this, R.style.AppThemeDialog)
+                                new AlertDialog.Builder(MapsActivity.this)
                                         .setTitle(getResources().getString(R.string
                                                 .dialog_no_location_title))
                                         .setMessage(getResources().getString(R.string
@@ -520,7 +520,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private void goBack() {
         if (startButtonEnabled) {
-            new AlertDialog.Builder(this, R.style.AppThemeDialog)
+            new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.maps_activity_stop))
                     .setMessage(getResources().getString(R.string.dialog_go_back))
                     .setPositiveButton(android.R.string.yes, new DialogInterface
@@ -553,7 +553,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void showDialog() {
-        new AlertDialog.Builder(this, R.style.AppThemeDialog)
+        new AlertDialog.Builder(this)
                 .setTitle(getResources().getString(R.string.finished))
                 .setMessage(text.getText())
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {

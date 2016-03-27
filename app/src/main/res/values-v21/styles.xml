@@ -9,6 +9,7 @@
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="actionModeBackground">@color/colorPrimary</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="alertDialogTheme">@style/AppThemeDialog</item>
     </style>
 
     <style name="AppThemeWithActionBar" parent="android:Theme.Material.Light">
@@ -20,6 +21,7 @@
         <item name="android:colorAccent">@color/colorPrimary</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="android:actionModeBackground">@color/colorPrimary</item>
+        <item name="alertDialogTheme">@style/AppThemeDialog</item>
     </style>
 
     <style name="AppThemeMinWidth" parent="android:Theme.Material.Light.Dialog.NoActionBar.MinWidth">
@@ -32,7 +34,7 @@
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
     </style>
 
-    <style name="AppThemeDialog" parent="android:Theme.Material.Light.Dialog">
+    <style name="AppThemeDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="android:textColorPrimary">@color/textColor</item>
         <item name="android:colorAccent">@color/colorPrimary</item>
     </style>

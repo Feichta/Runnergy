@@ -1,11 +1,11 @@
 package com.ffeichta.runnergy.gui.activities;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -157,7 +157,7 @@ public class SaveActivityActivity extends android.app.Activity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            new AlertDialog.Builder(this, R.style.AppThemeDialog)
+            new AlertDialog.Builder(this)
                     .setTitle(getResources().getString(R.string.dialog_back_pressed_title))
                     .setMessage(getResources().getString(R.string.dialog_back_pressed_subtitle))
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {

@@ -5,7 +5,6 @@ package com.ffeichta.runnergy.gui.fragments;
  */
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -21,6 +20,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NotificationCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,7 +122,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                         Location actualPosition = getActualPosition();
                         if (actualPosition != null) {
                             if (actualPosition.getAccuracy() > MapsActivity.MIN_ACCURACY) {
-                                new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
+                                new AlertDialog.Builder(getContext())
                                         .setTitle(getResources().getString(R.string
                                                 .dialog_bad_accuracy_title))
                                         .setMessage(getResources().getString(R.string
@@ -143,7 +143,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
                                 start();
                             }
                         } else {
-                            new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
+                            new AlertDialog.Builder(getContext())
                                     .setTitle(getResources().getString(R.string
                                             .dialog_no_location_title))
                                     .setMessage(getResources().getString(R.string

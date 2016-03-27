@@ -1,11 +1,11 @@
 package com.ffeichta.runnergy.gui.fragments;
 
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -93,7 +93,7 @@ public class TracksFragment extends Fragment {
                     case R.id.delete:
                         final ActionMode modeFinal = mode;
                         final MenuItem itemFinal = item;
-                        new AlertDialog.Builder(getContext(), R.style.AppThemeDialog)
+                        new AlertDialog.Builder(getContext())
                                 .setTitle(getResources().getString(R.string
                                         .dialog_delete_track_title))
                                 .setMessage(getResources().getString(R.string
