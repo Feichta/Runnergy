@@ -158,5 +158,5 @@
     <string name="toast_save_no_track_error">Please insert a track</string>
     <string name="toast_not_at_start">Please go to the start point</string>
     <string name="toast_shutdown">You can\'t shut down the app from here. Use instead the
-        "Recents" Button</string>
+        \"Recents\" Button</string>
 </resources>

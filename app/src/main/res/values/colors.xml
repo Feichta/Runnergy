@@ -24,10 +24,16 @@
     <color name="itemBorder">#EBEBEB</color>
     <!-- Background of worst Activity -->
     <color name="worst">#F6CECE</color>
+    <!-- Border of worst Activity -->
+    <color name="red">#FF0000</color>
     <!-- Background of best Activity -->
     <color name="best">#CEF6CE</color>
+    <!-- Border of best Activity -->
+    <color name="golden">#CFB53B</color>
     <!-- Background of average Activity -->
     <color name="avg">#F5F6CE</color>
+    <!-- Border of average Activity -->
+    <color name="yellow">#FFFF00</color>
     <!-- Text of errors -->
     <color name="textColorError">#FF0000</color>
     <!-- Background of compare field -->

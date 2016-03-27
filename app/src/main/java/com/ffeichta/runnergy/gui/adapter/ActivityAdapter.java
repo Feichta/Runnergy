@@ -118,22 +118,46 @@ public class ActivityAdapter extends BaseExpandableListAdapter {
 
         switch (a.getType()) {
             case RUNNING:
-                activityHolder.image.setImageResource(R.drawable.running);
+                if (a.getRanking() == Activity.best) {
+                    activityHolder.image.setImageResource(R.drawable.running_best);
+                } else {
+                    activityHolder.image.setImageResource(R.drawable.running);
+                }
                 break;
             case WALKING:
-                activityHolder.image.setImageResource(R.drawable.walking);
+                if (a.getRanking() == Activity.best) {
+                    activityHolder.image.setImageResource(R.drawable.walking_best);
+                } else {
+                    activityHolder.image.setImageResource(R.drawable.walking);
+                }
                 break;
             case TREKKING:
-                activityHolder.image.setImageResource(R.drawable.trekking);
+                if (a.getRanking() == Activity.best) {
+                    activityHolder.image.setImageResource(R.drawable.trekking_best);
+                } else {
+                    activityHolder.image.setImageResource(R.drawable.trekking);
+                }
                 break;
             case CYCLING:
-                activityHolder.image.setImageResource(R.drawable.cycling);
+                if (a.getRanking() == Activity.best) {
+                    activityHolder.image.setImageResource(R.drawable.cycling_best);
+                } else {
+                    activityHolder.image.setImageResource(R.drawable.cycling);
+                }
                 break;
             case SKIING:
-                activityHolder.image.setImageResource(R.drawable.skiing);
+                if (a.getRanking() == Activity.best) {
+                    activityHolder.image.setImageResource(R.drawable.skiing_best);
+                } else {
+                    activityHolder.image.setImageResource(R.drawable.skiing);
+                }
                 break;
             case OTHER:
-                activityHolder.image.setImageResource(R.drawable.other);
+                if (a.getRanking() == Activity.best) {
+                    activityHolder.image.setImageResource(R.drawable.other_best);
+                } else {
+                    activityHolder.image.setImageResource(R.drawable.other);
+                }
                 break;
             default:
                 break;
