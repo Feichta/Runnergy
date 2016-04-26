@@ -284,6 +284,7 @@ public class ActivityFragment extends Fragment implements OnMapReadyCallback {
         }
         map.setMyLocationEnabled(true);
         map.setOnMyLocationButtonClickListener(new MyLocationButtonListener(getContext()));
+        map.getUiSettings().setMapToolbarEnabled(false);
     }
 
     public void setMapType() {

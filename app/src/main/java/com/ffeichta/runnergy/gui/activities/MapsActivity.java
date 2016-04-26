@@ -225,6 +225,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         map.setMyLocationEnabled(true);
         map.setOnMyLocationButtonClickListener(new MyLocationButtonListener(this));
+        map.getUiSettings().setMapToolbarEnabled(false);
     }
 
     /**
