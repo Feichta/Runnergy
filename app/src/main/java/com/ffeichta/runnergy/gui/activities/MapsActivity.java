@@ -138,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                         @Override
                                                         public void onClick(DialogInterface
                                                                                     dialog, int
-                                                                id) {
+                                                                                    id) {
                                                             // Close the dialog
                                                             dialog.dismiss();
                                                             if (result[0] > MAX_DISTANCE_TO_START) {
@@ -156,7 +156,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                             .setNegativeButton(android.R.string.no, null)
                                             .create().show();
                                 } else {
-                                    start();
+                                    if (result[0] > MAX_DISTANCE_TO_START) {
+                                        ToastFactory.makeToast
+                                                (MapsActivity.this,
+                                                        getResources()
+                                                                .getString
+                                                                        (R.string
+                                                                                .toast_not_at_start));
+                                    } else {
+                                        start();
+                                    }
                                 }
                             } else {
                                 new AlertDialog.Builder(MapsActivity.this)
